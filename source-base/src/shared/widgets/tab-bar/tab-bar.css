@@ -1,0 +1,22 @@
+/**
+ * TabBar — nơi khai DUY NHẤT chiều cao thanh điều hướng đáy của điện thoại.
+ * Chỉ `TabBar.tsx` import file này. Vỏ ứng dụng KHÔNG cần đọc: thanh nằm TRONG luồng (không `fixed`) nên vùng
+ * `<main>` tự co lại. Phần tử neo đáy khác (toast, rail tiến trình) KHÔNG đọc biến ở đây mà đọc `--bottom-chrome`
+ * — chiều cao THẬT của thanh do `useBottomChromeInset` đo: `bottom-[calc(max(var(--bottom-chrome,0px),var(--safe-b,0px))+0.5rem)]`.
+ * `--tab-bar-reach` giữ cho code cũ đã chừa chỗ bằng `calc(var(--tab-bar-reach)+var(--safe-b,0px))`.
+ * Mốc `max-height: 540px` KHỚP vế xoay ngang của biến thể `phone:` (`styles/theme/variants.css`) và các
+ * `[@media(max-height:540px)]:` trong `tab-bar.theme.ts`.
+ */
+
+@layer base {
+  :root {
+    --tab-bar-h: 3.5rem;
+    --tab-bar-reach: calc(var(--tab-bar-h) + 1px);
+  }
+
+  @media (max-height: 540px) {
+    :root {
+      --tab-bar-h: 2.75rem;
+    }
+  }
+}

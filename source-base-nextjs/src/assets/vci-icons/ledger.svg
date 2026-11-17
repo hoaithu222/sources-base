@@ -1,0 +1,6 @@
+<svg viewBox="0 0 24 24" fill="none" data-group="module" xmlns="http://www.w3.org/2000/svg">
+  <title>Sổ cái</title>
+  <g data-layer="duo" fill="currentColor" opacity="0.16"><path d="M19 16V3H7.5A2.5 2.5 0 0 0 5 5.5v13A2.5 2.5 0 0 1 7.5 16z"/></g>
+  <g data-layer="line" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M19 16V3H7.5A2.5 2.5 0 0 0 5 5.5v13"/><path d="M19 16H7.5a2.5 2.5 0 0 0 0 5H19z"/><path d="M9 7.5h6.5"/><path d="M9 11h3.5"/></g>
+  <g data-layer="dot" fill="currentColor"><circle cx="15.75" cy="11" r="1.5"/></g>
+</svg>

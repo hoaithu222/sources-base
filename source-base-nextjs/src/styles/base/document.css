@@ -1,0 +1,91 @@
+/* =============================================================================
+   document.css — `html` và `body`: pipeline vẽ chữ, `color-scheme`, màu nền gốc.
+   Đây là nơi quyết định độ NÉT của chữ — đọc `docs/rules/styling/font-system.md`
+   (mục "Độ nét chữ") trước khi sửa.
+   ============================================================================= */
+@layer base {
+  html {
+    height: 100%;
+    /* ⛔ BẮT BUỘC — đây là thứ DUY NHẤT quyết định màu của mọi widget do trình
+       duyệt tự vẽ mà CSS của app không với tới: thanh cuộn native (khi
+       `::-webkit-scrollbar` không áp dụng được), `<select>` dropdown, date
+       picker, spinner của `<input type=number>`, khung `<dialog>`.
+       Không khai thì mặc định là `normal` (= light) → trên nền tối của app
+       hiện ra thanh cuộn TRẮNG/xám sáng. Đây là lưới an toàn: kể cả khi thanh
+       cuộn custom bị vô hiệu ở đâu đó, cái rơi về native vẫn TỐI, không chói.
+       `.dark` = class do ThemeProvider bật/tắt (script khởi tạo trong `<head>` của
+       `app/[locale]/layout.tsx` bật sẵn để không nháy sáng lúc mới mở). */
+    color-scheme: light;
+    /* ⛔ KHÔNG phóng to root font-size theo `--ui-scale`.
+       Bản trước có `font-size: calc(16px * var(--ui-scale, 1))` và đó là nguyên
+       nhân làm vỡ bố cục ở TV mode: Tailwind v4 để `--spacing: 0.25rem` nên MỌI
+       utility khoảng cách/kích thước dạng số (`p-2`, `h-11`, `w-80`, `gap-2`…)
+       cũng là rem và giãn theo. Ở 1.8×, màn 1920px chỉ còn ~1067px không gian
+       logic → bảng/panel/header tràn, layout hỏng.
+       TV mode nay nhân `--ui-scale` vào RIÊNG token typography
+       (`generated-font.css`) → khung giữ nguyên, chỉ chữ to lên. */
+    /* Text-rendering pipeline cho chữ RÕ NÉT trên mọi kích thước:
+       - antialiased        → cạnh chữ mượt, không color-fringing trên dark bg.
+       - optimizeLegibility → bật kerning + ligatures (chuẩn dashboard tài chính).
+       - font-optical-sizing:auto → variable font tự chỉnh hinting theo cỡ chữ. */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-optical-sizing: auto;
+    font-family: var(--font-sans);
+    /* ⛔ iPad — CHỐNG "chữ tự phình khi xoay ngang".
+       WebKit có tính năng riêng: xoay từ dọc sang ngang thì nó TỰ nhân cỡ chữ
+       của các khối văn bản dài lên cho "dễ đọc". Với app này đó là tai hoạ —
+       ô bảng cao cố định (`h-6`/`h-7`/`h-8`, hơn 60 chỗ) không giãn theo, chữ
+       phình ra là tràn ô và các dòng đè lên nhau, đúng kiểu lỗi đã gặp ở TV
+       mode. `100%` = giữ nguyên cỡ chữ do CSS quy định.
+       Trên desktop thuộc tính này không có hiệu lực → PC/laptop không đổi. */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  html.dark {
+    color-scheme: dark;
+  }
+
+  body {
+    min-height: 100%;
+    /* Tài liệu cuộn TỰ NHIÊN (trang công khai / SEO: anchor, thanh địa chỉ mobile thu gọn, Lighthouse). Vùng làm việc
+       (`app/_layouts/AppShellLayout`) tự khoá viewport bằng `h-dvh overflow-hidden` và cuộn trong `<main>` của nó. */
+    background-color: var(--color-bg-page);
+    color: var(--color-fg-heading);
+    font-family: var(--font-sans);
+    /* Body baseline weight = 450 (Inter variable). Nhích 0.5 step so với
+       Regular 400 để chữ rõ nét hơn trên nền tối mà KHÔNG bị "bloat" như
+       Medium 500. Áp cho mọi raw text không có class text-* override. */
+    font-weight: 450;
+    /* Tabular-nums mặc định — mọi cột số/KPI/table thẳng hàng khắp app
+       (dashboard tài chính chuẩn: TradingView, Stripe, Binance). Text prose
+       tiếng Việt không bị ảnh hưởng — chỉ tác động chữ số 0-9.
+       - 'tnum' : monospace digits (cột số thẳng hàng)
+       - 'cv11' : Inter square-friendly digit variant (đọc nét hơn trên dashboard)
+       - 'ss03' : stylistic set — bỏ tail 4, hiển thị đanh gọn */
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum', 'cv11', 'ss03';
+    transition:
+      background-color 200ms ease,
+      color 200ms ease;
+    /* Bỏ ô xám loé lên khi chạm — iOS vẽ nó cho MỌI phần tử bấm được, kể cả ô
+       bảng và chip, đọc ra như giao diện bị lỗi nhấp nháy. Trạng thái bấm đã có
+       `:active` của UI kit lo. */
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Bôi đen chữ theo màu nhấn (đổi theo `data-accent`), kiểu macOS: sáng = nền `primary-2` nhạt + chữ `primary-9`
+     sâu nhất — đọc rõ hơn xanh dương mặc định của trình duyệt trên nền ánh ngọc; tối = nền màu nhấn 40% trong suốt
+     (nổi lên từ nền xanh đêm) + chữ trắng. */
+  ::selection {
+    background-color: var(--color-primary-2);
+    color: var(--color-primary-9);
+  }
+
+  .dark ::selection {
+    background-color: color-mix(in srgb, var(--color-primary-5) 40%, transparent);
+    color: var(--color-neutral-0);
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "shared": {
+    "placeholder": "Select",
+    "searchPlaceholder": "Search...",
+    "empty": "No results",
+    "deselect": "Deselect {label}",
+    "clearSelection": "Clear selection"
+  },
+  "dropdown": {
+    "createOption": "Create \"{query}\"",
+    "removeSelection": "Remove selection"
+  },
+  "multiSelect": {
+    "clearAll": "Deselect all"
+  },
+  "treeSelect": {
+    "expandAll": "Expand all",
+    "collapseAll": "Collapse all"
+  }
+}

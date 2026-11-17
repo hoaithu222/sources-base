@@ -1,0 +1,77 @@
+{
+  "list": {
+    "title": "Khách hàng",
+    "subtitle": "Danh mục khách hàng",
+    "create": "Thêm khách hàng",
+    "searchPlaceholder": "Tìm theo mã, tên hoặc email…",
+    "searchAria": "Tìm khách hàng",
+    "statusAll": "Mọi trạng thái",
+    "emptyTitle": "Chưa có khách hàng",
+    "emptyDescription": "Thêm khách hàng đầu tiên để bắt đầu.",
+    "noMatchTitle": "Không có khách hàng phù hợp",
+    "noMatchDescription": "Thử đổi từ khoá hoặc bỏ bộ lọc.",
+    "clearFilters": "Xoá bộ lọc"
+  },
+  "columns": {
+    "code": "Mã",
+    "name": "Tên khách hàng",
+    "email": "Email",
+    "phone": "Điện thoại",
+    "creditLimit": "Hạn mức công nợ",
+    "status": "Trạng thái",
+    "updatedAt": "Cập nhật",
+    "actions": "Thao tác"
+  },
+  "status": {
+    "active": "Đang giao dịch",
+    "inactive": "Ngừng giao dịch"
+  },
+  "actions": {
+    "deleteAria": "Xoá khách hàng {name}"
+  },
+  "delete": {
+    "title": "Xoá khách hàng?",
+    "description": "Khách hàng “{name}” sẽ bị xoá và không thể khôi phục.",
+    "confirm": "Xoá",
+    "success": "Đã xoá khách hàng"
+  },
+  "state": {
+    "loading": "Đang tải khách hàng",
+    "loadFailed": "Không tải được dữ liệu khách hàng",
+    "retry": "Thử lại",
+    "notFoundTitle": "Không tìm thấy khách hàng",
+    "notFoundDescription": "Liên kết không đúng hoặc khách hàng đã bị xoá.",
+    "backToList": "Về danh sách"
+  },
+  "form": {
+    "createTitle": "Thêm khách hàng",
+    "createSubtitle": "Nhập thông tin khách hàng mới",
+    "editTitle": "Sửa khách hàng",
+    "editSubtitle": "Cập nhật thông tin khách hàng",
+    "readOnly": "Bạn chỉ có quyền xem khách hàng này.",
+    "create": "Tạo khách hàng",
+    "save": "Lưu thay đổi",
+    "created": "Đã tạo khách hàng",
+    "updated": "Đã lưu thay đổi",
+    "codeTaken": "Mã khách hàng đã tồn tại",
+    "fields": {
+      "code": "Mã khách hàng",
+      "codePlaceholder": "KH001",
+      "name": "Tên khách hàng",
+      "namePlaceholder": "Công ty TNHH Ví Dụ",
+      "email": "Email",
+      "phone": "Điện thoại",
+      "phonePlaceholder": "0912345678",
+      "status": "Trạng thái",
+      "creditLimit": "Hạn mức công nợ",
+      "creditLimitHint": "Đơn vị: đồng (VND)"
+    }
+  },
+  "validation": {
+    "codeRequired": "Mã khách hàng không được để trống",
+    "codeMax": "Mã khách hàng tối đa {max} ký tự",
+    "nameRequired": "Tên khách hàng không được để trống",
+    "nameMax": "Tên khách hàng tối đa {max} ký tự",
+    "creditLimitInvalid": "Hạn mức phải là số không âm"
+  }
+}

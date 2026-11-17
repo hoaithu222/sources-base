@@ -1,0 +1,6 @@
+<svg viewBox="0 0 24 24" fill="none" data-group="module" xmlns="http://www.w3.org/2000/svg">
+  <title>Nhân sự</title>
+  <g data-layer="duo" fill="currentColor" opacity="0.16"><path d="M3.5 19.5V19a5 5 0 0 1 5-5h2a5 5 0 0 1 5 5v.5z"/></g>
+  <g data-layer="line" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 19.5V19a5 5 0 0 1 5-5h2a5 5 0 0 1 5 5v.5"/><path d="M15.75 4.4a2.75 2.75 0 1 1 0 5.5"/><path d="M17.6 13.7a4.6 4.6 0 0 1 2.9 4.3v1.5"/></g>
+  <g data-layer="dot" fill="currentColor"><circle cx="9.5" cy="7.75" r="2.75"/></g>
+</svg>

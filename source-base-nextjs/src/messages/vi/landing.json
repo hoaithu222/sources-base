@@ -1,0 +1,36 @@
+{
+  "hero": {
+    "kicker": "Nền tảng nội bộ",
+    "title": "Vận hành trên một hệ thống duy nhất",
+    "subtitle": "Số liệu, quy trình và báo cáo nằm chung một chỗ — phân quyền theo vai trò, cập nhật theo thời gian thực, dùng được bằng tiếng Việt và tiếng Anh.",
+    "primaryCta": "Bắt đầu miễn phí",
+    "secondaryCta": "Tìm hiểu thêm"
+  },
+  "features": {
+    "title": "Mọi thứ doanh nghiệp cần để vận hành",
+    "subtitle": "Những nguyên tắc được dựng sẵn từ ngày đầu, để đội ngũ tập trung vào nghiệp vụ.",
+    "items": {
+      "data": {
+        "title": "Dữ liệu gốc tập trung",
+        "description": "Một nguồn thật duy nhất cho mọi bộ phận — hết cảnh mỗi nơi một file."
+      },
+      "permissions": {
+        "title": "Phân quyền theo vai trò",
+        "description": "Quy trình và màn hình hiện đúng với từng người, quyền thật được kiểm ở máy chủ."
+      },
+      "reports": {
+        "title": "Báo cáo thời gian thực",
+        "description": "Biểu đồ và số liệu tổng hợp cập nhật liên tục, đọc tốt trên cả màn hình lớn."
+      },
+      "multilingual": {
+        "title": "Đa ngôn ngữ",
+        "description": "Tiếng Việt và tiếng Anh với địa chỉ riêng cho từng ngôn ngữ, thân thiện với công cụ tìm kiếm."
+      }
+    }
+  },
+  "cta": {
+    "title": "Sẵn sàng bắt đầu?",
+    "description": "Tạo tài khoản trong vài giây và mở không gian làm việc của bạn.",
+    "action": "Tạo tài khoản"
+  }
+}

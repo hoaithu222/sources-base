@@ -1,0 +1,42 @@
+# Cập nhật phụ thuộc theo NHÓM tương thích — mỗi nhóm một PR, review cùng nhau (npm + GitHub Actions).
+# Dùng Dependabot (có sẵn trên GitHub, không cài thêm); KHÔNG bật Renovate song song cho cùng mục tiêu.
+# Mỗi PR phải qua CI (`.github/workflows/ci.yml`); bản MAJOR có người chịu trách nhiệm nâng, không gộp nhiều major vào một PR.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    groups:
+      next:
+        patterns: [next, eslint-config-next, '@next/*']
+      react:
+        patterns: [react, react-dom, '@types/react', '@types/react-dom']
+      tailwind:
+        patterns: [tailwindcss, '@tailwindcss/*', postcss]
+      test:
+        patterns: [vitest, '@vitest/*', '@vitejs/plugin-react', jsdom, '@testing-library/*']
+      lint:
+        patterns:
+          [
+            eslint,
+            '@eslint/*',
+            'eslint-plugin-*',
+            typescript-eslint,
+            prettier,
+            knip,
+            husky,
+            lint-staged,
+            '@commitlint/*',
+          ]
+    ignore:
+      # TypeScript ghim `~6.0` có chủ đích: typescript-eslint chưa hỗ trợ bản mới hơn (docs/architecture.md §17).
+      - dependency-name: typescript
+        update-types: [version-update:semver-major, version-update:semver-minor]
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly

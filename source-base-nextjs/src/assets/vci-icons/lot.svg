@@ -1,0 +1,6 @@
+<svg viewBox="0 0 24 24" fill="none" data-group="business" xmlns="http://www.w3.org/2000/svg">
+  <title>Lô hàng</title>
+  <g data-layer="duo" fill="currentColor" opacity="0.16"><path d="M9.5 3.5h5a1.5 1.5 0 0 1 1.5 1.5v5a1.5 1.5 0 0 1-1.5 1.5h-5a1.5 1.5 0 0 1-1.5-1.5v-5a1.5 1.5 0 0 1 1.5-1.5z"/></g>
+  <g data-layer="line" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5h5a1.5 1.5 0 0 1 1.5 1.5v5a1.5 1.5 0 0 1-1.5 1.5h-5a1.5 1.5 0 0 1-1.5-1.5v-5a1.5 1.5 0 0 1 1.5-1.5z"/><path d="M14.5 12.5h5a1.5 1.5 0 0 1 1.5 1.5v5a1.5 1.5 0 0 1-1.5 1.5h-5a1.5 1.5 0 0 1-1.5-1.5v-5a1.5 1.5 0 0 1 1.5-1.5z"/><path d="M9.5 3.5h5a1.5 1.5 0 0 1 1.5 1.5v5a1.5 1.5 0 0 1-1.5 1.5h-5a1.5 1.5 0 0 1-1.5-1.5v-5a1.5 1.5 0 0 1 1.5-1.5z"/></g>
+  <g data-layer="dot" fill="currentColor"><circle cx="12" cy="7.5" r="1.5"/></g>
+</svg>

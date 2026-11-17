@@ -1,0 +1,68 @@
+{
+  "trigger": {
+    "openPanel": "Open picker",
+    "clear": "Clear value"
+  },
+  "nav": {
+    "prevMonth": "Previous month",
+    "nextMonth": "Next month",
+    "prevYear": "Previous year",
+    "nextYear": "Next year"
+  },
+  "calendar": {
+    "title": "{month} {year}",
+    "monthLong": "{month, select, 1 {January} 2 {February} 3 {March} 4 {April} 5 {May} 6 {June} 7 {July} 8 {August} 9 {September} 10 {October} 11 {November} 12 {December} other {}}",
+    "monthShort": "{month, select, 1 {Jan} 2 {Feb} 3 {Mar} 4 {Apr} 5 {May} 6 {Jun} 7 {Jul} 8 {Aug} 9 {Sep} 10 {Oct} 11 {Nov} 12 {Dec} other {}}",
+    "monthYear": "{month, select, 1 {Jan} 2 {Feb} 3 {Mar} 4 {Apr} 5 {May} 6 {Jun} 7 {Jul} 8 {Aug} 9 {Sep} 10 {Oct} 11 {Nov} 12 {Dec} other {}} {year}",
+    "weekdays": {
+      "mon": "Mo",
+      "tue": "Tu",
+      "wed": "We",
+      "thu": "Th",
+      "fri": "Fr",
+      "sat": "Sa",
+      "sun": "Su"
+    }
+  },
+  "time": {
+    "hour": "Hour",
+    "minute": "Minute"
+  },
+  "timeParse": {
+    "invalidChars": "Enter digits and a colon only. Example: 1530 or 15:30",
+    "multipleColons": "Only one colon is allowed",
+    "missingHour": "Missing hour before the colon",
+    "hourTooLong": "Hour has at most 2 digits",
+    "minuteTooLong": "Minute has at most 2 digits",
+    "tooManyDigits": "Enter at most 4 digits. Example: 1530 = 15:30",
+    "hourOutOfRange": "Hour must be between 00 and 23",
+    "minuteOutOfRange": "Minute must be between 00 and 59"
+  },
+  "date": {
+    "clear": "Clear",
+    "today": "Today",
+    "todayOff": "Today is outside the allowed date range"
+  },
+  "dateTime": {
+    "now": "Now",
+    "draftOff": "Pick a date within the allowed range"
+  },
+  "range": {
+    "reset": "Reset",
+    "apply": "Apply"
+  },
+  "quick": {
+    "next2Weeks": "Next 2 weeks",
+    "thisMonth": "This month",
+    "thisQuarter": "This quarter",
+    "thisYear": "This year",
+    "last3Months": "Last 3 months",
+    "last6Months": "Last 6 months"
+  },
+  "month": {
+    "pickStart": "Select start month",
+    "pickEnd": "Select end month",
+    "pickEndNavigate": "Select end month — change year if needed",
+    "pickStartWindow": "Select start month — a window of {span, plural, one {# month} other {# consecutive months}}"
+  }
+}

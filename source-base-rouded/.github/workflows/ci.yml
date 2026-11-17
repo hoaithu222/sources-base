@@ -1,0 +1,110 @@
+# Cổng chất lượng — chạy cho mọi pull request và mọi lần đẩy lên nhánh chính.
+#
+# Mỗi bước là MỘT loại lỗi, tách riêng để nhìn danh sách bước là biết hỏng ở
+# đâu (kiểu / lint / kiến trúc / test / build), không phải mò trong một khối log.
+# Máy dev chạy đúng bộ này bằng `npm run check:all` (= `check` + `build` + `check:bundle`).
+# Hook cục bộ chỉ là lưới sớm (pre-commit: `scripts/verify-commit.mjs` build BẢN STAGE ở cả hai chế độ;
+# pre-push: `npm run check`) và bỏ qua được bằng `--no-verify` — CI là cổng cuối, không bỏ qua được.
+#
+# Hai job, hai cấu hình — cả hai tự khai biến môi trường, KHÔNG dựa vào file `.env`
+# có sẵn trên máy (checkout sạch không có):
+#   check      base / bản trưng bày: VITE_APP_MODE=demo
+#   build-app  sản phẩm thật: VITE_APP_MODE=app + API khai tường minh; build vẫn phải
+#              bị chặn nếu thiếu / sai cấu hình (xem `findProductionIssues`).
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main, master]
+
+# Đẩy commit mới lên cùng nhánh thì huỷ lượt đang chạy của commit cũ.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Kiểm tra & build (demo)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      VITE_APP_MODE: demo
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      # `npm ci` chứ không `npm install`: cài ĐÚNG package-lock, lệch là đỏ.
+      - name: Cài phụ thuộc
+        run: npm ci
+
+      - name: Kiểu (tsc)
+        run: npm run typecheck
+
+      # Tầng + public API, gác cú pháp `guard/*`, Promise, comment, độ phức tạp — xem eslint.config.js.
+      - name: Lint
+        run: npm run lint
+
+      # Flat config ghi đè options khi nhiều block khớp một file — kiểm từng vùng của src/ vẫn nhận đủ luật.
+      - name: Cấu hình ESLint đủ luật từng vùng
+        run: npm run check:eslint-config
+
+      - name: Định dạng (Prettier)
+        run: npm run format:check
+
+      - name: Gói import chưa khai trong package.json
+        run: npm run check:imports
+
+      - name: Import vòng
+        run: npm run check:cycles
+
+      - name: File / gói không dùng
+        run: npm run check:unused-files
+
+      # `test:coverage` = test đơn vị kèm coverage, để các ngưỡng ở vite.config.ts (core, session) thật sự được thực thi.
+      - name: Test đơn vị + ngưỡng coverage
+        run: npm run test:coverage
+
+      # Dựng cả cây app trong jsdom — có ngân sách thời gian riêng (vite.config.ts).
+      - name: Test smoke
+        run: npm run test:smoke
+
+      - name: Build production (demo)
+        run: npm run build
+
+      - name: Ngân sách tải ban đầu
+        run: npm run check:bundle
+
+  build-app:
+    name: Build chế độ app (sản phẩm thật)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    # Dự án thật thay `/api` bằng URL API của mình (biến repo hoặc secret); bỏ dòng này là build dừng — đúng chủ đích.
+    env:
+      VITE_APP_MODE: app
+      VITE_API_BASE_URL: /api
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Cài phụ thuộc
+        run: npm ci
+
+      - name: Build production (app)
+        run: npm run build
+
+      - name: Ngân sách tải ban đầu
+        run: npm run check:bundle

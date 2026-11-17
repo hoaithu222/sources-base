@@ -1,0 +1,58 @@
+{
+  "nav": {
+    "dashboard": { "title": "Bảng điều khiển", "subtitle": "Phân hệ · mở gần đây" },
+    "profile": { "title": "Hồ sơ cá nhân" },
+    "settings": { "title": "Cài đặt" },
+    "demo": { "title": "Thư viện UI", "subtitle": "Mọi thành phần giao diện của hệ thống" },
+    "demoLibrary": {
+      "title": "Thư viện UI",
+      "description": "Chọn đúng mảnh UI kit để ghép màn hình"
+    },
+    "demoCustomers": {
+      "title": "Khách hàng",
+      "description": "Màn CRUD mẫu: danh sách lọc trên URL, thêm, sửa, xoá"
+    },
+    "demoCustomerNew": { "title": "Thêm khách hàng" },
+    "demoCustomerEdit": { "title": "Sửa khách hàng" }
+  },
+  "layout": {
+    "skipToContent": "Bỏ qua tới nội dung"
+  },
+  "header": {
+    "demoChip": "Bản trình diễn",
+    "showDock": "Hiện thanh Dock",
+    "hideDock": "Ẩn thanh Dock",
+    "showWorkTabs": "Hiện thẻ làm việc",
+    "hideWorkTabs": "Ẩn thẻ làm việc"
+  },
+  "account": {
+    "lightTheme": "Giao diện sáng",
+    "darkTheme": "Giao diện tối"
+  },
+  "commandPalette": {
+    "groupGeneral": "Điều hướng chung",
+    "groupModules": "Phân hệ",
+    "groupAppearance": "Giao diện",
+    "toLightTheme": "Chuyển sang chế độ sáng",
+    "toDarkTheme": "Chuyển sang chế độ tối"
+  },
+  "dashboard": {
+    "title": "Bàn làm việc",
+    "subtitle": "Phân hệ · mở gần đây",
+    "modules": "Phân hệ",
+    "recent": "Mở gần đây",
+    "recentEmpty": "Màn hình bạn mở sẽ hiện ở đây — một chạm quay lại.",
+    "start": {
+      "title": "Bắt đầu với base",
+      "declare": "Khai báo phân hệ",
+      "auto": "Menu và quyền tự dựng",
+      "autoDescription": "Header, Dock, bảng lệnh và bàn làm việc cùng đọc danh sách đó",
+      "library": "Thư viện giao diện",
+      "libraryDescription": "Chọn đúng mảnh UI kit để ghép màn hình"
+    }
+  },
+  "moduleHome": {
+    "screens": "Màn hình",
+    "screenCount": "{count} màn hình"
+  }
+}

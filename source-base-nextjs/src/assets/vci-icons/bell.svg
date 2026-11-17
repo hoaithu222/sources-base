@@ -1,0 +1,6 @@
+<svg viewBox="0 0 24 24" fill="none" data-group="action" xmlns="http://www.w3.org/2000/svg">
+  <title>Thông báo</title>
+  <g data-layer="duo" fill="currentColor" opacity="0.16"><path d="M6 10a6 6 0 0 1 12 0v3.5l1.6 2.7a1 1 0 0 1-.86 1.5H5.26a1 1 0 0 1-.86-1.5L6 13.5z"/></g>
+  <g data-layer="line" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 10a6 6 0 0 1 12 0v3.5l1.6 2.7a1 1 0 0 1-.86 1.5H5.26a1 1 0 0 1-.86-1.5L6 13.5z"/><path d="M10 20.25a2.25 2.25 0 0 0 4 0"/></g>
+  <g data-layer="dot" fill="currentColor"><circle cx="19" cy="4.25" r="1.75"/></g>
+</svg>

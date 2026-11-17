@@ -1,0 +1,6 @@
+<svg viewBox="0 0 24 24" fill="none" data-group="action" xmlns="http://www.w3.org/2000/svg">
+  <title>Chờ duyệt</title>
+  <g data-layer="duo" fill="currentColor" opacity="0.16"><path d="M8 3.5v2.6a4 4 0 0 0 1.6 3.2l2.4 1.9 2.4-1.9A4 4 0 0 0 16 6.1V3.5z"/></g>
+  <g data-layer="line" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 3.5h11"/><path d="M6.5 20.5h11"/><path d="M8 3.5v2.6a4 4 0 0 0 1.6 3.2l2.4 1.9 2.4-1.9A4 4 0 0 0 16 6.1V3.5"/><path d="M8 20.5v-2.6a4 4 0 0 1 1.6-3.2l2.4-1.9 2.4 1.9a4 4 0 0 1 1.6 3.2v2.6"/></g>
+  <g data-layer="dot" fill="currentColor"><circle cx="12" cy="17.75" r="1.25"/></g>
+</svg>

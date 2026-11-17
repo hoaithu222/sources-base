@@ -1,0 +1,64 @@
+{
+  "profile": {
+    "kicker": "ACCOUNT",
+    "title": "Personal information",
+    "section": "My profile",
+    "signedOut": {
+      "title": "Not signed in",
+      "description": "Sign in to see your account information. Demo mode has no user profile."
+    },
+    "roles": { "label": "Roles", "empty": "No roles assigned yet" },
+    "permissions": { "label": "Detailed permissions", "empty": "No detailed permissions yet" }
+  },
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Language · appearance · accent color · large display · shortcuts",
+    "language": {
+      "title": "Language",
+      "label": "Display language",
+      "description": "Language of the interface and content",
+      "footer": "Changing the language switches to the matching address and is remembered for next time."
+    },
+    "appearance": {
+      "title": "Appearance",
+      "theme": "Theme",
+      "accent": "Accent color",
+      "footer": "The accent color changes primary buttons, links, selected items and the focus ring; status colors (error, warning) stay the same.",
+      "themes": { "system": "Automatic", "light": "Light", "dark": "Dark" },
+      "modes": { "light": "light", "dark": "dark" },
+      "themeHint": {
+        "tv": "TV mode always uses the dark theme — turn TV mode off to change it.",
+        "fixed": "Light or dark background",
+        "system": "Follows the operating system — currently {mode}"
+      },
+      "accents": {
+        "vci": "VCI",
+        "blue": "Blue",
+        "purple": "Purple",
+        "pink": "Pink",
+        "red": "Red",
+        "orange": "Orange",
+        "yellow": "Yellow",
+        "graphite": "Graphite"
+      }
+    },
+    "tv": {
+      "title": "Large display",
+      "footer": "Scales the FONT SIZE for reading from a distance; the frame keeps its size so layouts do not break.",
+      "mode": "Large display mode",
+      "modeDescription": "For wall-mounted operations screens",
+      "scale": "Font scale",
+      "scaleDescription": "Capped at ×1.3 — beyond that text starts to overflow buttons and table cells"
+    },
+    "shortcuts": {
+      "title": "Keyboard shortcuts",
+      "description": "Quick actions without the mouse",
+      "items": {
+        "search": "Search pages, modules and commands (or press /)",
+        "levelUp": "Go up one level (screen → module home)",
+        "firstResult": "In the module picker: open the first result",
+        "save": "Save the form you are editing"
+      }
+    }
+  }
+}

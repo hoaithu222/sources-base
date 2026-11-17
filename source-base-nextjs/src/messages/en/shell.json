@@ -1,0 +1,58 @@
+{
+  "nav": {
+    "dashboard": { "title": "Dashboard", "subtitle": "Modules · recently opened" },
+    "profile": { "title": "My profile" },
+    "settings": { "title": "Settings" },
+    "demo": { "title": "UI library", "subtitle": "Every interface component of the system" },
+    "demoLibrary": {
+      "title": "UI library",
+      "description": "Pick the right UI kit piece to compose a screen"
+    },
+    "demoCustomers": {
+      "title": "Customers",
+      "description": "Sample CRUD screen: URL-synced list, add, edit, delete"
+    },
+    "demoCustomerNew": { "title": "Add customer" },
+    "demoCustomerEdit": { "title": "Edit customer" }
+  },
+  "layout": {
+    "skipToContent": "Skip to content"
+  },
+  "header": {
+    "demoChip": "Demo build",
+    "showDock": "Show Dock",
+    "hideDock": "Hide Dock",
+    "showWorkTabs": "Show work tabs",
+    "hideWorkTabs": "Hide work tabs"
+  },
+  "account": {
+    "lightTheme": "Light theme",
+    "darkTheme": "Dark theme"
+  },
+  "commandPalette": {
+    "groupGeneral": "General navigation",
+    "groupModules": "Modules",
+    "groupAppearance": "Appearance",
+    "toLightTheme": "Switch to light mode",
+    "toDarkTheme": "Switch to dark mode"
+  },
+  "dashboard": {
+    "title": "Workbench",
+    "subtitle": "Modules · recently opened",
+    "modules": "Modules",
+    "recent": "Recently opened",
+    "recentEmpty": "Screens you open will show up here — one tap to go back.",
+    "start": {
+      "title": "Getting started with the base",
+      "declare": "Declare a module",
+      "auto": "Menu and permissions built for you",
+      "autoDescription": "The header, Dock, command palette and workbench all read that list",
+      "library": "UI library",
+      "libraryDescription": "Pick the right UI kit piece to compose a screen"
+    }
+  },
+  "moduleHome": {
+    "screens": "Screens",
+    "screenCount": "{count, plural, one {# screen} other {# screens}}"
+  }
+}

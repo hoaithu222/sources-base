@@ -1,0 +1,19 @@
+{
+  "title": "About",
+  "intro": "The platform was built to unify a company's data, processes and reports in one system, replacing scattered spreadsheets.",
+  "sections": {
+    "mission": {
+      "title": "Mission",
+      "body": "Help every department work from the same data, with clear processes and permissions that match each role."
+    },
+    "principles": {
+      "title": "Design principles",
+      "items": {
+        "clarity": "Clear: a consistent interface with just enough information density to read comfortably.",
+        "performance": "Fast: instant page loads, tuned for low-end devices and slow networks.",
+        "access": "Accessible: fully usable with a keyboard and readable by screen readers."
+      }
+    }
+  },
+  "breadcrumbHome": "Home"
+}

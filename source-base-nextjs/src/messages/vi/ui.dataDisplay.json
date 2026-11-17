@@ -1,0 +1,40 @@
+{
+  "trend": {
+    "up": "tăng",
+    "down": "giảm",
+    "versus": "So với {versus}"
+  },
+  "statusBoard": {
+    "states": {
+      "running": "Đang hoạt động",
+      "idle": "Chờ việc",
+      "warning": "Cần kiểm tra",
+      "stopped": "Dừng máy"
+    }
+  },
+  "noticeBoard": {
+    "empty": "Không có điểm nào cần chú ý"
+  },
+  "tree": {
+    "loading": "Đang tải nội dung",
+    "empty": "Không tìm thấy thư mục",
+    "searchEmpty": "Không tìm thấy kết quả"
+  },
+  "table": {
+    "loading": "Đang tải",
+    "loadingText": "Đang tải...",
+    "dragHandle": "Kéo để sắp xếp",
+    "dragRole": "dòng kéo được",
+    "sortBy": "Sắp xếp theo {name}",
+    "resizeColumn": "Kéo giãn cột",
+    "dnd": {
+      "instructions": "Nhấn Space để nhấc dòng, phím mũi tên để dời, Space lần nữa để thả vào chỗ mới hoặc Esc để huỷ.",
+      "start": "Đã nhấc dòng {row}.",
+      "over": "Dòng {row} đang ở vị trí dòng {target}.",
+      "outside": "Dòng {row} ở ngoài bảng.",
+      "end": "Đã thả dòng {row} vào vị trí dòng {target}.",
+      "dropped": "Đã thả dòng {row}.",
+      "cancel": "Đã huỷ kéo, dòng {row} về chỗ cũ."
+    }
+  }
+}

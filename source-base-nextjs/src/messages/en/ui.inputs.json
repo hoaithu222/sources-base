@@ -1,0 +1,15 @@
+{
+  "input": {
+    "clear": "Clear"
+  },
+  "stepper": {
+    "increase": "Increase",
+    "decrease": "Decrease"
+  },
+  "colorPalette": {
+    "taken": "Color already in use",
+    "custom": "Pick a custom color",
+    "hexAria": "Hex color code",
+    "random": "Suggest a random color (avoids duplicates)"
+  }
+}

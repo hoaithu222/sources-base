@@ -1,0 +1,37 @@
+/* =============================================================================
+   autofill.css — chặn màu nền mặc định của trình duyệt khi ô nhập được TỰ ĐIỀN
+   (Chrome/Edge: xanh xám `rgba(70 90 126 / .4)`; Safari: vàng).
+
+   Trình duyệt đặt màu đó bằng `background-color` + `!important` trong UA
+   stylesheet, mà `!important` của UA thắng MỌI khai báo của app — không có
+   `background-color: …` nào đè được. Lối duy nhất: trì hoãn chuyển màu 5000s,
+   màu nền giữ nguyên giá trị gốc của ô.
+
+   ⛔ KHÔNG thêm `box-shadow: inset 0 0 0 1000px <màu>` để "phủ" lên. Bản trước làm
+      vậy với `--color-bg-input` cứng: ô có nền riêng (`#0b2a47`) bị đổi sang
+      `#0F2438`, ô `ghost`/trong suốt hiện một khối nền lạ. Trì hoãn chuyển màu
+      một mình đã đủ — đo bằng autofill thật trên Chrome 154.
+
+   ⛔ Phải nằm NGOÀI `@layer` (vì thế ở `overrides/`, không phải `base/`): ô nào có
+      utility `transition-colors` thì utility (layer `utilities`) thắng rule trong
+      `base` → hết trì hoãn → màu UA rò ra (đo: pixel `rgb(37 58 84)` thay vì nền
+      khung `rgb(15 36 56)`). Rule chỉ khớp lúc ô đang autofill nên không ảnh
+      hưởng transition bình thường của ô.
+
+   Chữ: UA đặt `color: white !important`; `-webkit-text-fill-color` là thứ duy
+   nhất vẽ chữ mà UA không khoá.
+
+   Mới kiểm trên Chromium. Firefox (`:autofill`) và Safari chưa kiểm — xem
+   `docs/rules/styling/css-architecture.md` §"Autofill".
+   ============================================================================= */
+
+:is(input, textarea, select):-webkit-autofill,
+:is(input, textarea, select):-webkit-autofill:hover,
+:is(input, textarea, select):-webkit-autofill:focus,
+:is(input, textarea, select):-webkit-autofill:active {
+  -webkit-text-fill-color: var(--color-fg-heading);
+  caret-color: var(--color-fg-heading);
+  transition-property: background-color, color;
+  transition-duration: 5000s;
+  transition-delay: 0s;
+}

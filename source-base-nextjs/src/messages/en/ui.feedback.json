@@ -1,0 +1,11 @@
+{
+  "progress": {
+    "completed": "{percent}% complete"
+  },
+  "skeleton": {
+    "loading": "Loading"
+  },
+  "spinner": {
+    "loading": "Loading"
+  }
+}

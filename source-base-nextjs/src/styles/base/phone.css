@@ -1,0 +1,34 @@
+/* =============================================================================
+   phone.css — nền riêng cho ĐIỆN THOẠI (cùng điều kiện biến thể `phone:`: dọc < 768px
+   HOẶC xoay ngang thấp ≤ 540px và hẹp < 1024px — `theme/variants.css`).
+   Chỉ khai thứ Tailwind không diễn đạt được bằng class: biến `:root` thay đổi theo màn.
+   Laptop / tablet / TV không khớp media query nên giữ NGUYÊN số của `font.json`.
+   Điều kiện PHẢI trùng `PHONE_MEDIA_QUERY` (`shared/constants/media-query.constants.ts`) — test
+   `policy/display/responsive-foundation` giữ.
+   ============================================================================= */
+@layer base {
+  /* ===========================================================================
+     Thu gọn các bậc chữ HIỂN THỊ (`h1`…`h4`: số KPI, số giữa vành donut, tiêu đề lớn).
+
+     Đi qua móc `--fs-*` / `--lh-*` mà `generated-font.css` chừa sẵn cho từng token nên MỌI chỗ gọi
+     `text-h2-bold`… co theo mà không phải sửa từng component; `--ui-scale` (TV) vẫn nhân lên sau.
+
+     Vì sao chỉ bốn bậc này: chúng là chữ số trưng bày (20–40px). Ở màn 390px một con số 32px + đơn vị
+     đã chiếm nửa thẻ KPI và đẩy huy hiệu / dòng phụ xuống hàng; số giữa vành donut tràn ra ngoài vành.
+     Số KPI ≈ 1,5–1,7× chữ thân là tỉ lệ đọc được trên điện thoại. Chữ thân / chú thích
+     (`body-*`, `caption-*`) KHÔNG đổi — 12–14px đã là sàn đọc được.
+     Giãn dòng hạ theo (≈ 1,25×): line-height gốc của `h3` là 36px cho chữ 24px, giữ nguyên thì thẻ cao thừa.
+     =========================================================================== */
+  @media (max-width: 767.98px), (max-height: 540px) and (max-width: 1023.98px) {
+    :root {
+      --fs-h1: 1.75rem; /* 40 → 28 */
+      --lh-h1: 2.25rem;
+      --fs-h2: 1.5rem; /* 32 → 24 */
+      --lh-h2: 1.875rem;
+      --fs-h3: 1.25rem; /* 24 → 20 */
+      --lh-h3: 1.625rem;
+      --fs-h4: 1.125rem; /* 20 → 18 */
+      --lh-h4: 1.5rem;
+    }
+  }
+}

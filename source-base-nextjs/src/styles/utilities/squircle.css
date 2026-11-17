@@ -1,0 +1,23 @@
+/* =============================================================================
+   squircle.css (utilities) — góc SIÊU ELIP kiểu icon macOS / iOS (`corner-shape: squircle`).
+
+   Góc bo thường là cung tròn: đoạn thẳng gặp cung có "gãy" độ cong. Apple dùng đường cong liên tục (squircle) —
+   cạnh uốn dần vào góc nên khối trông mềm và đặc hơn. `corner-shape` vẽ đúng đường đó trên `border-radius` sẵn có.
+
+   | Class      | Đặt lên                                                         |
+   |------------|-----------------------------------------------------------------|
+   | `squircle` | Khối có góc bo LỚN đứng một mình: ô `AppTile`, Dock, thanh header |
+   |            | nổi, hộp nhóm `InsetGroup`, thẻ trang chủ                       |
+
+   Tăng tiến: trình duyệt chưa hỗ trợ (`@supports` sai) giữ góc tròn thường — không vỡ gì. Cùng bán kính, squircle
+   trông "ít bo" hơn cung tròn một chút → khối nhỏ (≤ 8px) để nguyên, không đáng.
+   Chạy ở CẢ HAI theme (thang `--radius-*` không đổi theo theme). Viền bắt sáng `rim-*` kế thừa góc (`rim-light.css`).
+   ============================================================================= */
+
+@layer utilities {
+  @supports (corner-shape: squircle) {
+    .squircle {
+      corner-shape: squircle;
+    }
+  }
+}

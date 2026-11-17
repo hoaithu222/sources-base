@@ -1,0 +1,68 @@
+{
+  "http": {
+    "fallback": "Something went wrong",
+    "canceled": "The request was canceled",
+    "timeout": "The server took too long to respond. Please try again.",
+    "network": "Unable to reach the server. Please check your connection.",
+    "contract": "The server returned data in an unexpected format. Please try again later.",
+    "codes": {
+      "AUTH_001": "Incorrect email or password",
+      "AUTH_002": "Invalid token",
+      "AUTH_003": "Your session has expired",
+      "AUTH_004": "The token has been revoked",
+      "AUTH_005": "You do not have permission to access this",
+      "USER_001": "User not found",
+      "USER_002": "This email is already in use",
+      "USER_003": "The current password is incorrect",
+      "VAL_001": "The submitted data is invalid",
+      "RES_001": "Resource not found",
+      "RES_002": "Resource already exists",
+      "RATE_001": "Too many requests, please try again later",
+      "SYS_500": "System error, please try again",
+      "SYS_502": "Service temporarily unavailable"
+    },
+    "status": {
+      "400": "Invalid request",
+      "401": "You need to sign in to continue",
+      "403": "You do not have permission to access this",
+      "404": "Resource not found",
+      "408": "The server took too long to respond. Please try again.",
+      "415": "Unsupported file format. Please check the uploaded file.",
+      "429": "Too many requests",
+      "500": "Internal server error",
+      "502": "Service unavailable",
+      "503": "Under maintenance"
+    }
+  },
+  "screens": {
+    "notFound": {
+      "title": "Page not found",
+      "description": "The link you opened does not exist or has moved somewhere else."
+    },
+    "forbidden": {
+      "title": "You do not have access",
+      "description": "Your account has not been granted permission to view this page. Contact an administrator if you need it."
+    },
+    "sessionUnavailable": {
+      "title": "Could not verify your session",
+      "description": "The server has not responded, so we cannot confirm that you are signed in. Please try again.",
+      "action": "Try again"
+    },
+    "error": {
+      "title": "Something went wrong",
+      "description": "The page hit an unexpected problem. You can try reloading; if it keeps happening, please tell the engineering team.",
+      "action": "Try again",
+      "reference": "Reference"
+    },
+    "loading": {
+      "label": "Loading…"
+    },
+    "chunk": {
+      "title": "Could not load the page",
+      "description": "Your connection may have dropped, or the app was just updated. Check your connection and reload the page.",
+      "action": "Reload page"
+    },
+    "homeAction": "Back to home",
+    "backAction": "Back"
+  }
+}

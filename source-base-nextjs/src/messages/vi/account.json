@@ -1,0 +1,64 @@
+{
+  "profile": {
+    "kicker": "TÀI KHOẢN",
+    "title": "Thông tin cá nhân",
+    "section": "Hồ sơ cá nhân",
+    "signedOut": {
+      "title": "Chưa đăng nhập",
+      "description": "Đăng nhập để xem thông tin tài khoản. Chế độ demo chưa có hồ sơ người dùng."
+    },
+    "roles": { "label": "Vai trò", "empty": "Chưa được gán vai trò nào" },
+    "permissions": { "label": "Quyền chi tiết", "empty": "Chưa có quyền chi tiết nào" }
+  },
+  "settings": {
+    "title": "Cài đặt",
+    "subtitle": "Ngôn ngữ · giao diện · màu nhấn · màn hình lớn · phím tắt",
+    "language": {
+      "title": "Ngôn ngữ",
+      "label": "Ngôn ngữ hiển thị",
+      "description": "Ngôn ngữ giao diện và nội dung",
+      "footer": "Đổi ngôn ngữ sẽ chuyển sang địa chỉ tương ứng và được ghi nhớ cho lần sau."
+    },
+    "appearance": {
+      "title": "Giao diện",
+      "theme": "Chủ đề",
+      "accent": "Màu nhấn",
+      "footer": "Màu nhấn đổi nút chính, liên kết, mục đang chọn và vòng focus; màu trạng thái (lỗi, cảnh báo) giữ nguyên.",
+      "themes": { "system": "Tự động", "light": "Sáng", "dark": "Tối" },
+      "modes": { "light": "sáng", "dark": "tối" },
+      "themeHint": {
+        "tv": "Chế độ TV luôn dùng giao diện tối — tắt TV để đổi.",
+        "fixed": "Màu nền sáng hoặc tối",
+        "system": "Theo hệ điều hành — đang {mode}"
+      },
+      "accents": {
+        "vci": "VCI",
+        "blue": "Xanh dương",
+        "purple": "Tím",
+        "pink": "Hồng",
+        "red": "Đỏ",
+        "orange": "Cam",
+        "yellow": "Vàng",
+        "graphite": "Than chì"
+      }
+    },
+    "tv": {
+      "title": "Màn hình lớn",
+      "footer": "Phóng CỠ CHỮ để đọc từ xa; khung giữ nguyên kích thước nên bố cục không vỡ.",
+      "mode": "Chế độ màn hình lớn",
+      "modeDescription": "Dùng cho màn hình điều hành treo tường",
+      "scale": "Mức phóng chữ",
+      "scaleDescription": "Trần ×1.3 — cao hơn chữ bắt đầu tràn khỏi nút và ô bảng"
+    },
+    "shortcuts": {
+      "title": "Phím tắt",
+      "description": "Thao tác nhanh không cần chuột",
+      "items": {
+        "search": "Tìm kiếm trang, phân hệ, lệnh (hoặc phím /)",
+        "levelUp": "Lên một cấp (màn hình → trang chủ phân hệ)",
+        "firstResult": "Trong bộ chọn phân hệ: mở kết quả đầu tiên",
+        "save": "Lưu phiếu đang nhập"
+      }
+    }
+  }
+}

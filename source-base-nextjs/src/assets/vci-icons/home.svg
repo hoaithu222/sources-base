@@ -1,0 +1,6 @@
+<svg viewBox="0 0 24 24" fill="none" data-group="brand" xmlns="http://www.w3.org/2000/svg">
+  <title>Trang chủ VCI</title>
+  <g data-layer="duo" fill="currentColor" opacity="0.16"><path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0-18 0z"/></g>
+  <g data-layer="line" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 9.04A9 9 0 0 1 13.69 20.84"/><path d="M10.31 20.84A9 9 0 0 1 3.5 9.04"/><path d="M5.19 6.12A9 9 0 0 1 18.81 6.12"/><path d="M7.8 8.3l3.8 9"/><path d="M16.2 8.3l-2.9 6.1"/></g>
+  <g data-layer="dot" fill="currentColor"><circle cx="12" cy="8.6" r="1.75"/></g>
+</svg>

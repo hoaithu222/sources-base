@@ -1,0 +1,19 @@
+{
+  "title": "Giới thiệu",
+  "intro": "Nền tảng được xây để hợp nhất dữ liệu, quy trình và báo cáo của doanh nghiệp trên một hệ thống, thay cho nhiều bảng tính rời rạc.",
+  "sections": {
+    "mission": {
+      "title": "Sứ mệnh",
+      "body": "Giúp mỗi bộ phận làm việc trên cùng một nguồn dữ liệu, với quy trình rõ ràng và quyền hạn đúng vai trò."
+    },
+    "principles": {
+      "title": "Nguyên tắc thiết kế",
+      "items": {
+        "clarity": "Rõ ràng: giao diện nhất quán, mật độ thông tin vừa đủ đọc.",
+        "performance": "Nhanh: tải trang tức thì, tối ưu cho cả máy yếu và mạng chậm.",
+        "access": "Dễ tiếp cận: dùng được bằng bàn phím, đọc được bằng trình đọc màn hình."
+      }
+    }
+  },
+  "breadcrumbHome": "Trang chủ"
+}

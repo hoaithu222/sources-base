@@ -1,0 +1,68 @@
+{
+  "trigger": {
+    "openPanel": "Mở bảng chọn",
+    "clear": "Xóa giá trị"
+  },
+  "nav": {
+    "prevMonth": "Tháng trước",
+    "nextMonth": "Tháng sau",
+    "prevYear": "Năm trước",
+    "nextYear": "Năm sau"
+  },
+  "calendar": {
+    "title": "{month}, {year}",
+    "monthLong": "Tháng {month}",
+    "monthShort": "Th.{month}",
+    "monthYear": "T{month}/{year}",
+    "weekdays": {
+      "mon": "T2",
+      "tue": "T3",
+      "wed": "T4",
+      "thu": "T5",
+      "fri": "T6",
+      "sat": "T7",
+      "sun": "CN"
+    }
+  },
+  "time": {
+    "hour": "Giờ",
+    "minute": "Phút"
+  },
+  "timeParse": {
+    "invalidChars": "Chỉ nhập số và dấu hai chấm. Ví dụ: 1530 hoặc 15:30",
+    "multipleColons": "Chỉ được dùng một dấu hai chấm",
+    "missingHour": "Thiếu số giờ trước dấu hai chấm",
+    "hourTooLong": "Giờ tối đa 2 chữ số",
+    "minuteTooLong": "Phút tối đa 2 chữ số",
+    "tooManyDigits": "Nhập tối đa 4 chữ số. Ví dụ: 1530 = 15:30",
+    "hourOutOfRange": "Giờ phải từ 00 đến 23",
+    "minuteOutOfRange": "Phút phải từ 00 đến 59"
+  },
+  "date": {
+    "clear": "Xóa",
+    "today": "Hôm nay",
+    "todayOff": "Hôm nay nằm ngoài khoảng ngày cho phép"
+  },
+  "dateTime": {
+    "now": "Bây giờ",
+    "draftOff": "Chọn một ngày trong khoảng cho phép"
+  },
+  "range": {
+    "reset": "Cài lại",
+    "apply": "Áp dụng"
+  },
+  "quick": {
+    "next2Weeks": "2 tuần tới",
+    "thisMonth": "Tháng này",
+    "thisQuarter": "Quý này",
+    "thisYear": "Năm nay",
+    "last3Months": "3 tháng",
+    "last6Months": "6 tháng"
+  },
+  "month": {
+    "pickStart": "Chọn tháng bắt đầu",
+    "pickEnd": "Chọn tháng kết thúc",
+    "pickEndNavigate": "Chọn tháng kết thúc — điều hướng năm nếu cần",
+    "pickStartWindow": "Chọn tháng bắt đầu — cửa sổ {span} tháng liên tiếp"
+  }
+}

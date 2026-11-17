@@ -1,0 +1,91 @@
+/**
+ * AuthLayout — thẻ hai khoang của trang khách: nền thẻ, đường nối hai khoang, nền khoang form,
+ * viền sáng chạy quanh (`.auth-ring`, góc animate ở theme/animations.css) và vân quét. Theme sáng là
+ * thẻ trắng sạch; nền kính teal, quầng, đốm sáng chạy viền chỉ ở `.dark`.
+ * Chỉ `AuthLayout.tsx` import file này; class bố cục nằm ở AUTH_LAYOUT_SLOT_CLASSES.
+ * Màu chỉ qua token `var(--color-*)`; nằm trong `@layer components` để utility Tailwind vẫn thắng.
+ * `@reference` bật pipeline của Tailwind cho file này (không xuất thêm CSS nào): có nó mới sinh
+ * fallback `@supports (color: color-mix…)` giống CSS đi qua globals.css — bỏ đi là trình duyệt
+ * thiếu color-mix (Safari < 16.2) không còn bản dự phòng.
+ */
+
+@reference '../../styles/globals.css';
+
+@layer components {
+  /* Thẻ hai khoang của AuthLayout. Sáng: mặt trắng + viền mảnh + bóng mềm; tối: kính teal + quầng. */
+  .auth-card {
+    --auth-card-h: min(660px, calc(100dvh - 7rem));
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-border-default);
+    box-shadow:
+      0 24px 64px -32px var(--color-shadow-popup),
+      0 8px 24px var(--color-shadow-popup);
+  }
+
+  .dark .auth-card {
+    background: linear-gradient(
+      150deg,
+      color-mix(in srgb, var(--color-bg-surface) 96%, transparent) 0%,
+      color-mix(in srgb, var(--color-bg-page) 92%, transparent) 100%
+    );
+    border-color: color-mix(in srgb, var(--color-teal-5) 24%, transparent);
+    box-shadow:
+      0 24px 70px -30px var(--color-shadow-popup),
+      0 0 60px -30px color-mix(in srgb, var(--color-teal-5) 60%, transparent);
+  }
+
+  .auth-seam {
+    --auth-seam-color: var(--color-border-default);
+    background: linear-gradient(
+      var(--auth-seam-dir),
+      transparent 0%,
+      var(--auth-seam-color) 18%,
+      var(--auth-seam-color) 82%,
+      transparent 100%
+    );
+  }
+
+  .dark .auth-seam {
+    --auth-seam-color: color-mix(in srgb, var(--color-teal-5) 30%, transparent);
+  }
+
+  .dark .auth-form-pane {
+    background: linear-gradient(
+      200deg,
+      color-mix(in srgb, var(--color-primary-5) 7%, transparent) 0%,
+      color-mix(in srgb, var(--color-teal-5) 3%, transparent) 42%,
+      transparent 78%
+    );
+  }
+
+  /* Đốm sáng chạy viền + vạch quét: trang trí HUD, AuthLayout chỉ hiện ở theme tối (`dark:block`). */
+  .auth-ring {
+    background: conic-gradient(
+      from var(--auth-ring-angle),
+      transparent 0%,
+      color-mix(in srgb, var(--color-primary-4) 90%, transparent) 5%,
+      color-mix(in srgb, var(--color-teal-5) 60%, transparent) 10%,
+      transparent 18%,
+      transparent 100%
+    );
+    mask:
+      linear-gradient(black 0 0) content-box,
+      linear-gradient(black 0 0);
+    mask-composite: exclude;
+    padding: 1px;
+    -webkit-mask:
+      linear-gradient(black 0 0) content-box,
+      linear-gradient(black 0 0);
+    -webkit-mask-composite: xor;
+  }
+
+  .auth-scanline {
+    background: repeating-linear-gradient(
+      180deg,
+      transparent 0,
+      transparent 3px,
+      color-mix(in srgb, var(--color-teal-5) 5%, transparent) 3px,
+      color-mix(in srgb, var(--color-teal-5) 5%, transparent) 4px
+    );
+  }
+}

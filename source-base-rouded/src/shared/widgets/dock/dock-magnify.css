@@ -1,0 +1,308 @@
+/**
+ * Dock — hiệu ứng viết tay. Ba nhóm ĐỘC LẬP, mỗi nhóm bám một phần tử khác
+ * nhau nên transform của chúng KHÔNG bao giờ đè lên nhau:
+ *
+ *   §1 Phóng lân cận   — `.dock-magnify` + `.dock-magnify-item`  → trên Ô BẤM (biến do JS ghi)
+ *   §2 Bay vào         — `.dock-icon-enter`                      → trên SPAN BỌC GLYPH
+ *   §3 Vệt sáng gợi ý  — `.dock-hint`                            → phần tử riêng
+ *
+ * Sơ đồ trong DOM:
+ *
+ *   <nav class="dock-magnify" data-dock-position="bottom" data-dock-state="opening" data-dock-magnify="live">
+ *     <a class="dock-magnify-item">        ← §1 đặt transform ở đây (`--dock-t-scale`, `--dock-t-push`)
+ *       <span class="dock-icon-enter">     ← §2 đặt transform ở đây
+ *         <AppTile />
+ *     <span class="dock-icon-enter">       ← vạch ngăn: §2 transform + §1 `translate` (dời theo)
+ *
+ * CẠNH NEO (`data-dock-position`): `bottom` nhô LÊN, dời hai bên theo trục NGANG; `left` nhô sang PHẢI, `right` nhô
+ * sang TRÁI, cả hai dời theo trục DỌC. Một bộ quy tắc duy nhất: mỗi cạnh chỉ khai bốn hệ số trục ở §1a.
+ *
+ * ⛔ MÀU: file này chỉ được dùng token qua `color-mix(in srgb, var(--color-…))`.
+ *    KHÔNG hex, KHÔNG `rgba(…)` viết cứng (`docs/rules/styling/color-system.md`).
+ *
+ * ⚠️ Mốc thời gian ở đây phải KHỚP `DOCK_DURATION` trong `dock.theme.ts`.
+ *
+ * `@reference` bật pipeline của Tailwind cho file này (không xuất thêm CSS nào): có nó mới sinh
+ * fallback `@supports (color: color-mix…)` giống CSS đi qua globals.css (`css-architecture.md`).
+ */
+
+@reference '../../../styles/globals.css';
+
+/* ─────────────────────────────────────────────────────────────────────
+ * §1. PHÓNG LÂN CẬN — LIÊN TỤC theo khoảng cách con trỏ, như Dock macOS.
+ *
+ * JS (`hooks/useDockMagnify.ts`) tính và GHI BIẾN mỗi khung hình, file này chỉ dựng transform:
+ *   - trên mỗi con của `<nav>`: `--dock-t-scale` (hệ số phóng, chỉ ô phóng) · `--dock-t-push` (px, dời dọc thanh) ·
+ *     `z-index` (ô nở to hơn nằm trên);
+ *   - trên `<nav>`: `--dock-grow` (px, tổng phần ô nở) + `data-dock-magnify="live"` khi đang phóng / đang trôi về.
+ * Khe giữa hai ô giữ nguyên bề rộng gốc ở MỌI khung hình → ô KHÔNG BAO GIỜ chồng nhau; vỏ nở thêm `--dock-grow` dọc
+ * trục (margin của con đầu + con cuối, mỗi đầu một nửa — Dock căn giữa nên nở đều hai bên, mép trên đứng yên).
+ *
+ * ⛔ Ô phóng có `z-index ≥ 2`: vòng sáng `rim-glass` của vỏ là `::after` z-index 1 — thấp hơn là vạch viền vỏ cắt
+ *    ngang ô đang nở (và ngang glyph).
+ * ⛔ Đang `live` thì TẮT transition: vòng rAF đã làm mượt; transition chồng lên là trễ thêm 1 nhịp, vỏ (margin)
+ *    và ô (transform) lệch pha nhau. Transition chỉ còn cho focus bàn phím.
+ * ⛔ Gate `@media (hover: hover) and (pointer: fine)`: máy chạm KHÔNG có quy tắc phóng nào (JS cũng không chạy).
+ *
+ * Cạnh neo: mỗi cạnh khai bốn hệ số trục ở §1a — `lift` hướng nhô ra khỏi mép neo, `push` trục dời.
+ * ───────────────────────────────────────────────────────────────────── */
+
+@media (hover: hover) and (pointer: fine) {
+  .dock-magnify {
+    --dock-mag-lift: 16px;
+    --dock-mag-focus: 1.12;
+    --dock-mag-dur: 200ms;
+    --dock-mag-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  /* §1a — hệ số trục theo cạnh neo: lift-x/lift-y = hướng nhô ra · push-x/push-y = trục dời. */
+  .dock-magnify[data-dock-position='bottom'] {
+    --dock-lift-x: 0;
+    --dock-lift-y: -1;
+    --dock-push-x: 1;
+    --dock-push-y: 0;
+    --dock-origin: bottom center;
+  }
+
+  .dock-magnify[data-dock-position='left'] {
+    --dock-lift-x: 1;
+    --dock-lift-y: 0;
+    --dock-push-x: 0;
+    --dock-push-y: 1;
+    --dock-origin: left center;
+  }
+
+  .dock-magnify[data-dock-position='right'] {
+    --dock-lift-x: -1;
+    --dock-lift-y: 0;
+    --dock-push-x: 0;
+    --dock-push-y: 1;
+    --dock-origin: right center;
+  }
+
+  /* §1b — ô phóng: nhô ra `--dock-mag-lift` cho mỗi 1,0 hệ số (1,5× → 8px), phóng quanh tâm dọc trục. */
+  .dock-magnify .dock-magnify-item {
+    --dock-t-scale: 1;
+    --dock-t-push: 0px;
+    --dock-t-focus: 1;
+    --dock-t-s: max(var(--dock-t-scale), var(--dock-t-focus));
+    --dock-t-lift: calc((var(--dock-t-s) - 1) * var(--dock-mag-lift));
+    z-index: 2;
+    transform-origin: var(--dock-origin, bottom center);
+    transform: translate(
+        calc(var(--dock-lift-x) * var(--dock-t-lift) + var(--dock-push-x) * var(--dock-t-push)),
+        calc(var(--dock-lift-y) * var(--dock-t-lift) + var(--dock-push-y) * var(--dock-t-push))
+      )
+      scale(var(--dock-t-s));
+    transition:
+      transform var(--dock-mag-dur) var(--dock-mag-ease),
+      filter 200ms ease-out;
+  }
+
+  /* Focus bàn phím — nở nhẹ, không cần con trỏ (1,12× vẫn nằm gọn trong khe 6px, không phải đẩy ô kề). */
+  .dock-magnify .dock-magnify-item:focus-visible {
+    --dock-t-focus: var(--dock-mag-focus);
+  }
+
+  /* §1c — đang phóng: vạch ngăn / phần phụ dời theo (`translate` riêng — cộng được với keyframe bay vào trên cùng
+     phần tử), vỏ nở dọc trục, bỏ cắt tràn (`overflow-x-auto` dưới `xl` cắt mất đầu ô đang nhô). */
+  .dock-magnify[data-dock-magnify='live'] {
+    overflow: visible;
+  }
+
+  .dock-magnify[data-dock-magnify='live'] > * {
+    transition: none;
+  }
+
+  .dock-magnify[data-dock-magnify='live'] > :not(.dock-magnify-item) {
+    translate: calc(var(--dock-push-x) * var(--dock-t-push, 0px))
+      calc(var(--dock-push-y) * var(--dock-t-push, 0px));
+  }
+
+  .dock-magnify[data-dock-magnify='live'][data-dock-position='bottom'] > :first-child {
+    margin-left: calc(var(--dock-grow, 0px) / 2);
+  }
+
+  .dock-magnify[data-dock-magnify='live'][data-dock-position='bottom'] > :last-child {
+    margin-right: calc(var(--dock-grow, 0px) / 2);
+  }
+
+  .dock-magnify[data-dock-magnify='live']:not([data-dock-position='bottom']) > :first-child {
+    margin-top: calc(var(--dock-grow, 0px) / 2);
+  }
+
+  .dock-magnify[data-dock-magnify='live']:not([data-dock-position='bottom']) > :last-child {
+    margin-bottom: calc(var(--dock-grow, 0px) / 2);
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+ * §2. BAY VÀO — icon nhô ra từ mép neo khi thanh vừa trồi lên (chế độ tự ẩn).
+ *
+ * ⛔ CHỈ chạy ở pha `opening`; mở xong (`shown`) icon đứng yên tuyệt đối — dãy icon còn nhúc nhích là dãy icon khó bấm.
+ * ⛔ KHÔNG `filter: blur()` trong keyframe (vẽ lại toàn khung mỗi frame). `backwards` giữ icon ở 0% suốt lúc chờ
+ *    tới lượt — thiếu nó icon hiện đủ rồi mới biến mất để bay vào (nháy).
+ * ───────────────────────────────────────────────────────────────────── */
+
+@keyframes dock-icon-enter {
+  0% {
+    opacity: 0;
+    transform: translate(var(--dock-enter-x, 0), var(--dock-enter-y, 12px)) scale(0.82);
+  }
+  60% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+nav[data-dock-position='left'] {
+  --dock-enter-x: -12px;
+  --dock-enter-y: 0;
+}
+
+nav[data-dock-position='right'] {
+  --dock-enter-x: 12px;
+  --dock-enter-y: 0;
+}
+
+.dock-icon-enter {
+  display: inline-flex;
+}
+
+/* Bám `nav[data-dock-state]` chứ KHÔNG bám `.dock-magnify`: bay vào chạy cả khi đã tắt phóng lân cận. */
+nav[data-dock-state='opening'] .dock-icon-enter {
+  animation: dock-icon-enter 300ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  animation-delay: var(--dock-icon-delay, 0ms);
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+ * §3. VỆT SÁNG GỢI Ý — dấu hiệu duy nhất còn lại khi thanh đang tự ẩn, nằm giữa MÉP NEO.
+ *
+ * ⛔ `pointer-events: none` VĨNH VIỄN: vệt nằm đè lên mép trang, bắt sự kiện là nuốt cú bấm vào vùng đó.
+ *    `useDockReveal.ts` phát hiện con trỏ bằng TOẠ ĐỘ chuột, không cần phần tử này.
+ * ⚠️ Kích thước phải khớp `DOCK_TRIGGER_ZONE` trong `dock.theme.ts` (sâu 22 · dài 2 × 72).
+ * ───────────────────────────────────────────────────────────────────── */
+
+.dock-hint {
+  --dock-hint-long: 144px;
+  --dock-hint-deep: 22px;
+  --dock-hint-core: 96px;
+  --dock-hint-tone: var(--color-primary-5);
+
+  position: fixed;
+  z-index: 40;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 450ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.dock-hint[data-position='bottom'] {
+  bottom: 0;
+  left: 50%;
+  width: var(--dock-hint-long);
+  height: var(--dock-hint-deep);
+  transform: translateX(-50%);
+}
+
+.dock-hint[data-position='left'],
+.dock-hint[data-position='right'] {
+  top: 50%;
+  width: var(--dock-hint-deep);
+  height: var(--dock-hint-long);
+  transform: translateY(-50%);
+}
+
+.dock-hint[data-position='left'] {
+  left: 0;
+}
+
+.dock-hint[data-position='right'] {
+  right: 0;
+}
+
+/* Thanh đã bung → tắt gợi ý, nếu không nó nằm chồng dưới chân thanh. */
+.dock-hint[data-hint-visible='false'] {
+  opacity: 0;
+}
+
+/* Lớp 1 — quầng khuếch tán (làm nhoè MỘT LẦN lúc vẽ, không nằm trong keyframe nào). */
+.dock-hint::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  background: radial-gradient(
+    closest-side,
+    color-mix(in srgb, var(--dock-hint-tone) 40%, transparent) 0%,
+    color-mix(in srgb, var(--dock-hint-tone) 20%, transparent) 50%,
+    transparent 100%
+  );
+  filter: blur(12px);
+}
+
+/* Lớp 2 — sợi sáng 1px ở tâm mép neo, hai đầu tan dần. */
+.dock-hint::after {
+  content: '';
+  position: absolute;
+  background: linear-gradient(
+    var(--dock-hint-dir, 90deg),
+    transparent,
+    color-mix(in srgb, var(--dock-hint-tone) 45%, transparent),
+    color-mix(in srgb, var(--dock-hint-tone) 95%, transparent),
+    color-mix(in srgb, var(--dock-hint-tone) 45%, transparent),
+    transparent
+  );
+  box-shadow: 0 0 6px color-mix(in srgb, var(--dock-hint-tone) 50%, transparent);
+}
+
+.dock-hint[data-position='bottom']::after {
+  bottom: 2px;
+  left: calc(50% - var(--dock-hint-core) / 2);
+  width: var(--dock-hint-core);
+  height: 1px;
+}
+
+.dock-hint[data-position='left']::after,
+.dock-hint[data-position='right']::after {
+  --dock-hint-dir: 180deg;
+  top: calc(50% - var(--dock-hint-core) / 2);
+  width: 1px;
+  height: var(--dock-hint-core);
+}
+
+.dock-hint[data-position='left']::after {
+  left: 2px;
+}
+
+.dock-hint[data-position='right']::after {
+  right: 2px;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+ * §4. Tôn trọng GIẢM CHUYỂN ĐỘNG (nhảy thẳng tới trạng thái cuối) và GIẢM TRONG SUỐT (kính mờ → mặt đặc).
+ * ───────────────────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .dock-magnify .dock-magnify-item {
+    transition: none;
+    transform: none !important;
+  }
+
+  .dock-icon-enter {
+    animation: none !important;
+  }
+
+  .dock-hint {
+    transition: none;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  nav.dock-shell {
+    background-color: var(--color-bg-surface);
+    backdrop-filter: none;
+  }
+}

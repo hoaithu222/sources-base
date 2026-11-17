@@ -1,0 +1,81 @@
+/* =============================================================================
+   recharts.css — gỡ viền focus Recharts v3 tự gắn (`tabIndex=0` lên wrapper và
+   surface). Nằm NGOÀI `@layer` có chủ ý: selector của thư viện + `!important`
+   phải thắng mọi layer.
+   ============================================================================= */
+
+/* =========================
+   RECHARTS: Remove focus outline / black border on click
+   Recharts v3 adds tabIndex=0 to wrapper & surface → browser shows focus ring.
+   Cover all states: :focus, :focus-visible, :focus-within + box-shadow.
+========================= */
+.recharts-responsive-container,
+.recharts-wrapper,
+.recharts-surface,
+.recharts-layer,
+.recharts-sector,
+.recharts-rectangle,
+.recharts-curve,
+.recharts-dot,
+.recharts-symbols,
+.recharts-cartesian-grid,
+.recharts-brush {
+  outline: none !important;
+  box-shadow: none !important;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.recharts-responsive-container:focus,
+.recharts-responsive-container:focus-visible,
+.recharts-wrapper:focus,
+.recharts-wrapper:focus-visible,
+.recharts-wrapper:focus-within,
+.recharts-surface:focus,
+.recharts-surface:focus-visible,
+.recharts-wrapper svg:focus,
+.recharts-wrapper svg:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Recharts v3: reset tất cả element con bên trong wrapper */
+.recharts-wrapper *:focus,
+.recharts-wrapper *:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* =========================
+   RECHARTS: số thẳng cột
+   Nhãn trục / nhãn cột / tooltip dùng chữ số cùng bề rộng (`tabular-nums`) — số không nhảy ngang khi dữ liệu
+   đổi hay khi AnimatedNumber chạy. Font vẫn là sans của app (KHÔNG mono) — chart-conventions.md §1.8.
+========================= */
+.recharts-wrapper .recharts-text,
+.recharts-wrapper .recharts-cartesian-axis-tick-value,
+.recharts-tooltip-wrapper {
+  font-variant-numeric: tabular-nums;
+}
+
+/* =========================
+   RECHARTS: ô màu chú giải bo nhẹ
+   Ô `square` của `<Legend>` là path SVG — không bo được, nên bo chính khung `<svg>` của ô (khung svg mặc định
+   `overflow: hidden`). Đọc `--radius-xs` (×0.75 ≈ 3px) — thang bo góc dùng chung hai theme nên sáng và tối bo như nhau.
+   Ô `plainline` / `circle` nằm gọn giữa khung nên không bị cắt.
+========================= */
+.recharts-default-legend .recharts-legend-item > .recharts-surface {
+  border-radius: calc(var(--radius-xs) * 0.75);
+}
+
+/* =========================
+   RECHARTS: nâng độ sáng mảng màu ở theme TỐI
+   Bảng series đã qua kiểm định mù màu nên nằm ở dải sáng L TRUNG BÌNH dùng chung hai theme (`primary-6` chỉ 3,5:1 trên
+   thẻ tối) — trên nền xanh đêm cột / lát donut đọc ra xỉn. Apple HIG: màu ở nền tối nên SÁNG và bão hoà hơn bản sáng
+   (dark mode "brighter foreground"; Material 3 dùng tông sáng ~T80 cho accent tối). Đổi bằng `filter` lúc VẼ — KHÔNG
+   đổi hex đã ghim trong `colors-theme.json` / test validator. Chỉ mảng màu (cột, lát, vùng, đường), không chạm chữ / trục.
+========================= */
+.dark .recharts-rectangle,
+.dark .recharts-sector,
+.dark .recharts-area-area,
+.dark .recharts-line-curve {
+  filter: brightness(1.16) saturate(1.12);
+}

@@ -1,0 +1,14 @@
+{
+  "header": {
+    "navLabel": "Main navigation",
+    "about": "About",
+    "signIn": "Sign in",
+    "signUp": "Get started"
+  },
+  "footer": {
+    "navLabel": "Footer links",
+    "tagline": "Unify data, processes and reports in one system.",
+    "rights": "© {year} {name}. All rights reserved."
+  },
+  "skipToContent": "Skip to content"
+}

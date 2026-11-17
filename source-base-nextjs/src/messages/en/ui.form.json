@@ -1,0 +1,83 @@
+{
+  "item": {
+    "optional": "(Optional)"
+  },
+  "dirtyGuard": {
+    "title": "Discard changes?",
+    "message": "You have unsaved changes. Leaving will lose your data.",
+    "leave": "Leave",
+    "stay": "Stay"
+  },
+  "tabs": {
+    "errorCount": ", {count, plural, one {# error} other {# errors}}"
+  },
+  "stepper": {
+    "next": "Next",
+    "counter": "Step {current} of {total}"
+  },
+  "dictionary": {
+    "keyAria": "Key of row {index}",
+    "valueAria": "Value of row {index}",
+    "removeAria": "Remove row {name}",
+    "removeTitle": "Remove row",
+    "empty": "No properties yet.",
+    "add": "Add property"
+  },
+  "serverErrors": {
+    "fallback": "Something went wrong"
+  },
+  "asyncSelect": {
+    "placeholder": "Search...",
+    "searchAria": "Search in list",
+    "searchPlaceholder": "Search...",
+    "empty": "No results",
+    "loadFailed": "Could not load the list"
+  },
+  "cascade": {
+    "loading": "Loading..."
+  },
+  "toggle": {
+    "on": "On",
+    "off": "Off"
+  },
+  "password": {
+    "show": "Show password",
+    "hide": "Hide password"
+  },
+  "passwordStrength": {
+    "meterAria": "Password strength",
+    "labels": {
+      "empty": "Password must contain at least:",
+      "weak": "Weak password. Still needed:",
+      "moderate": "Fair password. Still needed:",
+      "strong": "Strong password. Safe to use."
+    },
+    "tags": {
+      "empty": "Not entered",
+      "weak": "Weak",
+      "moderate": "Fair",
+      "strong": "Strong"
+    },
+    "conditions": {
+      "uppercase": "At least 1 uppercase letter",
+      "digit": "At least 1 digit",
+      "minLength": "At least 8 characters"
+    }
+  },
+  "colorPicker": {
+    "aria": "Choose color"
+  },
+  "sortable": {
+    "dragHandle": "Drag to reorder",
+    "instructions": "Press Space to pick up the row, use the up / down arrow keys to move it, Space to drop, Esc to cancel.",
+    "announce": {
+      "start": "Picked up row {position}.",
+      "over": "Row {position} is at position {target}.",
+      "end": "Dropped row {position} at position {target}.",
+      "cancel": "Drag cancelled, row {position} returned to its original place."
+    }
+  },
+  "number": {
+    "clear": "Clear value"
+  }
+}

@@ -1,0 +1,6 @@
+<svg viewBox="0 0 24 24" fill="none" data-group="module" xmlns="http://www.w3.org/2000/svg">
+  <title>Bán hàng</title>
+  <g data-layer="duo" fill="currentColor" opacity="0.16"><path d="M3.5 5v6.38a1.5 1.5 0 0 0 .44 1.06l7.62 7.62a1.5 1.5 0 0 0 2.12 0l6.38-6.38a1.5 1.5 0 0 0 0-2.12l-7.62-7.62a1.5 1.5 0 0 0-1.06-.44H5A1.5 1.5 0 0 0 3.5 5z"/></g>
+  <g data-layer="line" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 5v6.38a1.5 1.5 0 0 0 .44 1.06l7.62 7.62a1.5 1.5 0 0 0 2.12 0l6.38-6.38a1.5 1.5 0 0 0 0-2.12l-7.62-7.62a1.5 1.5 0 0 0-1.06-.44H5A1.5 1.5 0 0 0 3.5 5z"/></g>
+  <g data-layer="dot" fill="currentColor"><circle cx="8.25" cy="8.25" r="1.5"/></g>
+</svg>

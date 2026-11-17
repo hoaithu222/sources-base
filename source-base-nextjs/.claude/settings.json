@@ -1,0 +1,15 @@
+{
+  "rules_dir": "docs/rules",
+  "agents_dir": ".claude/agents",
+  "permissions": {
+    "allow": [
+      "Bash(npm run:*)",
+      "Bash(node scripts/*)",
+      "Bash(npx next typegen:*)",
+      "Bash(npx tsc --noEmit:*)",
+      "Bash(npx prettier:*)",
+      "Bash(npx vitest:*)",
+      "Bash(npx eslint:*)"
+    ]
+  }
+}

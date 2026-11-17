@@ -1,0 +1,156 @@
+/* =============================================================================
+   root-vars.css — biến CSS toàn cục khai trên `:root`: bán kính, `--ui-scale`,
+   vùng an toàn, hệ số giãn dòng, bậc font-weight, font stack.
+
+   Chỉ khai GIÁ TRỊ MẶC ĐỊNH. Chế độ TV / DisplayProvider ghi đè khi chạy
+   (xem `modes/tv.css`). Token màu và cỡ chữ KHÔNG khai ở đây — chúng nằm trong
+   `theme/generated-colors.css` và `font/generated-font.css`.
+
+   ⛔ BO GÓC KHÔNG ĐỔI THEO THEME: thang `--radius-*` (`theme/radius.css`) dùng chung sáng và tối — đừng khai lại
+      `--radius-*` dưới `.dark` hay bất cứ chế độ nào (một class `rounded-md` = 8px ở mọi nơi).
+   ============================================================================= */
+@layer base {
+  :root {
+    --radius: 0.5rem;
+
+    /* ---------------------------------------------------------------------
+       ĐỘ NỔI — bóng nhiều lớp mỏng, một nguồn cho mọi bề mặt: sáng nhuộm mực sage (`shadow-popup` 10% · `shadow-glass`
+       16%), tối đen thuần (55% · 58%) — cùng công thức, chỉ đổi màu token nên không cần bản riêng cho tối.
+       Dùng: `shadow-(--elev-1)` thẻ / panel nghỉ · `--elev-2` rê / thẻ được chọn · `--elev-3` lớp nổi (popover, menu,
+       dropdown) · `--elev-4` hộp thoại. Ở tối độ nổi chủ yếu đến từ NỀN SÁNG DẦN (`bg-page` → `bg-surface` →
+       `bg-dialog`) + viền bắt sáng mép trên (`utilities/rim-light.css`), bóng chỉ phụ.
+       Luật: docs/rules/styling/light-theme.md §4.
+       --------------------------------------------------------------------- */
+    --elev-1:
+      0 1px 2px color-mix(in srgb, var(--color-shadow-popup) 60%, transparent),
+      0 3px 10px -4px var(--color-shadow-popup);
+    --elev-2: 0 2px 4px -2px var(--color-shadow-popup), 0 12px 28px -10px var(--color-shadow-glass);
+    --elev-3:
+      0 0 0 1px color-mix(in srgb, var(--color-shadow-popup) 40%, transparent),
+      0 6px 12px -4px var(--color-shadow-popup), 0 20px 44px -16px var(--color-shadow-glass);
+    --elev-4:
+      0 10px 20px -8px var(--color-shadow-popup), 0 32px 64px -20px var(--color-shadow-glass);
+
+    /* ---------------------------------------------------------------------
+       TÔNG NHUỘM của thẻ — tỉ lệ màu tông (`--sc-a` …) loang ở góc trên-trái thẻ KPI, một nguồn cho mọi thẻ nhuộm.
+       Sáng 5% (thẻ trắng, tông chủ yếu ở ô icon); tối 9%. ⛔ KHÔNG nâng cao hơn: trộn màu bão hoà (vàng, đỏ) lên nền
+       xanh đêm cho ra nâu / olive / đỏ rượu xỉn (vàng 20% → #433F28) — màu rực phải đến từ ô icon + vòng viền tông
+       `--tint-card-rim` (nét mảnh giữ nguyên độ rực), không phải từ mảng nền.
+       --------------------------------------------------------------------- */
+    --tint-card: 5%;
+    --tint-card-rim: 0%;
+
+    /* ÁNH SÁNG PHỦ MẶT thẻ / panel — dốc chéo rất nhạt từ góc trên-trái (như đèn chiếu của viền bắt sáng), phủ lên
+       `bg-surface`. Sáng: không có (thẻ trắng phẳng); tối: ngọc 10% tan hết ở 48% — mặt panel có chiều sâu thay
+       vì một tấm phẳng, chữ vẫn nằm trên nền ≥ 9:1. Dùng: `bg-(image:--surface-sheen)` cạnh `bg-bg-surface`. */
+    --surface-sheen: none;
+
+    /* Tỉ lệ màu thương hiệu pha vào dòng bảng khi rê: sáng 6%, tối 13% (xám `bg-pressed` làm chip trung tính chìm). */
+    --row-hover-tint: 6%;
+
+    /* ---------------------------------------------------------------------
+       Display mode — do `DisplayProvider` ghi đè trên `documentElement`.
+       Khai mặc định ở đây để app chạy đúng ngay cả khi provider chưa mount
+       (SSR-less first paint, hoặc trang lỗi render ngoài provider tree).
+
+       `--ui-scale` CHỈ nhân vào token typography (`generated-font.css`).
+       ⛔ KHÔNG áp vào root font-size: Tailwind v4 để `--spacing` theo rem nên
+       làm vậy sẽ phóng to cả padding/chiều cao/bề rộng và làm VỠ bố cục.
+       Khung giữ nguyên, chỉ chữ to lên.
+       --------------------------------------------------------------------- */
+    --ui-scale: 1;
+
+    /* ---------------------------------------------------------------------
+       VÙNG AN TOÀN (safe area) — iPad chạy PWA.
+
+       Trên PC/laptop và trong tab trình duyệt thường, `env(safe-area-inset-*)`
+       trả về **0px** → bốn biến này bằng 0 → mọi `calc()` dùng chúng cho ra
+       ĐÚNG con số cũ. Vì thế khai ở đây là an toàn tuyệt đối với desktop.
+
+       Chỉ khác 0 khi app chạy toàn màn trên iPad có vạch Home (inset dưới
+       ~20px). Dock neo đáy PHẢI cộng `--safe-b`, nếu không hàng icon nằm ngay
+       dưới vạch Home: vuốt lên là thoát app thay vì bấm trúng icon.
+
+       ⛔ KHÔNG viết thẳng `env(...)` rải rác trong component. Gom về một chỗ để
+          khi Apple đổi hành vi (đã đổi 3 lần từ iOS 11) chỉ phải sửa ở đây.
+       --------------------------------------------------------------------- */
+    --safe-t: env(safe-area-inset-top, 0px);
+    --safe-r: env(safe-area-inset-right, 0px);
+    --safe-b: env(safe-area-inset-bottom, 0px);
+    --safe-l: env(safe-area-inset-left, 0px);
+
+    /* -------------------------------------------------------------------
+       Hệ số GIÃN DÒNG — tách riêng khỏi `--ui-scale`, CỐ Ý.
+
+       Rất nhiều ô trong app có chiều cao CỐ ĐỊNH vừa khít một dòng chữ
+       (`h-6` = 24px, `h-7` = 28px, `h-8` = 32px — hơn 60 chỗ trong 7 module
+       dashboard). Nếu giãn dòng tăng cùng nhịp cỡ chữ thì ở +30%, dòng
+       `body-14` cao 20px → 26px và TRÀN khỏi ô 24px, các dòng đè lên nhau.
+       Đây chính là lỗi người dùng báo, và vì nó nằm ở token nên xảy ra ở MỌI
+       màn cùng lúc.
+
+       `DisplayProvider` đặt biến này ở NỬA nhịp: `1 + (uiScale − 1) × 0.5`.
+       Chữ to lên rõ rệt mà chiều cao dòng gần như giữ nguyên.
+       ------------------------------------------------------------------- */
+    --lh-scale: 1;
+
+    /* Bậc font-weight cho token typography — `generated-font.css` đọc qua
+       `var(--fw-*, fallback)`. Khai ở đây để đổi được toàn hệ thống từ MỘT chỗ.
+       Giá trị mặc định trùng fallback trong file generated (450/500/600/700). */
+    --fw-regular: 450;
+    --fw-medium: 500;
+    --fw-semibold: 600;
+    --fw-bold: 700;
+    /* Font stack: Inter dẫn đầu (chuẩn trading dashboard — TradingView/Stripe/
+       Vercel/Linear). PingFang SC / Microsoft YaHei / Segoe UI Variable đứng
+       giữa để render CJK + Windows 11 native đẹp hơn. System fonts đóng đuôi.
+
+       ⛔ `-apple-system` PHẢI ĐỨNG NGAY SAU 'Inter' — ĐỪNG ĐẨY XUỐNG CUỐI.
+          Đây là chỗ sửa lỗi "chữ đè lên nhau CHỈ trên iPad thật", không tái
+          hiện được bằng giả lập trên máy Windows.
+
+          Cơ chế hỏng của thứ tự cũ:
+            1. Inter VÀ Noto Sans đều chỉ đến từ Google Fonts (`display=swap`,
+               xem `index.html`) — app KHÔNG tự host `@font-face` nào. Mạng
+               chặn Google Fonts (rất hay gặp ở mạng nội bộ) hoặc chỉ đơn giản
+               là chưa tải xong → CẢ HAI đều vắng mặt. Nghĩa là "Noto Sans giữ
+               fallback cho dấu tiếng Việt" — ghi ở bản chú thích cũ — KHÔNG
+               bao giờ đúng lúc cần nhất.
+            2. Khi đó font CÀI SẴN đầu tiên khớp được trên iPadOS là
+               `PingFang SC` (và `Hiragino Sans`) — font Apple luôn có sẵn.
+            3. Hai font đó KHÔNG có đủ chữ Việt dựng sẵn (ế ộ ữ ằ…), nên trình
+               duyệt phải fallback THEO TỪNG KÝ TỰ. Một từ tiếng Việt vì thế
+               ghép từ hai font khác nhau: bề rộng ký tự và hộp dòng lệch nhau
+               → chữ chồng chữ, và bề ngang phình hơn mọi con số px đã cân
+               trong `header.theme.ts`.
+
+          Vì sao chèn `-apple-system` là an toàn tuyệt đối cho PC/laptop:
+          `-apple-system` / `BlinkMacSystemFont` CHỈ phân giải trên nền Apple;
+          trên Windows/Linux/Android chúng không khớp gì cả nên bị bỏ qua —
+          máy tính Windows render KHÔNG đổi một pixel nào. Trên iPad/Mac nó cho
+          SF Pro: phủ đủ chữ Việt, và vẫn nhường chỗ cho Inter khi Inter đã về
+          (Inter đứng trước). Chữ CJK không bị ảnh hưởng: SF Pro không có glyph
+          CJK nên vẫn rơi tiếp xuống PingFang SC / Hiragino như cũ. */
+    --font-sans:
+      'Inter', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Segoe UI Variable',
+      'Microsoft YaHei', 'Hiragino Sans', 'Noto Sans', ui-sans-serif, system-ui, 'Segoe UI', Roboto,
+      'Helvetica Neue', Arial, sans-serif;
+    /* Mono stack cho MÃ / đoạn code / `<kbd>` (`font-mono`). Số liệu KPI / bảng / chart KHÔNG dùng mono ở cả hai theme —
+       căn cột bằng `tabular-nums` (`visual-hierarchy.md` §3.3.1). Fallback qua system mono khi Google Fonts chưa tải. */
+    --font-mono:
+      'JetBrains Mono', 'Roboto Mono', 'SF Mono', ui-monospace, 'Menlo', 'Consolas',
+      'Liberation Mono', monospace;
+  }
+
+  /* `.dark` đứng SAU `:root` (cùng độ đặc hiệu) nên thắng. Chỉ đổi GIÁ TRỊ MÀU / ĐỘ ĐẶC — ⛔ không khai `--radius-*`. */
+  .dark {
+    --tint-card: 9%;
+    --tint-card-rim: 46%;
+    --row-hover-tint: 13%;
+    --surface-sheen: linear-gradient(
+      160deg,
+      color-mix(in srgb, var(--color-teal-5) 10%, transparent) 0%,
+      transparent 48%
+    );
+  }
+}

@@ -1,0 +1,239 @@
+{
+  "toc": {
+    "aria": "Danh mục component",
+    "searchLabel": "Tìm nhóm component",
+    "searchPlaceholder": "Tìm nhóm hoặc component…",
+    "emptyTitle": "Không có nhóm nào khớp",
+    "emptyDescription": "Thử tên component như Button, Dropdown, Modal… hoặc xoá ô tìm."
+  },
+  "section": {
+    "importLabel": "Import",
+    "sourceLabel": "Mã nguồn",
+    "docsLabel": "Tài liệu"
+  },
+  "intro": {
+    "title": "Cần một màn hình hoàn chỉnh?",
+    "description": "Danh mục chỉ cho thấy từng mảnh. Cách ghép form, bảng, hộp thoại và bộ lọc thành một màn CRUD thật nằm ở màn Khách hàng — đọc nó thay vì chép ví dụ ở đây.",
+    "link": "Mở màn Khách hàng mẫu"
+  },
+  "groups": {
+    "button": {
+      "title": "Nút",
+      "summary": "Dùng cho mọi chỗ cần bấm để làm một việc; đi sang trang khác thì bọc liên kết thật bằng asChild."
+    },
+    "form": {
+      "title": "Form và ô nhập",
+      "summary": "Dùng khi cần thu dữ liệu có kiểm tra: field nối sẵn react-hook-form + Zod, lỗi hiện ngay dưới ô."
+    },
+    "select": {
+      "title": "Chọn từ danh sách",
+      "summary": "Chọn một giá trị (Dropdown) hoặc nhiều giá trị (MultiSelect) từ danh sách có sẵn, thêm ô tìm kiếm khi danh sách dài."
+    },
+    "pickers": {
+      "title": "Chọn ngày giờ",
+      "summary": "Chọn ngày, ngày kèm giờ hoặc giờ; tên tháng, tên thứ và định dạng hiển thị theo ngôn ngữ đang chọn."
+    },
+    "overlays": {
+      "title": "Hộp thoại và toast",
+      "summary": "Modal để xem hoặc thao tác, ConfirmDialog để hỏi lại trước việc rủi ro, FormModal để nhập liệu, toast cho thông báo tạm thời."
+    },
+    "table": {
+      "title": "Bảng dữ liệu",
+      "summary": "Hiển thị danh sách nhiều cột có phân trang; có sẵn trạng thái đang tải và trạng thái rỗng."
+    },
+    "badge": {
+      "title": "Huy hiệu và ảnh đại diện",
+      "summary": "Nhãn trạng thái ngắn (Badge) và hình đại diện của người dùng (Avatar)."
+    },
+    "feedback": {
+      "title": "Thông báo trong trang",
+      "summary": "Callout cho thông báo nằm trong trang (cảnh báo, lỗi tải); EmptyState khi chưa có dữ liệu; thông báo tạm thời ở góc màn hình dùng toast."
+    },
+    "progress": {
+      "title": "Tiến trình và đang tải",
+      "summary": "Progress và ProgressCircle cho phần trăm hoàn thành, Spinner khi đang chờ, Skeleton giữ chỗ cho nội dung chưa tải."
+    },
+    "controls": {
+      "title": "Công tắc và lựa chọn nhanh",
+      "summary": "Toggle bật / tắt, SegmentToggle chọn một trong vài lựa chọn ngắn, Checkbox cho tuỳ chọn độc lập."
+    }
+  },
+  "button": {
+    "sizes": "Cỡ (size)",
+    "states": "Trạng thái",
+    "loading": "Loading (bấm để thử)",
+    "save": "Lưu",
+    "reset": "Đặt lại",
+    "disabled": "Vô hiệu hoá",
+    "icons": "Có icon",
+    "add": "Thêm mới",
+    "next": "Tiếp tục",
+    "iconOnlyAria": "Thêm một mục",
+    "link": "Liên kết (asChild)",
+    "goCustomers": "Mở màn Khách hàng",
+    "fullWidth": "Giãn hết bề ngang (fullWidth)",
+    "saveChanges": "Lưu thay đổi"
+  },
+  "form": {
+    "states": {
+      "default": "Bình thường",
+      "invalid": "Có lỗi",
+      "readOnly": "Chỉ đọc (readOnly)",
+      "disabled": "Vô hiệu hoá (disabled)"
+    },
+    "fields": {
+      "name": "Họ tên",
+      "namePlaceholder": "Nhập họ tên",
+      "password": "Mật khẩu",
+      "quantity": "Số lượng",
+      "quantityHint": "Từ 1 đến 10"
+    },
+    "errors": {
+      "nameRequired": "Vui lòng nhập họ tên",
+      "passwordMin": "Mật khẩu tối thiểu 8 ký tự",
+      "quantityRange": "Số lượng từ 1 đến 10"
+    },
+    "submitted": "Đã gửi form mẫu"
+  },
+  "select": {
+    "options": {
+      "hr": "Nhân sự",
+      "finance": "Tài chính",
+      "sales": "Kinh doanh",
+      "it": "Công nghệ thông tin",
+      "legal": "Pháp chế",
+      "ops": "Vận hành"
+    },
+    "placeholder": "Chọn phòng ban",
+    "single": "Chọn một (Dropdown)",
+    "searchable": "Tìm kiếm + nút xoá",
+    "radio": "Dấu chọn dạng radio",
+    "multi": "Chọn nhiều (MultiSelect)",
+    "multiSearchable": "Tìm kiếm + chọn tất cả",
+    "multiLimit": "Gộp chip (maxDisplay)",
+    "invalidDisabled": "Lỗi (invalid) · Vô hiệu hoá (disabled)",
+    "value": "Giá trị: {value}",
+    "none": "(chưa chọn)"
+  },
+  "pickers": {
+    "languageHint": "Tên tháng, tên thứ và định dạng ngày đổi theo ngôn ngữ (Cài đặt → Ngôn ngữ).",
+    "date": "Chọn ngày (SingleDatePicker)",
+    "dateTime": "Chọn ngày giờ (DateTimePicker)",
+    "time": "Chọn giờ (TimePicker)",
+    "range": "Giới hạn khoảng ngày (minDate · maxDate)",
+    "invalidDisabled": "Lỗi (invalid) · Vô hiệu hoá (disabled)",
+    "value": "Giá trị: {value}",
+    "none": "(chưa chọn)"
+  },
+  "overlays": {
+    "modal": "Modal",
+    "confirm": "ConfirmDialog (nhiều variant)",
+    "formModal": "FormModal",
+    "toast": "Toast (showToast)",
+    "openModal": "Mở Modal",
+    "openFormModal": "Mở FormModal",
+    "modalTitle": "Cập nhật hồ sơ",
+    "modalDescription": "Hộp thoại chung: tiêu đề, mô tả, nội dung và cặp nút mặc định.",
+    "modalBody": "Nội dung tuỳ ý đặt ở đây.",
+    "confirmTitle": "Bạn chắc chắn chứ?",
+    "confirmDescription": "Hành động này không thể hoàn tác.",
+    "confirmVariants": {
+      "confirm": "Xác nhận",
+      "delete": "Xoá",
+      "warning": "Cảnh báo"
+    },
+    "formTitle": "Thêm hạng mục",
+    "formName": "Tên hạng mục",
+    "formNameRequired": "Vui lòng nhập tên hạng mục",
+    "formSaved": "Đã lưu hạng mục mẫu",
+    "toastTypes": {
+      "success": "Thành công",
+      "error": "Lỗi",
+      "warning": "Cảnh báo",
+      "info": "Thông tin"
+    },
+    "toastMessages": {
+      "success": "Đã lưu thay đổi",
+      "error": "Không lưu được thay đổi",
+      "warning": "Dữ liệu sắp hết hạn",
+      "info": "Có bản cập nhật mới"
+    }
+  },
+  "table": {
+    "view": "Trạng thái dữ liệu",
+    "views": {
+      "data": "Có dữ liệu",
+      "loading": "Đang tải",
+      "empty": "Rỗng"
+    },
+    "columns": {
+      "code": "Mã",
+      "name": "Khách hàng",
+      "amount": "Giá trị",
+      "status": "Trạng thái",
+      "date": "Ngày"
+    },
+    "status": {
+      "active": "Hoạt động",
+      "inactive": "Ngưng"
+    }
+  },
+  "badge": {
+    "colors": "Màu × kiểu tô",
+    "shapes": "Hình và cỡ",
+    "extras": "Chấm · icon · nút gỡ",
+    "avatars": "Ảnh đại diện (Avatar)",
+    "statusActive": "Hoạt động",
+    "approved": "Đã duyệt",
+    "restore": "Khôi phục",
+    "tags": {
+      "design": "Thiết kế",
+      "review": "Rà soát",
+      "release": "Phát hành"
+    }
+  },
+  "feedback": {
+    "intents": "Ngữ nghĩa (intent)",
+    "closable": "Có nút đóng",
+    "empty": "Trạng thái rỗng (EmptyState)",
+    "description": "Nội dung chi tiết nằm ở đây, tối đa vài dòng.",
+    "titles": {
+      "info": "Thông tin",
+      "success": "Thành công",
+      "warning": "Cảnh báo",
+      "error": "Lỗi",
+      "neutral": "Trung tính"
+    },
+    "closableTitle": "Có thể đóng",
+    "restore": "Hiện lại",
+    "emptyTitle": "Chưa có dữ liệu",
+    "emptyDescription": "Tạo bản ghi đầu tiên để bắt đầu.",
+    "emptyAction": "Tạo mới"
+  },
+  "progress": {
+    "bar": "Thanh tiến độ (Progress)",
+    "barAria": "Tiến độ nhập liệu",
+    "increase": "Tăng 10%",
+    "decrease": "Giảm 10%",
+    "circle": "Vòng tiến độ (ProgressCircle)",
+    "spinner": "Đang chờ (Spinner)",
+    "skeleton": "Giữ chỗ (Skeleton)"
+  },
+  "controls": {
+    "toggle": "Công tắc (Toggle)",
+    "toggleLabel": "Nhận thông báo",
+    "toggleAria": "Công tắc mẫu",
+    "segment": "Chọn nhanh (SegmentToggle)",
+    "segmentOptions": {
+      "day": "Ngày",
+      "week": "Tuần",
+      "month": "Tháng"
+    },
+    "checkbox": "Hộp chọn (Checkbox)",
+    "checkboxLabel": "Đồng ý điều khoản",
+    "disabled": "Vô hiệu hoá",
+    "state": "Trạng thái: {value}",
+    "on": "Bật",
+    "off": "Tắt"
+  }
+}

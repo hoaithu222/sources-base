@@ -1,0 +1,14 @@
+{
+  "pagination": {
+    "results": "Kết quả:",
+    "perPage": "/trang",
+    "label": "Phân trang",
+    "previous": "Trang trước",
+    "next": "Trang sau"
+  },
+  "scrollEdgeNav": {
+    "left": "Cuộn sang trái",
+    "right": "Cuộn sang phải",
+    "title": "{label} — giữ để cuộn liên tục"
+  }
+}

@@ -1,0 +1,239 @@
+{
+  "toc": {
+    "aria": "Component catalog",
+    "searchLabel": "Search component groups",
+    "searchPlaceholder": "Search a group or component…",
+    "emptyTitle": "No group matches",
+    "emptyDescription": "Try a component name such as Button, Dropdown, Modal… or clear the search box."
+  },
+  "section": {
+    "importLabel": "Import",
+    "sourceLabel": "Source",
+    "docsLabel": "Docs"
+  },
+  "intro": {
+    "title": "Need a complete screen?",
+    "description": "The catalog only shows single pieces. How a form, a table, dialogs and filters fit together into a real CRUD screen lives in the Customers screen — read it instead of copying the examples here.",
+    "link": "Open the sample Customers screen"
+  },
+  "groups": {
+    "button": {
+      "title": "Buttons",
+      "summary": "Use it anywhere a click does something; to go to another page wrap a real link with asChild."
+    },
+    "form": {
+      "title": "Forms and inputs",
+      "summary": "Use it to collect validated data: fields wired to react-hook-form + Zod, errors shown right under the field."
+    },
+    "select": {
+      "title": "Pick from a list",
+      "summary": "Pick one value (Dropdown) or several (MultiSelect) from a fixed list, with a search box when the list is long."
+    },
+    "pickers": {
+      "title": "Date and time pickers",
+      "summary": "Pick a date, a date with time, or a time; month names, weekday names and the display format follow the selected language."
+    },
+    "overlays": {
+      "title": "Dialogs and toasts",
+      "summary": "Modal to view or act, ConfirmDialog to ask again before a risky action, FormModal for data entry, toast for transient messages."
+    },
+    "table": {
+      "title": "Data table",
+      "summary": "Show a multi-column list with pagination; loading and empty states are built in."
+    },
+    "badge": {
+      "title": "Badges and avatars",
+      "summary": "Short status labels (Badge) and a user picture (Avatar)."
+    },
+    "feedback": {
+      "title": "In-page messages",
+      "summary": "Callout for messages that live inside the page (warnings, load errors); EmptyState when there is no data yet; use a toast for transient corner messages."
+    },
+    "progress": {
+      "title": "Progress and loading",
+      "summary": "Progress and ProgressCircle for a completion percentage, Spinner while waiting, Skeleton to hold the place of content that has not loaded."
+    },
+    "controls": {
+      "title": "Switches and quick choices",
+      "summary": "Toggle for on / off, SegmentToggle to pick one of a few short options, Checkbox for independent choices."
+    }
+  },
+  "button": {
+    "sizes": "Sizes (size)",
+    "states": "States",
+    "loading": "Loading (click to try)",
+    "save": "Save",
+    "reset": "Reset",
+    "disabled": "Disabled",
+    "icons": "With icons",
+    "add": "Add new",
+    "next": "Continue",
+    "iconOnlyAria": "Add one item",
+    "link": "Link (asChild)",
+    "goCustomers": "Open the Customers screen",
+    "fullWidth": "Full width (fullWidth)",
+    "saveChanges": "Save changes"
+  },
+  "form": {
+    "states": {
+      "default": "Default",
+      "invalid": "With errors",
+      "readOnly": "Read only (readOnly)",
+      "disabled": "Disabled (disabled)"
+    },
+    "fields": {
+      "name": "Full name",
+      "namePlaceholder": "Enter a full name",
+      "password": "Password",
+      "quantity": "Quantity",
+      "quantityHint": "From 1 to 10"
+    },
+    "errors": {
+      "nameRequired": "Please enter a full name",
+      "passwordMin": "Password must have at least 8 characters",
+      "quantityRange": "Quantity must be from 1 to 10"
+    },
+    "submitted": "Sample form submitted"
+  },
+  "select": {
+    "options": {
+      "hr": "Human resources",
+      "finance": "Finance",
+      "sales": "Sales",
+      "it": "Information technology",
+      "legal": "Legal",
+      "ops": "Operations"
+    },
+    "placeholder": "Choose a department",
+    "single": "Single choice (Dropdown)",
+    "searchable": "Search + clear button",
+    "radio": "Radio-style mark",
+    "multi": "Multiple choice (MultiSelect)",
+    "multiSearchable": "Search + select all",
+    "multiLimit": "Collapsed chips (maxDisplay)",
+    "invalidDisabled": "Error (invalid) · Disabled (disabled)",
+    "value": "Value: {value}",
+    "none": "(nothing selected)"
+  },
+  "pickers": {
+    "languageHint": "Month names, weekday names and the date format change with the language (Settings → Language).",
+    "date": "Pick a date (SingleDatePicker)",
+    "dateTime": "Pick a date and time (DateTimePicker)",
+    "time": "Pick a time (TimePicker)",
+    "range": "Limit the date range (minDate · maxDate)",
+    "invalidDisabled": "Error (invalid) · Disabled (disabled)",
+    "value": "Value: {value}",
+    "none": "(nothing selected)"
+  },
+  "overlays": {
+    "modal": "Modal",
+    "confirm": "ConfirmDialog (several variants)",
+    "formModal": "FormModal",
+    "toast": "Toast (showToast)",
+    "openModal": "Open Modal",
+    "openFormModal": "Open FormModal",
+    "modalTitle": "Update profile",
+    "modalDescription": "The general dialog: title, description, content and the default pair of buttons.",
+    "modalBody": "Put any content here.",
+    "confirmTitle": "Are you sure?",
+    "confirmDescription": "This action cannot be undone.",
+    "confirmVariants": {
+      "confirm": "Confirm",
+      "delete": "Delete",
+      "warning": "Warning"
+    },
+    "formTitle": "Add an item",
+    "formName": "Item name",
+    "formNameRequired": "Please enter the item name",
+    "formSaved": "Sample item saved",
+    "toastTypes": {
+      "success": "Success",
+      "error": "Error",
+      "warning": "Warning",
+      "info": "Info"
+    },
+    "toastMessages": {
+      "success": "Changes saved",
+      "error": "Could not save the changes",
+      "warning": "Data is about to expire",
+      "info": "A new update is available"
+    }
+  },
+  "table": {
+    "view": "Data state",
+    "views": {
+      "data": "With data",
+      "loading": "Loading",
+      "empty": "Empty"
+    },
+    "columns": {
+      "code": "Code",
+      "name": "Customer",
+      "amount": "Amount",
+      "status": "Status",
+      "date": "Date"
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive"
+    }
+  },
+  "badge": {
+    "colors": "Color × fill",
+    "shapes": "Shape and size",
+    "extras": "Dot · icon · remove button",
+    "avatars": "Avatars (Avatar)",
+    "statusActive": "Active",
+    "approved": "Approved",
+    "restore": "Restore",
+    "tags": {
+      "design": "Design",
+      "review": "Review",
+      "release": "Release"
+    }
+  },
+  "feedback": {
+    "intents": "Meaning (intent)",
+    "closable": "With a close button",
+    "empty": "Empty state (EmptyState)",
+    "description": "The detailed content goes here, a few lines at most.",
+    "titles": {
+      "info": "Information",
+      "success": "Success",
+      "warning": "Warning",
+      "error": "Error",
+      "neutral": "Neutral"
+    },
+    "closableTitle": "Dismissible",
+    "restore": "Show again",
+    "emptyTitle": "No data yet",
+    "emptyDescription": "Create the first record to get started.",
+    "emptyAction": "Create"
+  },
+  "progress": {
+    "bar": "Progress bar (Progress)",
+    "barAria": "Data entry progress",
+    "increase": "Add 10%",
+    "decrease": "Remove 10%",
+    "circle": "Progress ring (ProgressCircle)",
+    "spinner": "Waiting (Spinner)",
+    "skeleton": "Placeholder (Skeleton)"
+  },
+  "controls": {
+    "toggle": "Switch (Toggle)",
+    "toggleLabel": "Receive notifications",
+    "toggleAria": "Sample switch",
+    "segment": "Quick choice (SegmentToggle)",
+    "segmentOptions": {
+      "day": "Day",
+      "week": "Week",
+      "month": "Month"
+    },
+    "checkbox": "Checkbox (Checkbox)",
+    "checkboxLabel": "Accept the terms",
+    "disabled": "Disabled",
+    "state": "State: {value}",
+    "on": "On",
+    "off": "Off"
+  }
+}

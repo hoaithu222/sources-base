@@ -1,0 +1,26 @@
+/* =============================================================================
+   radius.css — thang BO GÓC của app (ghi đè thang mặc định của Tailwind v4).
+
+   LUÔN bo mềm kiểu macOS, MỘT thang cho cả hai theme: không nơi nào đặt lại `--radius-*` theo `.dark` / TV / chế độ
+   nào khác. Một class `rounded-md` = 8px ở mọi nơi — component KHÔNG viết `dark:rounded-*` (hình học tối == sáng).
+
+   | Token        | px | Dùng cho                                                        |
+   |--------------|----|-----------------------------------------------------------------|
+   | rounded-xs   | 4  | checkbox, kbd, chấm đếm, thanh tiến độ                         |
+   | rounded-sm   | 6  | dòng menu / popup, ô lịch, chip, tag, con trượt segment         |
+   | rounded-md   | 8  | control: nút, ô nhập, segment, tab, phân trang, tooltip         |
+   | rounded-lg   | 12 | bề mặt: card, panel, popover, dropdown, toast, callout          |
+   | rounded-xl   | 16 | hộp thoại, drawer (cạnh trong), ô icon Dock                     |
+   | rounded-2xl  | 20 | vỏ Dock, thẻ hero                                               |
+   | rounded-full | ∞  | avatar, chấm trạng thái, pill                                   |
+
+   Luật: `docs/rules/styling/light-theme.md` §3 (bán kính lồng nhau: trong = ngoài − đệm).
+   ============================================================================= */
+@theme {
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
+}

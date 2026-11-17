@@ -1,0 +1,77 @@
+{
+  "list": {
+    "title": "Customers",
+    "subtitle": "Customer directory",
+    "create": "Add customer",
+    "searchPlaceholder": "Search by code, name or email…",
+    "searchAria": "Search customers",
+    "statusAll": "All statuses",
+    "emptyTitle": "No customers yet",
+    "emptyDescription": "Add your first customer to get started.",
+    "noMatchTitle": "No matching customers",
+    "noMatchDescription": "Try a different keyword or clear the filters.",
+    "clearFilters": "Clear filters"
+  },
+  "columns": {
+    "code": "Code",
+    "name": "Customer name",
+    "email": "Email",
+    "phone": "Phone",
+    "creditLimit": "Credit limit",
+    "status": "Status",
+    "updatedAt": "Updated",
+    "actions": "Actions"
+  },
+  "status": {
+    "active": "Active",
+    "inactive": "Inactive"
+  },
+  "actions": {
+    "deleteAria": "Delete customer {name}"
+  },
+  "delete": {
+    "title": "Delete this customer?",
+    "description": "Customer “{name}” will be deleted and cannot be restored.",
+    "confirm": "Delete",
+    "success": "Customer deleted"
+  },
+  "state": {
+    "loading": "Loading customers",
+    "loadFailed": "Could not load customer data",
+    "retry": "Try again",
+    "notFoundTitle": "Customer not found",
+    "notFoundDescription": "The link is wrong or the customer has been deleted.",
+    "backToList": "Back to list"
+  },
+  "form": {
+    "createTitle": "Add customer",
+    "createSubtitle": "Enter the new customer's details",
+    "editTitle": "Edit customer",
+    "editSubtitle": "Update the customer's details",
+    "readOnly": "You only have permission to view this customer.",
+    "create": "Create customer",
+    "save": "Save changes",
+    "created": "Customer created",
+    "updated": "Changes saved",
+    "codeTaken": "This customer code already exists",
+    "fields": {
+      "code": "Customer code",
+      "codePlaceholder": "KH001",
+      "name": "Customer name",
+      "namePlaceholder": "Example Co., Ltd",
+      "email": "Email",
+      "phone": "Phone",
+      "phonePlaceholder": "0912345678",
+      "status": "Status",
+      "creditLimit": "Credit limit",
+      "creditLimitHint": "Unit: dong (VND)"
+    }
+  },
+  "validation": {
+    "codeRequired": "Customer code is required",
+    "codeMax": "Customer code must be at most {max} characters",
+    "nameRequired": "Customer name is required",
+    "nameMax": "Customer name must be at most {max} characters",
+    "creditLimitInvalid": "Credit limit must be a non-negative number"
+  }
+}

@@ -1,0 +1,6 @@
+<svg viewBox="0 0 24 24" fill="none" data-group="business" xmlns="http://www.w3.org/2000/svg">
+  <title>Hợp đồng</title>
+  <g data-layer="duo" fill="currentColor" opacity="0.16"><path d="M13.5 3H7a2.5 2.5 0 0 0-2.5 2.5v13A2.5 2.5 0 0 0 7 21h10a2.5 2.5 0 0 0 2.5-2.5V9z"/></g>
+  <g data-layer="line" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M13.5 3H7a2.5 2.5 0 0 0-2.5 2.5v13A2.5 2.5 0 0 0 7 21h10a2.5 2.5 0 0 0 2.5-2.5V9z"/><path d="M13.5 3v3.5A2.5 2.5 0 0 0 16 9h3.5"/><path d="M8 8h3"/><path d="M8 11.5h8"/><path d="M7.75 16.6c.8-1.6 1.6-2 2.2-.9.5.9 1 1.4 1.8.3"/></g>
+  <g data-layer="dot" fill="currentColor"><circle cx="15.75" cy="16.25" r="1.75"/></g>
+</svg>

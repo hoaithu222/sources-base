@@ -1,0 +1,57 @@
+/**
+ * AppShellLayout — nền lưới + quầng màu của khung ứng dụng (StatusPage dùng lại `.app-background`).
+ * `AppShellLayout.tsx` và `pages/status/StatusPage.tsx` import file này (trang trạng thái đứng ngoài
+ * khung nên tự nạp nền); class bố cục nằm ở APP_SHELL_LAYOUT_SLOT_CLASSES.
+ * Màu chỉ qua token `var(--color-*)` (docs/rules/styling/color-system.md). Nằm trong `@layer components`
+ * để utility Tailwind gắn cùng phần tử vẫn thắng (docs/rules/styling/css-architecture.md).
+ * `@reference` bật pipeline của Tailwind cho file này (không xuất thêm CSS nào): có nó mới sinh
+ * fallback `@supports (color: color-mix…)` giống CSS đi qua globals.css — bỏ đi là trình duyệt
+ * thiếu color-mix (Safari < 16.2) không còn bản dự phòng.
+ */
+
+@reference '../../styles/globals.css';
+
+@layer components {
+  /* Nền khung app + trang trạng thái: lưới mảnh + ba quầng loang. Sáng: lưới trung tính, quầng gần
+     như tắt (giao diện quản trị sạch); tối: lưới teal + quầng DataV — chỉ đổi biến ở `.dark`. */
+  .app-background {
+    --app-grid-size: 28px;
+    --app-grid-line: color-mix(in srgb, var(--color-border-strong) 22%, transparent);
+    --app-glow-primary: 6%;
+    --app-glow-teal: 5%;
+    --app-glow-secondary: 0%;
+    background-color: var(--color-bg-page);
+    background-image:
+      linear-gradient(var(--app-grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--app-grid-line) 1px, transparent 1px),
+      radial-gradient(
+        closest-side ellipse at 50% 100%,
+        color-mix(in srgb, var(--color-primary-5) var(--app-glow-primary), transparent),
+        transparent
+      ),
+      radial-gradient(
+        closest-side ellipse at 100% 0%,
+        color-mix(in srgb, var(--color-teal-5) var(--app-glow-teal), transparent),
+        transparent
+      ),
+      radial-gradient(
+        closest-side ellipse at 0% 50%,
+        color-mix(in srgb, var(--color-secondary-5) var(--app-glow-secondary), transparent),
+        transparent
+      );
+    background-size:
+      var(--app-grid-size) var(--app-grid-size),
+      var(--app-grid-size) var(--app-grid-size),
+      auto,
+      auto,
+      auto;
+    background-repeat: repeat, repeat, no-repeat, no-repeat, no-repeat;
+  }
+
+  .dark .app-background {
+    --app-grid-line: color-mix(in srgb, var(--color-teal-5) 4%, transparent);
+    --app-glow-primary: 26%;
+    --app-glow-teal: 22%;
+    --app-glow-secondary: 18%;
+  }
+}

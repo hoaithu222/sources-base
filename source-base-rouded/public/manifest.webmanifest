@@ -1,0 +1,9 @@
+{
+  "name": "Base App",
+  "short_name": "Base",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F1F5F4",
+  "theme_color": "#F1F5F4",
+  "icons": []
+}

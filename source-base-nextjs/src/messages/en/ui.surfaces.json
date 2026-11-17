@@ -1,0 +1,25 @@
+{
+  "cardScreenshot": {
+    "view": "View image",
+    "viewNamed": "View image {name}",
+    "fallbackName": "Image"
+  },
+  "hudKpiCard": {
+    "detail": "View details"
+  },
+  "boxInfo": {
+    "close": "Close {title}"
+  },
+  "panelCard": {
+    "loading": "Loading {title}",
+    "empty": "No data yet",
+    "collapse": "Collapse {title}",
+    "expand": "Expand {title}",
+    "expandTitle": "Expand",
+    "exitFullscreen": "Exit full screen (Esc)",
+    "close": "Close {title}"
+  },
+  "splitter": {
+    "resize": "Resize panel"
+  }
+}

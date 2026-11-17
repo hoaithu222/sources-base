@@ -1,0 +1,152 @@
+{
+  "commandPalette": {
+    "title": "Quick search",
+    "placeholder": "Search modules, pages, actions…",
+    "fieldLabel": "Search…",
+    "tooltip": "Quick search ({shortcut})",
+    "emptyTitle": "No results found",
+    "emptyDescription": "No items match \"{query}\".",
+    "footerNavigate": "navigate",
+    "footerSelect": "select"
+  },
+  "dock": {
+    "navLabel": "Dock",
+    "expand": "Expand Dock",
+    "positionLabel": "Dock position",
+    "positions": {
+      "left": "Left",
+      "bottom": "Bottom",
+      "right": "Right"
+    },
+    "modes": {
+      "pinned": {
+        "label": "Pinned",
+        "description": "Always visible; tables keep their full height, the Dock floats along the bottom"
+      },
+      "autohide": {
+        "label": "Auto-hide",
+        "description": "Appears when you hover the middle of the docked edge"
+      },
+      "collapsed": {
+        "label": "Collapsed",
+        "description": "Shrinks to a small handle along the edge"
+      },
+      "hidden": {
+        "label": "Hidden",
+        "description": "Leaves no hint on screen"
+      }
+    },
+    "settings": {
+      "title": "Customize Dock",
+      "positionSection": "Position on screen",
+      "modeSection": "Display mode",
+      "modeLockedHint": "On tablets, the Dock always stays visible so it is never lost when touched.",
+      "effectsSection": "Effects",
+      "magnifyTitle": "Magnify icons",
+      "magnifyDescription": "Icons grow as you hover over them"
+    }
+  },
+  "header": {
+    "backTooltip": "Back · {shortcut}",
+    "contextStatus": {
+      "online": "Online",
+      "warning": "Needs attention",
+      "offline": "Offline"
+    },
+    "appearance": {
+      "menu": "Header style",
+      "brand": "Brand (gradient)",
+      "glass": "Frosted glass (light)"
+    },
+    "userMenu": {
+      "guest": "Guest",
+      "account": "Account",
+      "trigger": "User menu",
+      "profile": "My profile",
+      "settings": "Settings",
+      "logout": "Sign out",
+      "themeDark": "Switch to dark theme",
+      "themeLight": "Switch to light theme"
+    },
+    "moduleSwitcher": {
+      "label": "All modules and screens",
+      "title": "All modules"
+    },
+    "moduleNav": {
+      "label": "Module navigation",
+      "labelNext": "Module navigation (continued)",
+      "moreMenuLabel": "Other screens",
+      "moreLabel": "{count} more screens"
+    },
+    "launcher": {
+      "searchLabel": "Search modules or screens",
+      "searchPlaceholder": "Search modules, screens… Press Enter to open",
+      "recentLabel": "Recently opened",
+      "recent": "Recent",
+      "otherGroup": "Other",
+      "empty": "No modules or screens match “{search}”.",
+      "summary": "{modules, plural, one {# module} other {# modules}} · {screens, plural, one {# screen} other {# screens}}",
+      "findAll": "Find anything: <kbd>{shortcut}</kbd>"
+    }
+  },
+  "pageHeader": {
+    "filters": "Filters",
+    "filterApplied": "{label} (applied)",
+    "filtersWithCount": "{label} ({count} applied)",
+    "tabsLabel": "Page tabs",
+    "tabsLabelNext": "Page tabs (continued)",
+    "moreTabsMenuLabel": "Other tabs",
+    "moreTabsLabel": "{count} more tabs"
+  },
+  "progressCenter": {
+    "viewDetails": "View details",
+    "collapseDetails": "Hide details",
+    "doneLabel": "{percent}% complete",
+    "processing": "Processing",
+    "upload": {
+      "running": "Uploading",
+      "success": "Upload complete",
+      "partial": "Some files failed to upload",
+      "failed": "Upload failed",
+      "subtitleSuccess": "{total, plural, one {# file} other {# files}} · {size}",
+      "subtitleFailed": "{done, plural, one {# file} other {# files}} done · {failed, plural, one {# file} other {# files}} failed",
+      "cancel": "Cancel upload",
+      "skip": "Dismiss"
+    }
+  },
+  "tabBar": {
+    "label": "Main navigation",
+    "sheetTitle": "All modules",
+    "moreLabel": "{more} modules",
+    "moreOpenLabel": "{more} — {label} is open"
+  },
+  "workTabs": {
+    "pinned": "Pinned",
+    "current": "Current",
+    "rail": {
+      "label": "Recently opened tabs",
+      "all": "All open tabs ({count})"
+    },
+    "panel": {
+      "label": "All open tabs",
+      "title": "Open tabs",
+      "stepHint": "Switch to previous / next tab",
+      "home": "Home",
+      "closeOthers": "Close other tabs",
+      "closeUnpinned": "Close unpinned tabs"
+    },
+    "list": {
+      "filtered": "Filtered results",
+      "recent": "Recent",
+      "earlier": "Earlier",
+      "filterLabel": "Filter tabs",
+      "filterPlaceholder": "Filter by screen or module name…",
+      "empty": "No tabs match “{query}”."
+    },
+    "row": {
+      "pin": "Pin {title}",
+      "unpin": "Unpin {title}",
+      "close": "Close {title}"
+    }
+  }
+}

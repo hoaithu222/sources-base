@@ -1,0 +1,22 @@
+{
+  "$schema": "https://unpkg.com/knip@5/schema.json",
+  "entry": [
+    "vite.config.ts!",
+    "scripts/*.mjs!",
+    "src/main.tsx!",
+    "tests/**/*.test.{ts,tsx}",
+    "src/shared/ui/index.ts!",
+    "src/shared/ui/media/image-annotator/index.ts!",
+    "src/shared/hooks/index.ts!",
+    "src/shared/charts/index.ts!",
+    "src/core/http/index.ts!",
+    "src/domains/*/index.ts!",
+    "src/features/*/index.ts!"
+  ],
+  "project": ["src/**/*.{ts,tsx}"],
+  "ignore": ["src/**/*.d.ts"],
+  "vite": false,
+  "vitest": false,
+  "tailwind": false,
+  "ignoreDependencies": ["tailwindcss"]
+}

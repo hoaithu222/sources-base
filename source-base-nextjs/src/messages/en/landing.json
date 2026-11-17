@@ -1,0 +1,36 @@
+{
+  "hero": {
+    "kicker": "Internal platform",
+    "title": "Run everything on a single system",
+    "subtitle": "Data, processes and reports live in one place — role-based permissions, updated in real time, available in Vietnamese and English.",
+    "primaryCta": "Get started for free",
+    "secondaryCta": "Learn more"
+  },
+  "features": {
+    "title": "Everything a business needs to operate",
+    "subtitle": "Principles built in from day one, so the team can focus on the business.",
+    "items": {
+      "data": {
+        "title": "Centralized master data",
+        "description": "A single source of truth for every department — no more one spreadsheet per team."
+      },
+      "permissions": {
+        "title": "Role-based permissions",
+        "description": "Processes and screens match each person; real permissions are enforced on the server."
+      },
+      "reports": {
+        "title": "Real-time reports",
+        "description": "Charts and consolidated figures update continuously and read well on large displays too."
+      },
+      "multilingual": {
+        "title": "Multilingual",
+        "description": "Vietnamese and English with a dedicated address per language, friendly to search engines."
+      }
+    }
+  },
+  "cta": {
+    "title": "Ready to get started?",
+    "description": "Create an account in seconds and open your workspace.",
+    "action": "Create an account"
+  }
+}

@@ -1,0 +1,11 @@
+/* =============================================================================
+   reset.css — reset tối thiểu.
+   Preflight của Tailwind lo phần còn lại; file này CHỈ bổ sung.
+   ============================================================================= */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+}

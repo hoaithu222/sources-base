@@ -1,0 +1,160 @@
+/* =============================================================================
+   scrollbar.css — thanh cuộn mặc định của toàn app (tầng base).
+   Biến thể chọn theo class (`.scrollbar-muted`, `.scrollbar-hidden`) nằm ở
+   `utilities/scrollbar.css`. ĐỌC `docs/rules/styling/scrollbar.md` trước khi sửa — file
+   này có ba cái bẫy trình duyệt đã làm vỡ thanh cuộn thật.
+   ============================================================================= */
+@layer base {
+  /* ===========================================================================
+     Custom scrollbar — tông lạnh trầm (sky/azure), cố ý lùi sau nội dung.
+     - Firefox    → `scrollbar-width` + `scrollbar-color` (không đỡ gradient →
+                    fallback màu đặc `--color-azure-6`).
+     - WebKit/Blink → gradient thumb, track trong suốt, hover/active đậm dần.
+     Bề rộng 6px (thumb nhìn thấy 4px) — đủ để rê chuột, vẫn không lấn nội dung.
+     ⛔ MỘT bề rộng cho toàn app: KHÔNG có variant "thanh nhỏ hơn" nữa. Chỉ được
+     override MÀU (`.scrollbar-muted`) hoặc ẩn hẳn (`.scrollbar-hidden`).
+
+     ⛔ CẢ HAI property chuẩn (`scrollbar-width` VÀ `scrollbar-color`) chỉ được
+     đặt trong khối @supports Firefox dưới đây. Từ Chrome 121, chỉ cần MỘT trong
+     hai có giá trị khác `auto` là Blink chuyển hẳn sang đường render chuẩn và
+     BỎ QUA toàn bộ `::-webkit-scrollbar*` → thanh cuộn quay về bề rộng native
+     (~15px), chỉ đổi được mỗi màu.
+     Bản trước chỉ cách ly `scrollbar-width`, còn `scrollbar-color` vẫn đặt trên
+     `*` cho MỌI browser → đó chính là lý do `width: 4px` bên dưới không có tác
+     dụng trên Chrome/Edge và thanh cuộn bảng hiện ra to đùng màu xanh brand.
+     ========================================================================= */
+  :root {
+    /* Nguồn DUY NHẤT chỉnh bề rộng thanh cuộn — sửa ở đây, đổi toàn app.
+
+       Đây là VÙNG CHẠM (rãnh cuộn), KHÔNG phải bề dày nhìn thấy của thumb — phần
+       nhìn thấy do `--scrollbar-thumb-inset` quyết định (xem thumb bên dưới).
+       10px để chuột tóm được thanh mà không phải nhắm; bản trước 6px — vừa là
+       phần nhìn thấy vừa là vùng chạm — nên muốn kéo phải trúng đúng 6px đó.
+
+       ⛔ Bề rộng này phải CỐ ĐỊNH, KHÔNG được đổi theo `:hover`: nó chiếm chỗ
+       thật trong content box, đổi là mọi vùng cuộn co giãn ngang khi rê chuột — và
+       những chỗ ĐO container để vẽ (vd `ProjectTotalDonut`) sẽ nhảy vòng
+       ResizeObserver, đúng lỗi đã phải dập bằng `[scrollbar-gutter:stable]`. */
+    --scrollbar-size: 10px;
+    /* ⚠️ Cố ý BẰNG `--scrollbar-size`: một app chỉ được có MỘT bề rộng thanh
+       cuộn. `.scrollbar-thin` (deprecated, xem @layer utilities) từng đặt 3px
+       trong khi phần còn lại 4px → hai panel cạnh nhau lệch nhau rõ. Đừng tách
+       lại thành số khác nếu không muốn tái diễn. */
+    --scrollbar-size-thin: var(--scrollbar-size);
+    /* Chỗ thanh cuộn THỰC SỰ chiếm trong khung cuộn của vỏ (`<main>`, `scrollbar-gutter: stable`): bằng
+       `--scrollbar-size`, riêng máy chạm là 0 (thanh nổi, xem khối `@media` dưới). `SHELL_SAFE_INSET_X` trừ nó khỏi đệm
+       phải để mép phải nội dung vẫn thẳng mép phải header. */
+    --scrollbar-gutter: var(--scrollbar-size);
+  }
+
+  /* ⚠️ `(-moz-appearance: none)` MỘT MÌNH KHÔNG PHẢI "chỉ Firefox": WebKit
+     (Safari 15.4+) nhận `-moz-appearance` như alias của `appearance` nên khối
+     này cũng đổ vào Safari → Safari 18.2+ (đã đỡ `scrollbar-width`) rơi vào
+     đúng cái bẫy tả ở docblock trên: bỏ hết `::-webkit-scrollbar`, quay về
+     thanh cuộn native. Thêm `not (-webkit-hyphens: none)` để chốt: property đó
+     CHỈ Safari có (Chromium trả false, Firefox cũng false) ⇒ điều kiện đúng
+     duy nhất trên Firefox. Sửa điều kiện này thì sửa cả ở `.scrollbar-muted`
+     và ở khối reset `.scrollbar-thin` trong `utilities/scrollbar.css`. */
+  @supports (-moz-appearance: none) and (not (-webkit-hyphens: none)) {
+    * {
+      scrollbar-width: thin;
+      /* Khớp tông với thumb webkit ở dưới (azure-6 mờ) — Firefox không đỡ
+         gradient nên lấy stop giữa làm màu đặc. */
+      scrollbar-color: color-mix(in srgb, var(--color-azure-6) 55%, transparent) transparent;
+    }
+  }
+
+  *::-webkit-scrollbar {
+    width: var(--scrollbar-size);
+    height: var(--scrollbar-size);
+  }
+
+  /* ⛔ Máy CHẠM (điện thoại / iPad chạm ngón): thanh cuộn rộng 0 — iOS/Android vẽ thanh cuộn NỔI, không chiếm
+     chỗ, chỉ hiện lúc đang vuốt. Không có khối này thì ở chế độ thiết bị của DevTools (và vài WebView) trình
+     duyệt vẽ thanh cổ điển 10px: `<main>` mất 10px bên phải → mép thẻ / box lệch khỏi mép header, trang nhìn
+     "không cân". Cuộn vẫn chạy (vuốt).
+     Chỉ trong media query chạm ⇒ PC / laptop (kể cả laptop màn cảm ứng: `pointer: fine`) giữ thanh 10px.
+     Dùng `width/height: 0` của `::-webkit-scrollbar`, KHÔNG `scrollbar-width: none`: đặt thuộc tính chuẩn là
+     Blink bỏ qua toàn bộ `::-webkit-scrollbar*` (Bẫy 1 ở trên). */
+  @media (hover: none) and (pointer: coarse) {
+    :root {
+      --scrollbar-gutter: 0px;
+    }
+
+    *::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+    }
+  }
+
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  *::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+
+  /* ⛔ Hover/active KHÔNG đổi sang tông màu khác, chỉ ĐẬM và TRẦM hơn.
+     Bản trước làm ngược: hover/active nhảy sang bộ màu sáng full saturation
+     (sky-4/brand/sky-6 rồi sky-3/brand/azure-4) → lúc kéo thanh cuộn chói hơn
+     cả dữ liệu, và trông như một control khác hẳn.
+     Nay chỉ một họ màu lạnh (sky/azure) đi XUỐNG bậc khi tương tác:
+       nghỉ   → sky-7 · azure-6 · azure-7   @ 52%
+       hover  → giữ nguyên bậc              @ 62%
+       active → xuống thêm 1 bậc            @ 95%  (đặc, tối, không chói)
+     Cũng bỏ hẳn `brand` (#22C55E) khỏi gradient — đó là stop sáng nhất, là thứ
+     làm thanh cuộn nổi hơn nội dung. Chỉnh sắc độ → sửa các var bên dưới. */
+  *::-webkit-scrollbar-thumb {
+    --scrollbar-thumb-1: var(--color-sky-7);
+    --scrollbar-thumb-2: var(--color-azure-6);
+    --scrollbar-thumb-3: var(--color-azure-7);
+    /* 52% chứ không phải 40% như khi thumb còn dày 4px: mảnh đi một nửa thì
+       cùng độ mờ đó đọc ra nhạt hơn hẳn, dễ mất hút trên nền navy. */
+    --scrollbar-thumb-alpha: 52%;
+    background: linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--scrollbar-thumb-1) var(--scrollbar-thumb-alpha), transparent) 0%,
+      color-mix(in srgb, var(--scrollbar-thumb-2) var(--scrollbar-thumb-alpha), transparent) 50%,
+      color-mix(in srgb, var(--scrollbar-thumb-3) var(--scrollbar-thumb-alpha), transparent) 100%
+    );
+    border-radius: 9999px;
+    /* Border-padding-box trick → viền trong suốt ăn vào hai bên, thumb nhìn thấy
+       = `--scrollbar-size` - 2 × inset. Nhờ vậy đổi được BỀ DÀY TRÔNG THẤY mà
+       không đụng tới bề rộng rãnh ⇒ không gây reflow (xem `--scrollbar-size`).
+         nghỉ  → inset 4px ⇒ dày 2px, chỉ là một vạch mảnh
+         hover → inset 1px ⇒ dày 8px, dễ tóm
+
+       Lúc nghỉ cố ý MẢNH: thanh cuộn không mang thông tin gì ngoài "còn nội
+       dung phía dưới", để dày là nó tranh chỗ với chính nội dung đó. Rê vào
+       vùng cuộn mới nở ra — lúc ấy mới có ý định tóm. */
+    --scrollbar-thumb-inset: 4px;
+    border: var(--scrollbar-thumb-inset) solid transparent;
+    background-clip: padding-box;
+    transition:
+      background 200ms ease,
+      border-width 120ms ease;
+  }
+
+  /* RÊ VÀO VÙNG CUỘN là thumb dày lên — không chờ trúng đúng thumb mới béo ra.
+     Người dùng nhìn thấy chỗ để tóm TRƯỚC khi đưa chuột tới đó.
+     ⛔ CSS `:hover` viết tay PHẢI bọc `(hover: hover)`: trên máy chạm `:hover` dính lại sau cú chạm
+     (ipad-responsive.md §7) nên thumb sẽ kẹt ở trạng thái "đang rê". */
+  @media (hover: hover) {
+    *:hover::-webkit-scrollbar-thumb {
+      --scrollbar-thumb-inset: 1px;
+    }
+
+    *::-webkit-scrollbar-thumb:hover {
+      --scrollbar-thumb-alpha: 62%;
+      --scrollbar-thumb-inset: 1px;
+    }
+  }
+
+  *::-webkit-scrollbar-thumb:active {
+    --scrollbar-thumb-1: var(--color-sky-8);
+    --scrollbar-thumb-2: var(--color-azure-7);
+    --scrollbar-thumb-3: var(--color-azure-8);
+    --scrollbar-thumb-alpha: 95%;
+  }
+}

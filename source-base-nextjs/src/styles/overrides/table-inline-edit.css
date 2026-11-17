@@ -1,0 +1,23 @@
+/* =============================================================================
+   table-inline-edit.css — bảng NHẬP LIỆU đọc như BẢNG TÍNH, không như lưới ô nhập.
+
+   Vỏ bảng gắn `TABLE_INLINE_EDIT_CLASS` (`table-inline-edit`): control trong ô (khung `group/field` của UI kit) PHẲNG —
+   không viền, không nền, không bóng — tới khi DÒNG được rê chuột hoặc có focus; lúc đó khung hiện lại để người nhập thấy
+   ô nào sửa được. Ô đang LỖI (`aria-invalid="true"`) luôn giữ khung đỏ, kể cả dòng chưa chạm (lỗi không được trốn).
+
+   Chỉ máy có con trỏ thật: máy chạm không có "rê" để gọi khung ra — ở đó control luôn hiện khung (dễ thấy ô nhập),
+   và `:hover` dính trên iPad (ipad-responsive.md §7).
+
+   KHÔNG layer — phải thắng utility của Tailwind (`css-architecture.md` §overrides). Luật: docs/rules/display/data-entry-table.md §3.
+   ============================================================================= */
+
+@media (hover: hover) and (pointer: fine) {
+  .table-inline-edit
+    tbody
+    tr:not(:hover):not(:focus-within)
+    .group\/field:not(:has([aria-invalid='true'])) {
+    border-color: transparent;
+    background: transparent;
+    box-shadow: none;
+  }
+}

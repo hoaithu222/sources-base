@@ -1,0 +1,50 @@
+/* =============================================================================
+   globals.css — ENTRY của toàn bộ CSS. Chỉ có @import và @source, KHÔNG viết
+   rule ở đây. Muốn thêm CSS → xem `docs/rules/styling/css-architecture.md` để biết đặt
+   vào file nào (hoặc tạo file mới đúng thư mục) rồi import ở dưới.
+
+   ⛔ THỨ TỰ IMPORT LÀ THỨ TỰ CASCADE — đừng sắp xếp lại cho "gọn":
+     1. tailwindcss          preflight + utilities (khai layer theme/base/components/utilities)
+     2. token sinh tự động   màu + chữ, từ colors-theme.json / font.json
+     3. theme/               @theme (mốc bề rộng, animation) + @custom-variant
+     4. base/                @layer base — reset, biến :root, html/body, thanh cuộn
+     5. utilities/           @layer utilities — class chọn theo tên
+     6. overrides/           KHÔNG layer — phải thắng utility
+     7. modes/               chế độ hiển thị (TV) — có cả phần layer lẫn không layer
+
+   `source(none)` tắt tự quét của Tailwind v4 (nó sẽ duyệt cả repo: .claude/,
+   docs/, plans/ → phình CSS và nhặt nhầm chuỗi như `[file:line]` thành class).
+   Chỉ liệt kê đúng thư mục nguồn ở `@source` bên dưới.
+   ============================================================================= */
+
+@import 'tailwindcss' source(none);
+
+@import './theme/generated-colors.css';
+@import './font/generated-font.css';
+
+@import './theme/breakpoints.css';
+@import './theme/radius.css';
+@import './theme/animations.css';
+@import './theme/variants.css';
+
+@import './base/reset.css';
+@import './base/root-vars.css';
+@import './base/document.css';
+@import './base/touch.css';
+@import './base/phone.css';
+@import './base/scrollbar.css';
+
+@import './utilities/scrollbar.css';
+@import './utilities/rim-light.css';
+@import './utilities/squircle.css';
+@import './utilities/hud.css';
+
+@import './overrides/accent.css';
+@import './overrides/recharts.css';
+@import './overrides/splitter-drag.css';
+@import './overrides/autofill.css';
+@import './overrides/table-inline-edit.css';
+
+@import './modes/tv.css';
+
+@source '../**/*.{ts,tsx}';

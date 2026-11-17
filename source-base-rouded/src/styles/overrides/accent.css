@@ -1,0 +1,127 @@
+/* =============================================================================
+   accent.css (overrides) — MÀU NHẤN do người dùng chọn (Accent color trong Cài đặt hệ thống của macOS).
+
+   `<html data-accent="blue">` (đặt bởi `applyAppearance`) thay DẢI `--color-primary-1…9` bằng một họ màu khác; mọi thứ
+   đọc `primary-*` (nút chính, ô phân hệ tông primary, bôi đen chữ) đổi theo. Token ngữ nghĩa vốn khai bằng hex của dải
+   VCI (link, vòng focus, nền rê / chọn của điều hướng, gradient header) được dựng lại TỪ dải mới — riêng sáng và tối.
+   `vci` (mặc định) không có thuộc tính → không rule nào chạy.
+
+   ⛔ KHÔNG layer: `generated-colors.css` khai token ở `:root` / `.dark` ngoài layer; rule ở đây cần thắng bằng độ đặc
+      hiệu (`:root[data-accent=…]` > `:root`, `:root.dark[…]` > `.dark`).
+   ⛔ Bảng màu biểu đồ KHÔNG đổi theo màu nhấn — thứ tự series đã qua kiểm định mù màu (`chart-conventions.md`).
+   Họ màu thiếu bậc đầu / cuối được bù bằng `color-mix` với trắng / đen. Chỉ dùng token có sẵn — không hex.
+   ============================================================================= */
+
+:root[data-accent='blue'] {
+  --color-primary-1: var(--color-blue-1);
+  --color-primary-2: var(--color-blue-2);
+  --color-primary-3: var(--color-blue-3);
+  --color-primary-4: var(--color-blue-4);
+  --color-primary-5: var(--color-blue-5);
+  --color-primary-6: var(--color-blue-6);
+  --color-primary-7: var(--color-blue-7);
+  --color-primary-8: var(--color-blue-8);
+  --color-primary-9: color-mix(in srgb, var(--color-blue-8) 75%, black);
+}
+
+:root[data-accent='purple'] {
+  --color-primary-1: var(--color-purple-1);
+  --color-primary-2: var(--color-purple-2);
+  --color-primary-3: var(--color-purple-3);
+  --color-primary-4: var(--color-purple-4);
+  --color-primary-5: var(--color-purple-5);
+  --color-primary-6: var(--color-purple-6);
+  --color-primary-7: var(--color-purple-7);
+  --color-primary-8: var(--color-purple-8);
+  --color-primary-9: color-mix(in srgb, var(--color-purple-8) 75%, black);
+}
+
+:root[data-accent='pink'] {
+  --color-primary-1: color-mix(in srgb, var(--color-pink-2) 45%, white);
+  --color-primary-2: var(--color-pink-2);
+  --color-primary-3: var(--color-pink-3);
+  --color-primary-4: var(--color-pink-4);
+  --color-primary-5: var(--color-pink-5);
+  --color-primary-6: var(--color-pink-6);
+  --color-primary-7: var(--color-pink-7);
+  --color-primary-8: var(--color-pink-8);
+  --color-primary-9: color-mix(in srgb, var(--color-pink-8) 75%, black);
+}
+
+:root[data-accent='red'] {
+  --color-primary-1: var(--color-red-1);
+  --color-primary-2: var(--color-red-2);
+  --color-primary-3: var(--color-red-3);
+  --color-primary-4: var(--color-red-4);
+  --color-primary-5: var(--color-red-5);
+  --color-primary-6: var(--color-red-6);
+  --color-primary-7: var(--color-red-7);
+  --color-primary-8: var(--color-red-8);
+  --color-primary-9: var(--color-red-9);
+}
+
+:root[data-accent='orange'] {
+  --color-primary-1: color-mix(in srgb, var(--color-orange-2) 40%, white);
+  --color-primary-2: var(--color-orange-2);
+  --color-primary-3: var(--color-orange-3);
+  --color-primary-4: var(--color-orange-4);
+  --color-primary-5: var(--color-orange-5);
+  --color-primary-6: var(--color-orange-6);
+  --color-primary-7: var(--color-orange-7);
+  --color-primary-8: var(--color-orange-8);
+  --color-primary-9: var(--color-orange-9);
+}
+
+/* Vàng: dời một bậc về phía đậm để nút chính chữ trắng vẫn đọc được (vàng tươi + chữ trắng < 3:1). */
+:root[data-accent='yellow'] {
+  --color-primary-1: var(--color-yellow-1);
+  --color-primary-2: var(--color-yellow-2);
+  --color-primary-3: var(--color-yellow-3);
+  --color-primary-4: var(--color-yellow-5);
+  --color-primary-5: var(--color-yellow-6);
+  --color-primary-6: var(--color-yellow-7);
+  --color-primary-7: var(--color-yellow-8);
+  --color-primary-8: var(--color-yellow-9);
+  --color-primary-9: color-mix(in srgb, var(--color-yellow-9) 75%, black);
+}
+
+:root[data-accent='graphite'] {
+  --color-primary-1: var(--color-neutral-1);
+  --color-primary-2: color-mix(in srgb, var(--color-neutral-3) 60%, var(--color-neutral-1));
+  --color-primary-3: var(--color-neutral-3);
+  --color-primary-4: var(--color-neutral-4);
+  --color-primary-5: var(--color-neutral-5);
+  --color-primary-6: var(--color-neutral-6);
+  --color-primary-7: var(--color-neutral-7);
+  --color-primary-8: var(--color-neutral-8);
+  --color-primary-9: var(--color-neutral-9);
+}
+
+/* Token ngữ nghĩa dựng lại từ dải mới — theme sáng. */
+:root[data-accent]:not([data-accent='vci']) {
+  --color-link: var(--color-primary-7);
+  --color-action-base: var(--color-primary-7);
+  --color-ring-focus: var(--color-primary-5);
+  --color-bg-nav-hover: color-mix(in srgb, var(--color-primary-6) 8%, transparent);
+  --color-bg-nav-active: color-mix(in srgb, var(--color-primary-6) 14%, transparent);
+  --color-bg-header-from: var(--color-primary-1);
+  --color-bg-header-to: var(--color-primary-2);
+  --color-bg-brand-from: color-mix(in srgb, var(--color-primary-5) 35%, var(--color-primary-6));
+  --color-bg-brand-via: var(--color-primary-7);
+  --color-bg-brand-to: var(--color-primary-8);
+}
+
+/* Theme tối (xanh đêm): CÙNG quan hệ với giá trị VCI mặc định ở `.dark` của `generated-colors.css` — link sáng hơn
+   (bậc 4), nền RÊ trung tính (trắng 8% như macOS — màu nhấn chỉ để CHỌN), nền chọn = màu link 20%, gradient header
+   sâu (bậc 6 · 7 · 8 pha đen ~12%), nền header là màu nhấn rất nhạt trên nền trang. */
+:root.dark[data-accent]:not([data-accent='vci']) {
+  --color-link: var(--color-primary-4);
+  --color-action-base: var(--color-primary-4);
+  --color-bg-nav-hover: color-mix(in srgb, var(--color-neutral-0) 8%, transparent);
+  --color-bg-nav-active: color-mix(in srgb, var(--color-primary-4) 20%, transparent);
+  --color-bg-header-from: color-mix(in srgb, var(--color-primary-6) 18%, var(--color-bg-page));
+  --color-bg-header-to: color-mix(in srgb, var(--color-primary-6) 8%, var(--color-bg-page));
+  --color-bg-brand-from: color-mix(in srgb, var(--color-primary-6) 90%, black);
+  --color-bg-brand-via: color-mix(in srgb, var(--color-primary-7) 88%, black);
+  --color-bg-brand-to: color-mix(in srgb, var(--color-primary-8) 86%, black);
+}

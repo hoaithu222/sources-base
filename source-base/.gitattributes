@@ -1,0 +1,21 @@
+# Thống nhất xuống dòng LF cho MỌI máy, kể cả Windows.
+#
+# Không có file này, Git trên Windows (core.autocrlf=true) checkout ra CRLF:
+#  - Prettier (`endOfLine: lf`) báo gần như toàn bộ source "sai định dạng";
+#  - script trong `.husky/` mang `\r` cuối dòng — knip đọc ra lệnh `lint-staged\r`
+#    và báo nhầm gói `lint-staged` không được dùng; sh thật cũng có thể vấp.
+* text=auto eol=lf
+
+# File nhị phân — không đụng tới xuống dòng, không diff dạng văn bản.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.avif binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.otf binary
+*.pdf binary

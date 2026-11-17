@@ -1,0 +1,11 @@
+{
+  "confirmDialog": {
+    "delete": "Delete",
+    "continue": "Continue",
+    "ok": "OK",
+    "recommendation": "Recommendation:"
+  },
+  "formModal": {
+    "processing": "Processing..."
+  }
+}

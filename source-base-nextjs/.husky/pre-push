@@ -1,0 +1,5 @@
+# Cổng NHANH trước khi đẩy: kiểu, lint, cấu hình ESLint, đa ngôn ngữ, gói import, import vòng (`npm run check:fast`).
+# Test + build + coverage là việc của CI (`npm run check:ci` chạy đúng bộ đó ở máy dev); chạy `npm run check` khi muốn đủ static + test.
+# Chạy trên THƯ MỤC LÀM VIỆC — việc dở chưa commit làm đỏ thì `git stash -u` trước.
+# Khẩn cấp: git push --no-verify (CI vẫn chặn).
+npm run check:fast

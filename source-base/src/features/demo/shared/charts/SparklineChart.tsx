@@ -1,0 +1,73 @@
+import { memo, useId } from 'react';
+import { Area, AreaChart, ResponsiveContainer, Tooltip, YAxis } from 'recharts';
+
+import { fmt3, tokenVar, useChartMetrics } from '@/shared/charts';
+
+interface SparklineChartProps {
+  values: readonly number[];
+  token: string;
+  unit?: string;
+  ariaLabel: string;
+  className?: string;
+}
+
+const AREA_TOP_OPACITY = 0.4;
+
+/**
+ * SparklineChart — xu hướng nhỏ cho thẻ KPI: một đường 2px + vùng tô nhạt, KHÔNG trục / lưới / legend (chart-conventions
+ * §3.8). Số hiện tại do thẻ cha in cạnh — sparkline chỉ cho hình dạng; tooltip vẫn có cho người chạm vào.
+ *
+ * @param props.values - Chuỗi giá trị theo thời gian (≥ 2 điểm mới có đường).
+ * @param props.token - Token màu (series hoặc trạng thái) — đi qua `tokenVar`.
+ * @param props.unit - Đơn vị cuối giá trị ở tooltip.
+ * @param props.ariaLabel - Văn bản thay thế cho trình đọc màn hình (khung mang `role="img"`).
+ * @param props.className - Class của khung ngoài, thường là chiều cao (`h-12`).
+ *
+ * @example
+ * <SparklineChart ariaLabel="Tiến độ 8 tuần" className="h-12" token="success-6" values={[3, 5, 4, 7, 9]} />
+ */
+const SparklineChart = memo(function SparklineChart({
+  values,
+  token,
+  unit,
+  ariaLabel,
+  className,
+}: SparklineChartProps) {
+  const [chartRef, m] = useChartMetrics<HTMLDivElement>();
+  const gradientId = `${useId().replace(/[^a-zA-Z0-9_-]/g, '')}-spark`;
+  const data = values.map((value, index) => ({ index, value }));
+
+  return (
+    <div ref={chartRef} aria-label={ariaLabel} className={className} role="img">
+      <ResponsiveContainer {...m.container}>
+        <AreaChart {...m.chartProps} data={data} margin={{ top: 4, right: 4, bottom: 2, left: 4 }}>
+          <defs>
+            <linearGradient id={gradientId} x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%" stopColor={tokenVar(token)} stopOpacity={AREA_TOP_OPACITY} />
+              <stop offset="100%" stopColor={tokenVar(token)} stopOpacity={0} />
+            </linearGradient>
+          </defs>
+          <YAxis domain={['dataMin', 'dataMax']} hide />
+          <Tooltip
+            contentStyle={m.tooltip}
+            cursor={m.lineCursor}
+            formatter={(v) => `${fmt3(Number(v))}${unit ? ` ${unit}` : ''}`}
+            itemStyle={m.tooltipItem}
+            labelFormatter={() => ''}
+            labelStyle={{ display: 'none' }}
+          />
+          <Area
+            activeDot={m.activeDot}
+            dataKey="value"
+            fill={`url(#${gradientId})`}
+            stroke={tokenVar(token)}
+            strokeWidth={m.scale.lineWidth}
+            type="monotone"
+          />
+        </AreaChart>
+      </ResponsiveContainer>
+    </div>
+  );
+});
+
+export default SparklineChart;

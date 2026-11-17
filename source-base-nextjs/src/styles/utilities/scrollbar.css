@@ -1,0 +1,81 @@
+/* =============================================================================
+   scrollbar.css (utilities) — biến thể thanh cuộn chọn theo class.
+   Thanh cuộn MẶC ĐỊNH nằm ở `base/scrollbar.css`.
+   ============================================================================= */
+/* ===========================================================================
+   Scrollbar utility variants — opt-in via className.
+   ========================================================================= */
+@layer utilities {
+  /** ⚠️ DEPRECATED — `.scrollbar-thin` nay KHÔNG đổi bề rộng nữa (no-op).
+      Lý do: class này đang nằm ở 87 file, còn ~40 vùng cuộn khác (page shell,
+      body modal, bảng) thì không có → app tồn tại SONG SONG hai bề rộng thanh
+      cuộn, nhìn lệch hẳn giữa các panel cạnh nhau. Bề rộng nay CHỈ đến từ
+      `--scrollbar-size` (@layer base) → mọi vùng cuộn bằng nhau.
+      Giữ selector (thay vì xoá) để 87 file kia không phải sửa và không vỡ khi
+      ai đó thêm mới theo thói quen. Cần vùng cuộn nhạt hơn → `.scrollbar-muted`.
+      KHÔNG thêm class này vào code mới. */
+  .scrollbar-thin::-webkit-scrollbar {
+    width: var(--scrollbar-size-thin);
+    height: var(--scrollbar-size-thin);
+  }
+
+  /** ⛔ ĐỪNG XOÁ — đây là chỗ gỡ ngòi nổ, không phải rule thừa.
+      Tailwind v4.3 BỔ SUNG utility built-in `scrollbar-thin` / `scrollbar-auto`
+      / `scrollbar-none` (đặt property CHUẨN `scrollbar-width`). package.json ghi
+      `^4.2.1` nên npm tự kéo bản mới (đang cài 4.3.x) → tên class đó VA CHẠM với
+      `.scrollbar-thin` no-op của app. Tailwind sinh utility ngay tại
+      `@import 'tailwindcss'` (đầu `globals.css`) còn khối này ở sau, nhưng app
+      KHÔNG hề khai lại `scrollbar-width` nên giá trị `thin` của Tailwind vẫn là
+      giá trị cuối cùng của property.
+      Hậu quả đúng bằng cái bẫy mô tả ở docblock `base/scrollbar.css`: từ
+      Chrome 121, chỉ cần `scrollbar-width` khác `auto` là Blink BỎ QUA toàn bộ
+      `::-webkit-scrollbar` → vùng cuộn mang class này mất sạch thanh cuộn
+      custom, rơi về native (rộng ~15px, màu sáng).
+      Trả `auto` = giá trị initial ⇒ Blink quay lại đường vẽ custom.
+      Firefox phải LOẠI TRỪ: ở đó `*` (`base/scrollbar.css`) mới là nguồn `thin`,
+      reset `auto` với specificity (0,1,0) sẽ đè mất → thanh cuộn Firefox phình ra.
+
+      ⛔ CHỈ trung hoà `.scrollbar-thin`. KHÔNG thêm `.scrollbar-none` vào đây:
+      class đó của Tailwind mang ý "ẩn thanh cuộn", reset về `auto` là phá đúng
+      ý người viết. Cần ẩn thì dùng `.scrollbar-hidden` (khai bên dưới, đặt SAU
+      khối này nên vẫn thắng nếu một element lỡ mang cả hai class).
+      `.scrollbar-auto` cũng không cần: Tailwind đã đặt sẵn `auto`. */
+  @supports not ((-moz-appearance: none) and (not (-webkit-hyphens: none))) {
+    .scrollbar-thin {
+      scrollbar-width: auto;
+    }
+  }
+
+  /** Scrollbar NHẠT hơn mặc định — mực `fg-muted` 26% → rê 46% → kéo 66%, cùng công thức ở cả hai theme
+      (sáng: mực sage · tối: xám sáng trung tính, mờ hơn thumb trắng 28% của mặc định). Dùng cho danh sách dữ
+      liệu dày (bảng trong panel dashboard) nơi thanh cuộn nổi hơn cả dữ liệu. */
+  @supports (-moz-appearance: none) and (not (-webkit-hyphens: none)) {
+    .scrollbar-muted {
+      scrollbar-color: color-mix(in srgb, var(--color-fg-muted) 26%, transparent) transparent;
+    }
+  }
+  /* Cùng luật với thumb mặc định: hover/active chỉ đậm lên, KHÔNG đổi sang
+     token màu khác (bản trước nhảy fg-muted → fg-body). */
+  .scrollbar-muted::-webkit-scrollbar-thumb {
+    --scrollbar-thumb-alpha: 26%;
+    background: color-mix(in srgb, var(--color-fg-muted) var(--scrollbar-thumb-alpha), transparent);
+    background-clip: padding-box;
+  }
+  @media (hover: hover) {
+    .scrollbar-muted::-webkit-scrollbar-thumb:hover {
+      --scrollbar-thumb-alpha: 46%;
+    }
+  }
+  .scrollbar-muted::-webkit-scrollbar-thumb:active {
+    --scrollbar-thumb-alpha: 66%;
+  }
+
+  /** Hide scrollbar visually but keep scroll behavior (carousels, tabs). */
+  .scrollbar-hidden::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hidden {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+}

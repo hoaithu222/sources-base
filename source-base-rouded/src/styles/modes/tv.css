@@ -1,0 +1,114 @@
+/* =============================================================================
+   tv.css — chế độ TV: nâng bậc font-weight và thu padding bù cho chữ to.
+   Class `.tv` do `DisplayProvider` gắn lên <html>. Xem
+   `docs/rules/display/tv-display-mode.md`.
+
+   Hai phần có tầng KHÁC nhau, CỐ Ý:
+     1. `@layer base`   — biến weight (kế thừa xuống cây, không tranh specificity).
+     2. KHÔNG layer     — thu padding/gap: phải thắng utility của Tailwind.
+   ============================================================================= */
+@layer base {
+  /* ===========================================================================
+     TV mode — nâng bậc font-weight.
+
+     `--ui-scale` phóng to được cỡ chữ nhưng KHÔNG phóng to được độ đậm: weight
+     là thuộc tính rời rạc, không có đơn vị để nhân. Trên panel TV (độ tương phản
+     và độ nét kém hơn màn desktop, lại thường đặt ở phòng sáng) nét 450 bị chìm.
+     Nâng 2 bậc DƯỚI lên một nấc; semibold/bold giữ nguyên để không phá hierarchy
+     — nếu nâng cả 4 thì mọi cấp lại bằng nhau, mất luôn tác dụng phân cấp.
+
+     Đặt trên `:root.tv` (cùng phần tử <html> mà DisplayProvider gắn class) nên
+     biến kế thừa xuống toàn bộ cây. KHÔNG sinh thêm rule cho từng token → không
+     đụng tới specificity/thứ tự, không tranh chấp với utility `font-bold`.
+     =========================================================================== */
+  :root.tv {
+    --fw-regular: 500;
+    --fw-medium: 600;
+
+    /* KHÔNG nâng sàn riêng cho `caption-9` / `caption-10` nữa.
+       Bản trước kéo chúng từ 10px lên 12px, tức +20% trong khi mọi token khác
+       chỉ +10% — nhịp chữ trong cùng một thẻ bị lệch, và ở những hàng chật
+       (chip, ô bảng dày) chữ dễ tràn vì KHUNG không giãn theo.
+       Nay mọi token nhân cùng một hệ số, tương quan giữa các cấp giữ nguyên. */
+  }
+
+  /* Chữ thô không có class `text-*` (đọc `font-weight` từ body) cũng phải lên
+     bậc theo — nếu không, chúng là chỗ DUY NHẤT còn 450 giữa một màn hình 500. */
+  .tv body {
+    font-weight: 500;
+  }
+}
+
+/* =============================================================================
+   TV mode — THU PADDING để bù phần chữ to ra.
+
+   Chữ to lên mà khoảng trắng giữ nguyên thì nội dung bị đẩy ra ngoài khung.
+   Thu bớt padding trả lại đúng phần diện tích đó cho nội dung.
+
+   ⛔ ĐẶT NGOÀI MỌI `@layer` — CỐ Ý, đừng chuyển vào `@layer base`.
+   Cascade layer thắng theo THỨ TỰ LAYER trước, specificity chỉ xét TRONG cùng
+   layer. Tailwind đặt utility ở `@layer utilities` (sau `base`), nên rule nằm
+   trong `base` sẽ THUA `.p-4` dù selector có cụ thể hơn — đã thử và không ăn.
+   CSS không thuộc layer nào thì thắng mọi layer, nên chỗ này là chỗ đúng.
+
+   ⛔ VÌ SAO KHÔNG override `--spacing` — đã kiểm bằng chính CSS đã build:
+   Tailwind v4 sinh CẢ HAI dạng từ cùng một biến:
+       .p-2  { padding: calc(var(--spacing) * 2);  }
+       .w-80 { width:   calc(var(--spacing) * 80); }
+   Nên hạ `--spacing` sẽ co luôn BỀ RỘNG cột/sidebar — chữ to ra mà ô hẹp lại là
+   tệ hơn hẳn tình trạng ban đầu.
+
+   ⛔ VÌ SAO CHỈ THU CÁC MỨC ≥ 3 (12px trở lên):
+   Repo này vốn đã ở mật độ cao — `p-2`/`gap-2` (8px) chiếm áp đảo và chính là
+   mức chuẩn của `visual-hierarchy.md`. Thu 8px → 6px chỉ được 2px mỗi cạnh,
+   không đáng mà lại làm các khối dính vào nhau. Chỉ những chỗ còn dư thật
+   (12px, 16px, 24px) mới có gì để trả lại.
+   ============================================================================= */
+/*
+ * Thu TỈ LỆ NGHỊCH với cỡ chữ: chia cho `--ui-scale` thay vì trừ một bậc cố
+ * định. Chữ càng to thì khoảng trắng càng nhường chỗ, và phần bù luôn khớp đúng
+ * mức phóng người dùng chọn thay vì chỉ đúng ở một mức.
+ *
+ *   p-4 (16px) →  ×1.1: 14.5px  ·  ×1.2: 13.3px  ·  ×1.3: 12.3px
+ *
+ * Một công thức cho mọi mức — thêm mức phóng mới không phải sửa gì ở đây.
+ */
+:root.tv .p-3 {
+  padding: calc(var(--spacing) * 3 / var(--ui-scale));
+}
+:root.tv .p-4 {
+  padding: calc(var(--spacing) * 4 / var(--ui-scale));
+}
+:root.tv .p-6 {
+  padding: calc(var(--spacing) * 6 / var(--ui-scale));
+}
+
+:root.tv .px-3 {
+  padding-inline: calc(var(--spacing) * 3 / var(--ui-scale));
+}
+:root.tv .px-4 {
+  padding-inline: calc(var(--spacing) * 4 / var(--ui-scale));
+}
+:root.tv .px-6 {
+  padding-inline: calc(var(--spacing) * 6 / var(--ui-scale));
+}
+
+:root.tv .py-3 {
+  padding-block: calc(var(--spacing) * 3 / var(--ui-scale));
+}
+:root.tv .py-4 {
+  padding-block: calc(var(--spacing) * 4 / var(--ui-scale));
+}
+:root.tv .py-6 {
+  padding-block: calc(var(--spacing) * 6 / var(--ui-scale));
+}
+
+:root.tv .gap-3 {
+  gap: calc(var(--spacing) * 3 / var(--ui-scale));
+}
+:root.tv .gap-4 {
+  gap: calc(var(--spacing) * 4 / var(--ui-scale));
+}
+:root.tv .gap-6 {
+  gap: calc(var(--spacing) * 6 / var(--ui-scale));
+}

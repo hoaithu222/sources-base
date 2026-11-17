@@ -1,0 +1,83 @@
+{
+  "image": {
+    "view": "Xem ảnh",
+    "viewNamed": "Xem ảnh {name}",
+    "fallbackName": "Ảnh"
+  },
+  "lightbox": {
+    "title": "Xem ảnh",
+    "download": "Tải về",
+    "closeTitle": "Đóng (Esc)",
+    "prev": "Ảnh trước",
+    "prevTitle": "Ảnh trước (←)",
+    "next": "Ảnh sau",
+    "nextTitle": "Ảnh sau (→)",
+    "rotateLeft": "Xoay trái",
+    "zoomOut": "Thu nhỏ",
+    "reset": "Đặt lại",
+    "zoomIn": "Phóng to",
+    "rotateRight": "Xoay phải",
+    "annotate": "Chú thích ảnh"
+  },
+  "imageAnnotator": {
+    "decodeFailed": "Không đọc được ảnh để chú thích",
+    "saveFailed": "Không lưu được ảnh đã chú thích",
+    "flattenErrors": {
+      "exportFailed": "Không xuất được ảnh đã chú thích",
+      "canvasUnsupported": "Trình duyệt không hỗ trợ canvas 2D"
+    },
+    "cancel": "Hủy",
+    "textPlaceholder": "Nhập chữ…",
+    "tools": {
+      "ellipse": "Khoanh",
+      "text": "Chữ"
+    },
+    "sizes": {
+      "thin": "Mảnh",
+      "medium": "Vừa",
+      "thick": "Dày"
+    },
+    "colors": {
+      "red": "Màu đỏ",
+      "orange": "Màu cam",
+      "green": "Màu xanh lá",
+      "blue": "Màu xanh dương",
+      "purple": "Màu tím",
+      "white": "Màu trắng"
+    },
+    "undo": "Hoàn tác",
+    "undoTitle": "Hoàn tác (Ctrl+Z)",
+    "deleteSelected": "Xoá nét đang chọn",
+    "deleteSelectedTitle": "Xoá nét đang chọn (Delete)",
+    "clearAll": "Xoá toàn bộ chú thích"
+  },
+  "dropzone": {
+    "overlayTitle": "Thả tệp / thư mục vào đây"
+  },
+  "upload": {
+    "failed": "Tải lên thất bại",
+    "exceedMax": "Vượt quá số lượng tối đa ({max})",
+    "directoryOnly": "Chỉ được kéo thả thư mục, không được kéo thả tệp",
+    "pickFile": "Chọn file",
+    "defaultTitle": "Kéo thả tệp vào đây",
+    "dropRelease": "Thả tệp để tải lên",
+    "uploadFile": "Tải file lên",
+    "selectedCount": "{count} tệp đã chọn",
+    "acceptTypes": "Hỗ trợ {types}",
+    "acceptSize": "Tối đa {size}/tệp",
+    "acceptTypesAndSize": "Hỗ trợ {types} · tối đa {size}/tệp"
+  },
+  "fileCard": {
+    "status": {
+      "pending": "Đang chờ",
+      "uploading": "Đang tải file",
+      "paused": "Đã tạm dừng",
+      "success": "Đã tải xong",
+      "error": "Lỗi tải file"
+    },
+    "cancelUpload": "Huỷ tải",
+    "resume": "Tiếp tục",
+    "retry": "Tải lại",
+    "remove": "Xoá tệp"
+  }
+}

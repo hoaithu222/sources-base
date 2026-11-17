@@ -1,0 +1,6 @@
+<svg viewBox="0 0 24 24" fill="none" data-group="module" xmlns="http://www.w3.org/2000/svg">
+  <title>Phân tích</title>
+  <g data-layer="duo" fill="currentColor" opacity="0.16"><path d="M7.5 15.5l3.5-4 3 2.5 3.2-4.1V18H7.5z"/></g>
+  <g data-layer="line" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4v14a2 2 0 0 0 2 2h14"/><path d="M7.5 15.5l3.5-4 3 2.5 3.2-4.1"/></g>
+  <g data-layer="dot" fill="currentColor"><circle cx="18.4" cy="8.4" r="1.75"/></g>
+</svg>

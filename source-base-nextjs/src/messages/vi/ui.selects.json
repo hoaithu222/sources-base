@@ -1,0 +1,20 @@
+{
+  "shared": {
+    "placeholder": "Chọn",
+    "searchPlaceholder": "Tìm kiếm...",
+    "empty": "Không có kết quả",
+    "deselect": "Bỏ chọn {label}",
+    "clearSelection": "Xoá lựa chọn"
+  },
+  "dropdown": {
+    "createOption": "Tạo mới: \"{query}\"",
+    "removeSelection": "Gỡ lựa chọn"
+  },
+  "multiSelect": {
+    "clearAll": "Bỏ chọn tất cả"
+  },
+  "treeSelect": {
+    "expandAll": "Mở rộng tất cả",
+    "collapseAll": "Thu gọn tất cả"
+  }
+}

@@ -1,0 +1,21 @@
+/* =============================================================================
+   splitter-drag.css — trạng thái KÉO của `Splitter`. Class do component gắn/gỡ
+   trên <body>. Ngoài `@layer` + `!important` có chủ ý: con trỏ đang kéo phải
+   thắng cursor của mọi phần tử con.
+   ============================================================================= */
+
+/* =========================
+   Splitter drag — trong lúc kéo, ép cursor resize TOÀN trang + chặn bôi đen
+   chữ. Class do `Splitter` gắn/gỡ trên <body> khi bắt đầu/kết thúc kéo → cursor
+   không nhảy về mặc định khi con trỏ đi qua element khác giữa lúc kéo.
+========================= */
+body.splitter-resizing-x,
+body.splitter-resizing-x * {
+  cursor: col-resize !important;
+  user-select: none !important;
+}
+body.splitter-resizing-y,
+body.splitter-resizing-y * {
+  cursor: row-resize !important;
+  user-select: none !important;
+}

@@ -1,0 +1,15 @@
+{
+  "input": {
+    "clear": "Xóa"
+  },
+  "stepper": {
+    "increase": "Tăng",
+    "decrease": "Giảm"
+  },
+  "colorPalette": {
+    "taken": "Màu đã được sử dụng",
+    "custom": "Chọn màu tùy chỉnh",
+    "hexAria": "Mã màu hex",
+    "random": "Gợi ý màu ngẫu nhiên (tránh trùng)"
+  }
+}

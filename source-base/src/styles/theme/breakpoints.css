@@ -1,0 +1,64 @@
+/* =============================================================================
+   breakpoints.css — mốc bề rộng RIÊNG của app, đặt thêm trên thang mặc định của
+   Tailwind (sm 640 · md 768 · lg 1024 · xl 1280 · 2xl 1536).
+
+   Chỉ khai MỐC ở đây. Quyết định "mốc nào đổi cỡ gì" thuộc về component
+   (`header.theme.ts`…), không thuộc về file này.
+
+   -----------------------------------------------------------------------------
+   BẢNG THIẾT BỊ → BẬC (viewport CSS px, KHÔNG phải pixel vật lý)
+
+   Bậc = bậc `min-width` lớn nhất đã khớp: dưới sm · sm 640 · md 768 · lg 1024 · xl 1280 ·
+   2xl 1536 · wide 1800 · 3xl 1920. `phone:` / `touch:` khai ở `variants.css`.
+
+   | Nhóm              | Viewport                                              | Bậc bề rộng            | Biến thể kèm |
+   |-------------------|-------------------------------------------------------|------------------------|--------------|
+   | Điện thoại dọc    | 320×568 · 360×800 · 375×667 · 390×844 · 393×852 · 412×915 · 430×932 | dưới sm | phone: · touch: |
+   | Điện thoại ngang  | 568×320 (dưới sm) · 667×375 (sm) · 844×390 · 915×412 · 932×430 (md) | dưới sm → md | phone: (theo CAO) · touch: |
+   | Tablet dọc        | 744×1133 (mini)                                       | sm                     | phone: · touch: |
+   |                   | 768×1024 · 810×1080 · 820×1180 · 834×1194             | md                     | touch: |
+   |                   | 1024×1366 (Pro 12.9")                                 | lg                     | touch: |
+   | Tablet ngang      | 1024×768 · 1133×744 · 1180×820 · 1194×834             | lg                     | touch: |
+   |                   | 1366×1024 (Pro 12.9") — TRÙNG bề rộng laptop 14"      | xl                     | touch: |
+   | Laptop 14"        | 1280×720 · 1366×768 · 1440×900 · 1512×982 (MBP)       | xl  (1280–1535)        | —  |
+   |                   | 1536×864 (FHD@125%) — cùng bề rộng với 16" WUXGA@125% | 2xl (xem lưu ý dưới)   | —  |
+   | Laptop 16"        | 1600×900 · 1680×1050 · 1728×1117 · 1792×1120 · 1536×960 | 2xl (1536–1799)      | —  |
+   | Màn ngoài         | 1920×1080 · 2560×1440                                 | wide + 3xl (≥ 1800)    | —  |
+   | TV mode           | 3840×2160                                             | wide + 3xl             | tv: (class trên <html>) |
+
+   Hai gate "14"" và "16"" tách theo BỀ RỘNG CSS, không theo inch: 1536px là của cả 14" FHD@125% lẫn
+   16" 1920×1200@125% nên cả hai rơi vào `2xl`. Không có mốc nào tách được hai máy cùng bề rộng.
+   iPad Pro 12.9" ngang (1366) nằm ở `xl` — cùng chỗ laptop 14": phân biệt bằng `touch:`, không bằng bề rộng.
+
+   QUY TẮC GATE (mọi class mới nhắm laptop PHẢI dừng trước 1800px — màn ngoài là bản đã chốt, không đổi):
+
+   | Nhắm                                  | Gate                                  |
+   |---------------------------------------|---------------------------------------|
+   | Chỉ laptop 14" (1280–1535)            | `xl:max-2xl:`                         |
+   | Chỉ laptop 16" (1536–1799)            | `2xl:max-wide:`                       |
+   | Cả hai laptop (1280–1799)             | `xl:max-wide:`                        |
+   | Mọi màn hẹp hơn 1800px                | `max-wide:`  (bản JS: `BELOW_WIDE_QUERY`, hook `useIsBelowWide`) |
+   | Tablet theo BỀ RỘNG (chật chỗ)        | `md:` / `lg:` · `max-lg:`             |
+   | Tablet / điện thoại theo NGÓN TAY     | `touch:`                              |
+   | Điện thoại (cả dọc lẫn ngang thấp)    | `phone:`                              |
+
+   ⛔ KHÔNG sửa giá trị ở `wide:` / `3xl:` / base của laptop với lý do "cho iPad / điện thoại": chỉ THÊM
+      bậc cho màn nhỏ. Luật đầy đủ + cách kiểm: `docs/rules/display/ipad-responsive.md`.
+   ============================================================================= */
+@theme {
+  /* Extra-wide desktop breakpoint used by dense toolbars. */
+  --breakpoint-3xl: 120rem;
+
+  /* ---------------------------------------------------------------------
+     `wide` = 1800px — mốc "MÀN NGOÀI" (24" FHD trở lên) vs "LAPTOP".
+     Vì sao 1800 chứ không phải 1920 (`3xl`):
+       • Laptop 14" FHD @125%  → 1536px CSS   → dưới mốc → dùng cỡ gọn
+       • Laptop 14" MacBook     → 1512px CSS   → dưới mốc
+       • Laptop 16" MacBook     → 1728px CSS   → dưới mốc → vẫn cỡ gọn
+       • Màn ngoài 24" FHD      → ~1903–1910px → TRÊN mốc → cỡ gốc
+     Mốc 1920 (`3xl`) KHÔNG dùng được cho việc này: màn 24" FHD thực tế chỉ cho
+     viewport ~1910px (viền cửa sổ + làm tròn DPI) nên `3xl` không bao giờ khớp
+     → header bị khoá ở cỡ gọn và chữ trông bé một cách vô lý.
+     --------------------------------------------------------------------- */
+  --breakpoint-wide: 112.5rem;
+}

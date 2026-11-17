@@ -1,0 +1,74 @@
+{
+  "site": {
+    "title": "Base App — Internal management platform",
+    "description": "An internal management platform that unifies data, processes and reports in one system: role-based permissions, light / dark themes, multilingual.",
+    "keywords": [
+      "management platform",
+      "ERP",
+      "internal operations",
+      "real-time reporting",
+      "role-based access"
+    ],
+    "organizationDescription": "The team behind the internal management platform."
+  },
+  "home": {
+    "title": "Base App — Internal management platform for business",
+    "description": "Unify master data, processes and reports in one system. Role-based permissions, real-time reports, light / dark themes, available in Vietnamese and English."
+  },
+  "about": {
+    "title": "About",
+    "description": "Learn how the platform unifies a company's data, processes and reports, and the design principles behind it."
+  },
+  "login": {
+    "title": "Sign in",
+    "description": "Sign in to enter your workspace."
+  },
+  "register": {
+    "title": "Create an account",
+    "description": "Create an account to start using the platform."
+  },
+  "forgotPassword": {
+    "title": "Forgot password",
+    "description": "Enter your registered email to receive password reset instructions."
+  },
+  "resetPassword": {
+    "title": "Reset password",
+    "description": "Set a new password for your account."
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "description": "Workbench: modules and recently opened screens."
+  },
+  "profile": {
+    "title": "My profile",
+    "description": "Information about the signed-in account."
+  },
+  "settings": {
+    "title": "Settings",
+    "description": "Language, appearance, accent color, large display and shortcuts."
+  },
+  "demo": {
+    "title": "UI library",
+    "description": "An interface library that prints every token, icon and component group of the system."
+  },
+  "customers": {
+    "title": "Customers",
+    "description": "Customer list with search, status filter, pagination and delete — a sample CRUD screen."
+  },
+  "customerNew": {
+    "title": "Add customer",
+    "description": "Enter the new customer's details."
+  },
+  "customerEdit": {
+    "title": "Edit customer",
+    "description": "Update the customer's details."
+  },
+  "forbidden": {
+    "title": "Access denied",
+    "description": "Your account has not been granted permission to view this page."
+  },
+  "notFound": {
+    "title": "Page not found",
+    "description": "The link you opened does not exist or has moved somewhere else."
+  }
+}

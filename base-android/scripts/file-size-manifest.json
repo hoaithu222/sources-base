@@ -1,0 +1,47 @@
+{
+  "doc": [
+    "Manifest của `scripts/check-file-size.mjs`. ⛔ Sửa file này, ĐỪNG nới trần trong script.",
+    "",
+    "`debt` — file ĐANG vượt trần từ trước khi có cổng kiểm. Nợ được phép tồn tại,",
+    "  ⛔ không được phép PHÌNH thêm: `max` là số dòng đo được LÚC KHAI, vượt quá là",
+    "  đỏ lại. Cùng vai với `floor` của `contrast-manifest.json` — không có nó thì một",
+    "  mục khai cho 208 dòng sẽ lặng lẽ tha luôn cho 400 sau vài vòng sửa.",
+    "  Trường: file (đường dẫn từ gốc repo) · max (số dòng lúc khai) · why (bắt buộc).",
+    "",
+    "⚠️ Trả xong nợ thì XOÁ mục đi — trình soát sẽ nhắc bằng cảnh báo, không tự dọn.",
+    "⚠️ File `*.styles.ts` · `*.types.ts` · `*.constants.ts` KHÔNG cần khai ở đây:",
+    "  chúng được miễn trừ theo hậu tố, lý do ghi ở đầu `check-file-size.mjs`."
+  ],
+  "debt": [
+    {
+      "file": "src/core/api/client.ts",
+      "max": 291,
+      "why": "Thực thể axios + hai interceptor. Phần nặng đã tách sẵn ra `client.helpers.ts`, `client.refresh.ts`, `client.types.ts`; chỗ còn lại chỉ có 3 hàm ngắn, phần dài là các khối chú thích ghi lý do từng bước (thứ tự interceptor, vì sao 401 ≠ mất sóng, vì sao không log token). Tách tiếp chỉ là đẩy chú thích sang file khác. Muốn giảm thật thì đưa khối LOG ra `client.logging.ts`."
+    },
+    {
+      "file": "src/shared/utils/style/cn.ts",
+      "max": 211,
+      "why": "`twMergeConfig` là một BẢNG khai báo nhóm class sinh từ token (`SPACING`, `RADIUS`, `CONTROL_HEIGHT`, `BREAKPOINTS`) — đúng loại 'dữ liệu chứ không phải logic' mà ba hậu tố kia được miễn trừ, chỉ là tên file không mang hậu tố đó. Logic thật vỏn vẹn một hàm `cn()`. Muốn giảm thì đưa bảng sang `cn.config.ts` và giữ `cn()` ở lại."
+    },
+    {
+      "file": "src/shared/ui/date-picker/date-picker.utils.ts",
+      "max": 181,
+      "why": "16 hàm THUẦN cho lưới lịch (dựng lưới tháng, thứ tự thứ trong tuần, khoảng ngày, nhãn tháng/thập kỷ), hàm dài nhất 12 dòng. Chúng vốn đã là phần tách ra để `Calendar.tsx` giữ dưới 200 dòng. Chia đôi lần nữa thì ranh giới sẽ là tuỳ tiện — và người sửa lịch phải mở hai file thay vì một."
+    },
+    {
+      "file": "src/core/api/client.helpers.ts",
+      "max": 157,
+      "why": "6 hàm đọc lỗi (lấy câu lỗi theo mã HTTP, đọc thân lỗi của API, đánh dấu lỗi đã hiện toast) cộng bảng khoá bí mật cần che khi log. Vượt 7 dòng, và mọi cách tách đều cắt ngang một nhóm hàm gọi lẫn nhau."
+    },
+    {
+      "file": "src/core/api/session.ts",
+      "max": 157,
+      "why": "Vòng đời phiên: đọc/ghi token, dọn phiên, làm mới. ⛔ Đừng tách `performRefresh` khỏi `purgeSession`: điều 6 của `AGENTS.md` — `unavailable` (mất sóng) KHÔNG được gộp với `unauthenticated` (phiên chết) — chỉ kiểm được khi đọc hai nhánh đó cạnh nhau."
+    },
+    {
+      "file": "src/shared/utils/format/currency.utils.ts",
+      "max": 151,
+      "why": "Vượt ĐÚNG 1 dòng. `formatNumber` + `formatCurrency` dùng chung bộ hằng phân tách hàng nghìn và hàm giãn số mũ; tách ra là ba file cho hai hàm. Khai ở đây để mức 151 bị KHOÁ lại — thêm một tuỳ chọn định dạng nữa là đỏ và phải tách thật."
+    }
+  ]
+}

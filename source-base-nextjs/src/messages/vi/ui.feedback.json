@@ -1,0 +1,11 @@
+{
+  "progress": {
+    "completed": "Hoàn thành {percent}%"
+  },
+  "skeleton": {
+    "loading": "Đang tải"
+  },
+  "spinner": {
+    "loading": "Đang tải"
+  }
+}

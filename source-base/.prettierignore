@@ -1,0 +1,32 @@
+# Build output
+dist
+build
+coverage
+
+# Dependencies
+node_modules
+
+# Auto-generated — sửa nguồn (JSON / SVG) rồi chạy `npm run generate:*`,
+# đừng để Prettier viết lại đầu ra của script.
+src/shared/theme/colors.generated.ts
+src/styles/theme/generated-colors.css
+src/styles/font/generated-font.css
+src/assets/icons/index.tsx
+src/assets/image/index.ts
+src/shared/ui/icons/index.ts
+
+# Viết tay theo dạng gọn (mỗi họ màu một dòng, mỗi token một cặp [light, dark]). Prettier sẽ bẻ
+# từng mảng thành từng dòng và làm file dài gấp 3. Cấu trúc do `scripts/generate-colors.mjs` và
+# `tests/color-tokens.test.ts` kiểm, không cần Prettier.
+src/styles/theme/colors-theme.json
+
+# Env
+.env
+.env.*
+!.env.example
+
+# Locks
+package-lock.json
+
+# Public assets
+public

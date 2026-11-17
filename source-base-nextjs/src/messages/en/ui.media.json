@@ -1,0 +1,83 @@
+{
+  "image": {
+    "view": "View image",
+    "viewNamed": "View image {name}",
+    "fallbackName": "Image"
+  },
+  "lightbox": {
+    "title": "View image",
+    "download": "Download",
+    "closeTitle": "Close (Esc)",
+    "prev": "Previous image",
+    "prevTitle": "Previous image (←)",
+    "next": "Next image",
+    "nextTitle": "Next image (→)",
+    "rotateLeft": "Rotate left",
+    "zoomOut": "Zoom out",
+    "reset": "Reset",
+    "zoomIn": "Zoom in",
+    "rotateRight": "Rotate right",
+    "annotate": "Annotate image"
+  },
+  "imageAnnotator": {
+    "decodeFailed": "Couldn't load the image for annotation",
+    "saveFailed": "Couldn't save the annotated image",
+    "flattenErrors": {
+      "exportFailed": "Couldn't export the annotated image",
+      "canvasUnsupported": "This browser doesn't support 2D canvas"
+    },
+    "cancel": "Cancel",
+    "textPlaceholder": "Type text…",
+    "tools": {
+      "ellipse": "Circle",
+      "text": "Text"
+    },
+    "sizes": {
+      "thin": "Thin",
+      "medium": "Medium",
+      "thick": "Thick"
+    },
+    "colors": {
+      "red": "Red",
+      "orange": "Orange",
+      "green": "Green",
+      "blue": "Blue",
+      "purple": "Purple",
+      "white": "White"
+    },
+    "undo": "Undo",
+    "undoTitle": "Undo (Ctrl+Z)",
+    "deleteSelected": "Delete selected stroke",
+    "deleteSelectedTitle": "Delete selected stroke (Delete)",
+    "clearAll": "Clear all annotations"
+  },
+  "dropzone": {
+    "overlayTitle": "Drop files / folders here"
+  },
+  "upload": {
+    "failed": "Upload failed",
+    "exceedMax": "Maximum number of files exceeded ({max})",
+    "directoryOnly": "Only folders can be dropped, not individual files",
+    "pickFile": "Choose file",
+    "defaultTitle": "Drag and drop files here",
+    "dropRelease": "Drop files to upload",
+    "uploadFile": "Upload file",
+    "selectedCount": "{count, plural, one {# file selected} other {# files selected}}",
+    "acceptTypes": "Supports {types}",
+    "acceptSize": "Max {size} per file",
+    "acceptTypesAndSize": "Supports {types} · max {size} per file"
+  },
+  "fileCard": {
+    "status": {
+      "pending": "Waiting",
+      "uploading": "Uploading",
+      "paused": "Paused",
+      "success": "Uploaded",
+      "error": "Upload failed"
+    },
+    "cancelUpload": "Cancel upload",
+    "resume": "Resume",
+    "retry": "Retry",
+    "remove": "Delete file"
+  }
+}

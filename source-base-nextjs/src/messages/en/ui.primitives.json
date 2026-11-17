@@ -1,0 +1,51 @@
+{
+  "avatar": {
+    "defaultLabel": "Profile picture"
+  },
+  "badge": {
+    "remove": "Remove {name}"
+  },
+  "vciIcons": {
+    "add-doc": "Create document",
+    "ai": "AI assistant",
+    "alert": "Warning",
+    "analytics": "Analytics",
+    "approval": "Approval",
+    "apps": "Modules",
+    "asset": "Asset",
+    "bank": "Treasury",
+    "bell": "Notifications",
+    "budget": "Budget",
+    "cashflow": "Cash flow",
+    "contract": "Contract",
+    "customer": "Customer",
+    "export": "Export data",
+    "finance": "Finance",
+    "folder": "Records",
+    "home": "VCI home",
+    "hr": "Human resources",
+    "import": "Import data",
+    "invoice": "Invoice",
+    "item": "Materials",
+    "ledger": "General ledger",
+    "logistics": "Logistics",
+    "lot": "Lot",
+    "order": "Order",
+    "overview": "Overview",
+    "partner": "Partner",
+    "payroll": "Payroll",
+    "pending": "Pending approval",
+    "production": "Production",
+    "project": "Project",
+    "purchase": "Purchasing",
+    "quality": "Quality",
+    "reject": "Reject",
+    "report": "Report",
+    "sales": "Sales",
+    "scan": "Inventory count",
+    "settings": "Settings",
+    "time": "Time",
+    "timesheet": "Timesheet",
+    "warehouse": "Warehouse"
+  }
+}

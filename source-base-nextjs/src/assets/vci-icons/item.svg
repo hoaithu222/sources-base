@@ -1,0 +1,6 @@
+<svg viewBox="0 0 24 24" fill="none" data-group="business" xmlns="http://www.w3.org/2000/svg">
+  <title>Vật tư</title>
+  <g data-layer="duo" fill="currentColor" opacity="0.16"><path d="M12 11.8l8-4.5v9.4l-8 4.5z"/></g>
+  <g data-layer="line" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.8l8 4.5v9.4l-8 4.5-8-4.5V7.3z"/><path d="M4 7.3l8 4.5 8-4.5"/><path d="M12 11.8v9.4"/></g>
+  <g data-layer="dot" fill="currentColor"><circle cx="12" cy="7.3" r="1.5"/></g>
+</svg>

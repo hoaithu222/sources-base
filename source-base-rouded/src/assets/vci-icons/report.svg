@@ -1,0 +1,6 @@
+<svg viewBox="0 0 24 24" fill="none" data-group="module" xmlns="http://www.w3.org/2000/svg">
+  <title>Báo cáo</title>
+  <g data-layer="duo" fill="currentColor" opacity="0.16"><path d="M13.5 3H7a2.5 2.5 0 0 0-2.5 2.5v13A2.5 2.5 0 0 0 7 21h10a2.5 2.5 0 0 0 2.5-2.5V9z"/></g>
+  <g data-layer="line" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M13.5 3H7a2.5 2.5 0 0 0-2.5 2.5v13A2.5 2.5 0 0 0 7 21h10a2.5 2.5 0 0 0 2.5-2.5V9z"/><path d="M13.5 3v3.5A2.5 2.5 0 0 0 16 9h3.5"/><path d="M8.5 17.5v-2"/><path d="M12 17.5v-4"/><path d="M15.5 17.5v-1"/></g>
+  <g data-layer="dot" fill="currentColor"><circle cx="12" cy="11.25" r="1.5"/></g>
+</svg>

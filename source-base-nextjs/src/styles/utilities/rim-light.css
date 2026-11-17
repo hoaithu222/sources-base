@@ -1,0 +1,173 @@
+/* =============================================================================
+   rim-light.css (utilities) — VIỀN BẮT SÁNG kiểu macOS (Liquid Glass), chạy ở CẢ HAI theme.
+
+   Ánh sáng chiếu từ TRÊN – TRÁI: mép trên-trái sáng nhất, hai hông nhạt dần, mép dưới-phải hắt một vệt sáng
+   phụ (ánh khúc xạ qua kính). Viền vì thế KHÔNG đều — đọc ra khối nổi có độ dày, không phải khung kẻ phẳng.
+   Sáng: viền trắng rõ trên nền màu / ảnh. Tối: CÙNG hình, chỉ MỜ đi — một vạch sáng mảnh ở mép như macOS dark,
+   KHÔNG quầng, KHÔNG neon (cường độ theo theme ở khối biến bên dưới).
+
+   | Class        | Đặt lên                                             | Cách vẽ                                      |
+   |--------------|-----------------------------------------------------|----------------------------------------------|
+   | `rim-glass`  | Kính mờ trên nền màu / ảnh: header kính, Dock,      | `::after` vòng 1px dốc trắng (mask), thay    |
+   |              | hộp nhóm `glass`, widget kính, popover kính          | cho `border` — đừng để cả hai               |
+   | `rim-tile`   | Bề mặt màu ĐẶC bão hoà: ô `AppTile`, thanh header    | `::after` vòng 1px trắng mạnh ở trên-trái,  |
+   |              | `brand`, nút chính                                  | gần như tắt ở giữa, hắt nhẹ dưới-phải        |
+   | `rim-soft`   | Bề mặt có viền (trắng ở sáng, xanh đêm ở tối): thẻ,  | Đổi màu từng cạnh viền sẵn có: trên sáng     |
+   |              | hộp nhóm `raised`, ô nhập, nút phụ, thẻ làm việc     | hơn, dưới đậm / giữ nguyên; LÙI khi rê /     |
+   |              | đang mở                                             | focus / mở / lỗi                             |
+   | `edge-hi`    | Mặt có màu / nhuộm: ô icon tông, chip nhuộm         | Vạch sáng 1px đỉnh bên trong (inset shadow), |
+   |              |                                                     | ghép với `shadow-*` / `ring-*` sẵn có        |
+   | `glass-island` | ĐẢO KÍNH nổi (đi kèm `rim-glass`): Dock, header     | Bóng chung: gờ sáng trong + vòng 1px         |
+   |              | `glass`; `glass-island-sm` cho thanh dọc nhỏ (lịch  | `border-strong` + bóng đổ 2 lớp; `-sm` thu   |
+   |              | sử thẻ, bộ lọc)                                     | lớp xa (một chỗ khai, thay 4 bản sao)        |
+
+   Giá trị theo theme (khai ở khối biến ngay dưới — `:root` = sáng, `.dark` = tối; component KHÔNG tự chỉnh):
+
+   | Biến               | Sáng                                   | Tối                                         |
+   |--------------------|----------------------------------------|---------------------------------------------|
+   | `--rim-glass-k`    | 1 (trắng 95% → 62%)                    | 0.55 (≈ 52% ở mép trên-trái → 34% dưới-phải) |
+   | `--rim-tile-k`     | 1 (trắng 80% → 16%)                    | 0.6 (≈ 48% ở mép trên-trái)                 |
+   | `--rim-soft-top`   | `border-default` 55% pha nền thẻ       | `border-default` pha 28% trắng (mép sáng như macOS dark) |
+   | `--rim-soft-bottom`| `border-strong` 75% pha `border-default` | `border-default` pha 35% nền trang (mép dưới chìm) |
+   | `--rim-island-hi`  | gờ sáng trong `glass-island` 55%       | 24%                                         |
+   | `--rim-edge-hi`    | vạch sáng đỉnh `edge-hi` 65%           | 26%                                         |
+
+   ⛔ `rim-glass` / `rim-tile` dùng `::after` + `position: absolute` → phần tử PHẢI định vị (`relative` /
+      `absolute` / `fixed`), KHÔNG kèm `border` sáng và KHÔNG dùng `after:` riêng (vòng này chiếm `::after`).
+   ⛔ Độ đặc hiệu giữ y bản gốc (`:root:root` = `:root:not(.dark)` cũ): `rim-soft` thắng utility `border-*` thường nhưng
+      THUA trạng thái nằm trong danh sách `:not(…)` (rê, focus, mở, lỗi, chọn, khoá) — màu của trạng thái luôn thắng.
+   Màu chỉ qua token (`--color-neutral-0`, `--color-border-*`); góc theo `border-radius` + `corner-shape: inherit` (khối
+   `squircle` thì vòng sáng cũng squircle).
+   ============================================================================= */
+
+@layer utilities {
+  /* Khối biến theo theme. `.dark` đứng SAU `:root` (cùng độ đặc hiệu) nên thắng khi <html class="dark">.
+     Cường độ vòng `::after` đi qua `opacity` (nhân đều mọi điểm dừng của dốc) — sáng = 1 nên ra y hệt không có biến. */
+  :root {
+    --rim-glass-k: 1;
+    --rim-tile-k: 1;
+    --rim-soft-top: color-mix(in srgb, var(--color-border-default) 55%, var(--color-bg-surface));
+    --rim-soft-bottom: color-mix(
+      in srgb,
+      var(--color-border-strong) 75%,
+      var(--color-border-default)
+    );
+    --rim-island-hi: 55%;
+    --rim-edge-hi: 65%;
+  }
+
+  .dark {
+    --rim-glass-k: 0.55;
+    --rim-tile-k: 0.6;
+    --rim-soft-top: color-mix(in srgb, var(--color-neutral-0) 28%, var(--color-border-default));
+    --rim-soft-bottom: color-mix(in srgb, var(--color-bg-page) 35%, var(--color-border-default));
+    --rim-island-hi: 24%;
+    --rim-edge-hi: 26%;
+  }
+
+  .rim-glass {
+    --rim-k: var(--rim-glass-k);
+    --rim-gradient: linear-gradient(
+      var(--rim-angle, 155deg),
+      color-mix(in srgb, var(--color-neutral-0) 95%, transparent) 0%,
+      color-mix(in srgb, var(--color-neutral-0) 50%, transparent) 16%,
+      color-mix(in srgb, var(--color-neutral-0) 10%, transparent) 42%,
+      color-mix(in srgb, var(--color-neutral-0) 14%, transparent) 72%,
+      color-mix(in srgb, var(--color-neutral-0) 62%, transparent) 100%
+    );
+  }
+
+  .rim-tile {
+    --rim-k: var(--rim-tile-k);
+    --rim-gradient: linear-gradient(
+      var(--rim-angle, 155deg),
+      color-mix(in srgb, var(--color-neutral-0) 80%, transparent) 0%,
+      color-mix(in srgb, var(--color-neutral-0) 30%, transparent) 18%,
+      transparent 40%,
+      transparent 74%,
+      color-mix(in srgb, var(--color-neutral-0) 16%, transparent) 100%
+    );
+  }
+
+  :root:root :is(.rim-glass, .rim-tile)::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    padding: var(--rim-width, 1px);
+    border-radius: inherit;
+    corner-shape: inherit;
+    background: var(--rim-gradient);
+    opacity: var(--rim-k);
+    pointer-events: none;
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+      linear-gradient(#000 0 0) content-box exclude,
+      linear-gradient(#000 0 0);
+  }
+
+  /* Lùi lại khi có trạng thái: focus, mở, lỗi, chọn, khoá (+ rê chuột trên máy có chuột) — màu viền của trạng thái
+     thắng (ô nhập, nút viền). Máy chạm không có :hover dính nên tách hai khối theo `(hover: hover)`. */
+  @media (hover: hover) {
+    :root:root
+      .rim-soft:not(
+        :hover,
+        :focus-visible,
+        :focus-within,
+        [data-state='open'],
+        [aria-invalid='true'],
+        [aria-selected='true'],
+        [aria-checked='true'],
+        [data-selected],
+        :disabled,
+        [data-disabled]
+      ) {
+      border-top-color: var(--rim-soft-top);
+      border-bottom-color: var(--rim-soft-bottom);
+    }
+  }
+
+  @media (hover: none) {
+    :root:root
+      .rim-soft:not(
+        :focus-visible,
+        :focus-within,
+        [data-state='open'],
+        [aria-invalid='true'],
+        [aria-selected='true'],
+        [aria-checked='true'],
+        [data-selected],
+        :disabled,
+        [data-disabled]
+      ) {
+      border-top-color: var(--rim-soft-top);
+      border-bottom-color: var(--rim-soft-bottom);
+    }
+  }
+
+  /* Vạch sáng đỉnh BÊN TRONG cho mặt có màu / nhuộm (ô icon tông, chip nhuộm, nút đặc): ghép vào bộ bóng của Tailwind
+     (`--tw-inset-shadow`) nên KHÔNG đè `shadow-*` / `ring-*` đang có trên phần tử. */
+  :root:root .glass-island {
+    box-shadow:
+      inset 0 1px 0 color-mix(in srgb, var(--color-neutral-0) var(--rim-island-hi), transparent),
+      0 0 0 1px color-mix(in srgb, var(--color-border-strong) 55%, transparent),
+      0 2px 6px -2px var(--color-shadow-glass),
+      var(--glass-island-drop, 0 18px 40px -12px) var(--color-shadow-glass);
+  }
+
+  :root:root .glass-island-sm {
+    --glass-island-drop: 0 12px 28px -12px;
+  }
+
+  :root:root .edge-hi {
+    --tw-inset-shadow: inset 0 1px 0
+      color-mix(in srgb, var(--color-neutral-0) var(--rim-edge-hi), transparent);
+    box-shadow:
+      var(--tw-inset-shadow), var(--tw-inset-ring-shadow, 0 0 #0000),
+      var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000),
+      var(--tw-shadow, 0 0 #0000);
+  }
+}

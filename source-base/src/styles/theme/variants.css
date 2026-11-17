@@ -1,0 +1,96 @@
+/* =============================================================================
+   variants.css — biến thể Tailwind khai bằng `@custom-variant`:
+   `dark:` · `tv:` · `touch:` · `standalone:` · `phone:`.
+   ============================================================================= */
+
+/* Tailwind v4 dark variant — hookup vào `.dark` class trên <html>.
+
+   Dùng cho `dark:` prefix trên các utility class. Ưu tiên dùng semantic CSS
+   variables (đã tự flip qua `:root` vs `.dark`); chỉ dùng `dark:` prefix khi
+   cần đổi class hoàn toàn (vd module-color brand chip variants). */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Tailwind v4 TV variant — hookup vào `.tv` class trên <html> (do
+   `DisplayProvider` set). Dùng cho `tv:` prefix khi cần khác biệt mà `--ui-scale`
+   một mình không giải quyết được: ẩn chrome tương tác, đổi bậc font-weight,
+   nâng tương phản.
+
+   ⛔ BẪY Tailwind v4: class arbitrary phải viết LITERAL trong nguồn, KHÔNG được
+   nội suy từ biến (`tv:text-[${size}px]`) — scanner không quét ra nên rule không
+   bao giờ được sinh, lỗi IM LẶNG. Xem `grid-density.constants.ts:41-49`. */
+@custom-variant tv (&:where(.tv, .tv *));
+
+/* =============================================================================
+   Biến thể CẢM ỨNG & PWA — dành cho iPad. Đọc kỹ trước khi dùng.
+   =============================================================================
+
+   `touch:` = @media (hover: none) and (pointer: coarse)
+
+     Đây là biến thể ĐÚNG để tách iPad khỏi máy tính, KHÔNG PHẢI bề rộng màn.
+     Lý do: iPad Pro 12.9" nằm ngang cho viewport 1366px — trùng đúng dải của
+     laptop 14". Mọi rule viết theo bề rộng ở mốc đó sẽ đụng vào laptop, tức là
+     phá đúng thứ đang chạy tốt. Còn `pointer: coarse` thì CHỈ khớp khi người
+     dùng đang chạm bằng ngón tay:
+
+       • iPad chạm ngón  → hover:none  + pointer:coarse → KHỚP
+       • iPad + bàn phím Magic (có trackpad) → hover:hover + pointer:fine → KHÔNG
+         khớp, và đó là ĐÚNG: lúc đó máy có con trỏ thật, hover dùng được bình
+         thường nên giữ nguyên giao diện máy tính.
+       • Mọi PC / laptop → hover:hover + pointer:fine → KHÔNG BAO GIỜ khớp.
+
+     ⇒ Rule gắn `touch:` KHÔNG THỂ chạm tới bố cục PC/laptop. Đây là hàng rào
+       an toàn của toàn bộ đợt làm iPad.
+
+   `standalone:` = @media (display-mode: standalone)
+
+     Chỉ khớp khi app chạy từ biểu tượng ngoài Màn hình chính (đã "Thêm vào Màn
+     hình chính"), KHÔNG khớp khi mở trong tab Safari. Dùng cho những thứ chỉ
+     đúng ở chế độ toàn màn: chừa chỗ cho vạch Home, bỏ khoảng trống vốn dành
+     cho thanh URL.
+
+   ⛔ KHÔNG dùng `touch:` để ẩn chức năng. Chỉ dùng để đổi HÌNH THỨC (kích cỡ
+      vùng chạm, khoảng cách, bỏ hiệu ứng chỉ có nghĩa khi rê chuột). Ẩn chức
+      năng theo thiết bị là người dùng iPad mất đường đi mà không có cách nào
+      lấy lại.
+   ============================================================================= */
+@custom-variant touch (@media (hover: none) and (pointer: coarse));
+@custom-variant standalone (@media (display-mode: standalone));
+
+/* =============================================================================
+   `phone:` — màn ĐIỆN THOẠI ở CẢ HAI hướng. Chuyện KÍCH THƯỚC, không phải ngón tay
+   (nên không dùng `touch:`): điện thoại có hẹp đến đâu vẫn là chuyện bề ngang / bề cao.
+
+     @media (max-width: 767.98px)                            ← dọc
+     @media (max-height: 540px) and (max-width: 1023.98px)   ← xoay ngang
+
+   Vì sao có vế "xoay ngang": điện thoại nằm ngang rộng 667–932px nhưng chỉ cao
+   320–430px; trừ header + thanh tab thì vùng nội dung còn ~200–270px. Bố cục "cao đúng
+   một màn hình" (master-detail, box tự cuộn) phải chuyển sang CUỘN DỌC thường như bản dọc.
+
+   | Thiết bị (viewport CSS px)                        | `phone:`            |
+   |---------------------------------------------------|---------------------|
+   | Dọc 320×568 · 360×800 · 375×667 · 390×844 · 393×852 · 412×915 · 430×932 | khớp (rộng < 768) |
+   | Ngang 568×320 · 667×375 · 844×390 · 915×412 · 932×430                   | khớp (cao ≤ 540)  |
+   | iPad mini dọc 744×1133                            | khớp (rộng < 768)   |
+   | Tablet dọc 768×1024 · 810×1080 · 820×1180 · 834×1194 · 1024×1366        | KHÔNG             |
+   | Tablet ngang 1024×768 · 1133×744 · 1180×820 · 1194×834 · 1366×1024      | KHÔNG (cao > 540 hoặc rộng ≥ 1024) |
+   | Laptop 1280×720 trở lên (14" · 16" · màn ngoài · TV)                     | KHÔNG             |
+
+   Laptop nhỏ nhất (1280×~600) không bao giờ khớp: hoặc rộng ≥ 1024px, hoặc cao > 540px.
+   Cửa sổ trình duyệt máy tính kéo hẹp < 768px cũng khớp — đúng ý, bố cục một cột là đúng cho cả chỗ đó.
+   Bản JS: `PHONE_MEDIA_QUERY` + `useIsPhone()` (`@/shared/hooks`) — cùng điều kiện với khối này.
+
+   ⛔ BẮT BUỘC viết dạng KHỐI + `@slot`, KHÔNG viết gọn `@custom-variant phone (@media A, B)`:
+      dạng gọn tách theo dấu phẩy như một DANH SÁCH SELECTOR — vế sau thành selector rác
+      `.phone\:x (max-height…)` và biến thể chỉ còn khớp điện thoại dọc (lỗi im lặng; test
+      `policy/display/responsive-foundation` giữ).
+   ⛔ Giống `touch:`: chỉ đổi HÌNH THỨC / cấu trúc cho vừa chỗ hẹp, KHÔNG ẩn chức năng.
+   ============================================================================= */
+@custom-variant phone {
+  @media (max-width: 767.98px) {
+    @slot;
+  }
+  @media (max-height: 540px) and (max-width: 1023.98px) {
+    @slot;
+  }
+}

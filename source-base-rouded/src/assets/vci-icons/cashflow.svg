@@ -1,0 +1,5 @@
+<svg viewBox="0 0 24 24" fill="none" data-group="business" xmlns="http://www.w3.org/2000/svg">
+  <title>Dòng tiền</title>
+  <g data-layer="line" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4.25 12A7.75 7.75 0 0 1 18.35 7.55"/><path d="M18.35 3.5v4.06h-4.06"/><path d="M19.75 12A7.75 7.75 0 0 1 5.65 16.45"/><path d="M5.65 20.5v-4.06h4.06"/></g>
+  <g data-layer="dot" fill="currentColor"><circle cx="12" cy="12" r="2"/></g>
+</svg>

@@ -1,0 +1,14 @@
+{
+  "pagination": {
+    "results": "Results:",
+    "perPage": "/page",
+    "label": "Pagination",
+    "previous": "Previous page",
+    "next": "Next page"
+  },
+  "scrollEdgeNav": {
+    "left": "Scroll left",
+    "right": "Scroll right",
+    "title": "{label} — hold to scroll continuously"
+  }
+}

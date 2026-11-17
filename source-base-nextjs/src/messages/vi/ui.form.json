@@ -1,0 +1,83 @@
+{
+  "item": {
+    "optional": "(Tùy chọn)"
+  },
+  "dirtyGuard": {
+    "title": "Bỏ thay đổi?",
+    "message": "Bạn có thay đổi chưa lưu. Rời đi sẽ mất dữ liệu.",
+    "leave": "Rời đi",
+    "stay": "Ở lại"
+  },
+  "tabs": {
+    "errorCount": ", {count} lỗi"
+  },
+  "stepper": {
+    "next": "Tiếp theo",
+    "counter": "Bước {current}/{total}"
+  },
+  "dictionary": {
+    "keyAria": "Khoá dòng {index}",
+    "valueAria": "Giá trị dòng {index}",
+    "removeAria": "Xoá dòng {name}",
+    "removeTitle": "Xoá dòng",
+    "empty": "Chưa có thuộc tính nào.",
+    "add": "Thêm thuộc tính"
+  },
+  "serverErrors": {
+    "fallback": "Có lỗi xảy ra"
+  },
+  "asyncSelect": {
+    "placeholder": "Tìm kiếm...",
+    "searchAria": "Tìm trong danh sách",
+    "searchPlaceholder": "Tìm kiếm...",
+    "empty": "Không có kết quả",
+    "loadFailed": "Không tải được danh sách"
+  },
+  "cascade": {
+    "loading": "Đang tải..."
+  },
+  "toggle": {
+    "on": "Bật",
+    "off": "Tắt"
+  },
+  "password": {
+    "show": "Hiện mật khẩu",
+    "hide": "Ẩn mật khẩu"
+  },
+  "passwordStrength": {
+    "meterAria": "Độ mạnh mật khẩu",
+    "labels": {
+      "empty": "Mật khẩu phải chứa tối thiểu:",
+      "weak": "Mật khẩu yếu. Cần bổ sung:",
+      "moderate": "Mật khẩu trung bình. Cần bổ sung:",
+      "strong": "Mật khẩu mạnh. An toàn để sử dụng."
+    },
+    "tags": {
+      "empty": "Chưa nhập",
+      "weak": "Yếu",
+      "moderate": "Trung bình",
+      "strong": "Mạnh"
+    },
+    "conditions": {
+      "uppercase": "Ít nhất 1 chữ in hoa",
+      "digit": "Ít nhất 1 chữ số",
+      "minLength": "Ít nhất 8 ký tự"
+    }
+  },
+  "colorPicker": {
+    "aria": "Chọn màu"
+  },
+  "sortable": {
+    "dragHandle": "Kéo để sắp xếp",
+    "instructions": "Nhấn Space để nhấc dòng, dùng mũi tên lên / xuống để di chuyển, Space để thả, Esc để huỷ.",
+    "announce": {
+      "start": "Đã nhấc dòng {position}.",
+      "over": "Dòng {position} đang ở vị trí {target}.",
+      "end": "Đã thả dòng {position} vào vị trí {target}.",
+      "cancel": "Đã huỷ kéo, dòng {position} về chỗ cũ."
+    }
+  },
+  "number": {
+    "clear": "Xóa giá trị"
+  }
+}

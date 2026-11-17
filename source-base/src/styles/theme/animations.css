@@ -1,0 +1,325 @@
+/* =============================================================================
+   animations.css — token `--animate-*` + `@keyframes` + `@property` dùng chung.
+
+   Tailwind v4 map `--animate-*` trong `@theme` thành utility `animate-*`;
+   keyframe khai bên dưới. Dùng bởi `Drawer`, panel trượt và mọi
+   `data-[state=open]` transition.
+
+   Thêm animation mới: token vào `@theme`, `@keyframes` cùng tên bên dưới, và
+   nơi dùng PHẢI kèm `motion-reduce:animate-none` nếu nó chạy vô hạn.
+   ============================================================================= */
+@theme {
+  --animate-fade-in: fade-in 180ms ease-out;
+  --animate-fade-out: fade-out 150ms ease-in;
+  --animate-slide-in-right: slide-in-right 220ms ease-out;
+  --animate-slide-out-right: slide-out-right 180ms ease-in;
+  --animate-slide-in-left: slide-in-left 220ms ease-out;
+  --animate-slide-out-left: slide-out-left 180ms ease-in;
+  --animate-slide-in-top: slide-in-top 220ms ease-out;
+  --animate-slide-out-top: slide-out-top 180ms ease-in;
+  --animate-slide-in-bottom: slide-in-bottom 220ms ease-out;
+  --animate-slide-out-bottom: slide-out-bottom 180ms ease-in;
+  /* Lớp nổi (menu · popover · select · tooltip · palette · modal) hiện / ẩn: mờ + phóng nhẹ.
+     Radix chờ `animationend` của `pop-out` rồi mới gỡ DOM nên đóng cũng có chuyển động. */
+  --animate-pop-in: pop-in 160ms cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-pop-out: pop-out 120ms ease-in forwards;
+  /* Vệt sáng quét ngang của `Skeleton`. Vô hạn → nơi dùng kèm `motion-reduce:animate-none`. */
+  --animate-shimmer: shimmer 1.6s ease-in-out infinite;
+  /* Thanh ngang mọc từ trái → phải khi mount (bar row chart). Kết hợp origin-left. */
+  --animate-grow-x: grow-x 650ms ease-out both;
+  /* Vệt sáng quét ngang 1 lần qua thanh tiến độ khi hover dòng. Chỉ chạy trên
+     hover nên không tạo chuyển động nền liên tục làm rối bảng dữ liệu. */
+  --animate-progress-shine: progress-shine 900ms ease;
+  /* Equalizer "đang nói" — 1 vạch nảy lên-xuống (scaleY). Dùng cho indicator
+     người đang phát biểu trong panel participants (style Google Meet). Ghép với
+     origin-bottom + stagger delay giữa các vạch để ra hiệu ứng sóng âm. */
+  --animate-speaking-bar: speaking-bar 900ms ease-in-out infinite;
+  /* Radar quanh nút hành động đang chờ người dùng bấm (nút "Lưu kế hoạch" khi bảng
+     còn thay đổi chưa ghi): vòng sáng nở ra rồi tan.
+     Muốn "mạnh" thì tăng ĐỘ TƯƠNG PHẢN + NHỊP, đừng tăng biên độ: nút nằm trong
+     thanh công cụ dày đặc, nở rộng là vòng tràn qua cụm icon bên cạnh và cảnh báo
+     biến thành thứ gây nhiễu. Vì vậy giữ scale 1.22, đẩy opacity lên 0.9 và rút
+     nhịp còn 1.6s. Treo lên phần tử RIÊNG, đừng đặt lên chính cái nút: opacity
+     chạy tới 0 sẽ nuốt luôn nhãn chữ. */
+  --animate-radar-ring: radar-ring 1.6s ease-out infinite;
+  /* Chip câu hỏi gợi ý của trợ lý ùa vào khi người dùng đổi phân hệ PMS.
+     Biên độ CỐ Ý nhỏ (6px): danh sách chip đổi nội dung là một thay đổi nhẹ ở
+     góc màn hình, không phải một màn hình mới — trượt xa hơn thì nó cướp sự chú
+     ý khỏi chính công việc người ta đang làm ở giữa màn. `both` giữ khung hình
+     đầu để chip không loé lên đúng chỗ rồi mới lùi xuống chạy lại. */
+  --animate-chip-in: chip-in 240ms ease-out both;
+  /* Vệt sáng CHẠY DỌC MÉP TRÊN của khung panel (`HudFrame intensity="prime"`).
+     Nhịp CỐ Ý chậm (5.5s) và vệt CỐ Ý mảnh: đây là chuyển động NỀN, chạy suốt
+     thời gian panel còn trên màn. Nhanh hơn hoặc dày hơn thì mắt bị kéo về mép
+     khung thay vì về SỐ LIỆU trong khung — đúng thứ màn điều hành không được
+     phép làm. Nơi dùng phải kèm `motion-reduce:animate-none`. */
+  --animate-hud-sweep: hud-sweep 5.5s linear infinite;
+
+  /* ---------------------------------------------------------------------
+     MÀN XÁC THỰC (`features/auth`) — 3 chuyển động NỀN của "Command Console".
+
+     Cả ba đều chạy vô hạn nên CỐ Ý chậm và biên độ nhỏ: màn đăng nhập chỉ có
+     một việc để làm (gõ email + mật khẩu), nền mà nhấp nháy nhanh thì mắt bị
+     kéo khỏi đúng hai ô đó. Nơi dùng PHẢI kèm `motion-reduce:animate-none`.
+     --------------------------------------------------------------------- */
+
+  /* Lưới phối cảnh trôi về phía chân trời. Chu kỳ 7s khớp đúng một ô lưới
+     (68px × 46px) nên vòng lặp không nhìn thấy điểm nối. */
+  --animate-auth-grid: auth-grid 7s linear infinite;
+  /* Ma trận chấm nhấp nháy — đổi opacity CẢ LỚP, không per-dot: rẻ hơn nhiều
+     lần mà mắt vẫn đọc ra "dữ liệu đang chạy". */
+  --animate-auth-twinkle: auth-twinkle 5.5s ease-in-out infinite;
+  /* Đốm sáng chạy vòng quanh viền khoang form. */
+  --animate-auth-ring: auth-ring 6s linear infinite;
+}
+
+/*
+ * Thanh tiến độ chạy từ 0 → giá trị thật khi vừa hiện.
+ *
+ * Đặt ở globals vì HAI màn dùng: panel "Khối lượng hạng mục" (Tổng quan dự án) và
+ * danh sách loại hạng mục (Thống kê nghiệm thu). Trước đây keyframe chỉ được bơm
+ * runtime bởi `OverviewKeyframes` của riêng Tổng quan, nên màn khác tham chiếu tên
+ * này thì trình duyệt bỏ qua — thanh đứng im mà không có gì báo.
+ */
+@keyframes pvBarGrow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/*
+ * Sóng mặt nước của `<LiquidGauge>` — dịch ngang liên tục.
+ *
+ * `-50%` chứ KHÔNG phải một số px: đường sóng được vẽ rộng gấp ĐÔI khung
+ * (0 → 2×size) và gồm 4 chu kỳ giống hệt nhau, nên dịch đúng nửa bề ngang của
+ * chính nó là rơi trúng biên chu kỳ — mắt không thấy điểm nối. Dùng px thì mỗi
+ * cỡ gauge lại cần một keyframe riêng.
+ *
+ * Trong SVG, phần trăm của `transform` quy chiếu theo hộp bao của chính phần
+ * tử, nên công thức này đúng với mọi `size`.
+ */
+@keyframes liquid-wave {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes chip-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes slide-in-right {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+@keyframes slide-out-right {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+@keyframes slide-in-left {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+@keyframes slide-out-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+@keyframes slide-in-top {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+@keyframes slide-out-top {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-100%);
+  }
+}
+@keyframes slide-in-bottom {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+@keyframes slide-out-bottom {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(100%);
+  }
+}
+@keyframes grow-x {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+@keyframes pop-out {
+  to {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+/* Nền gradient rộng 200% trượt từ 150% → -50%: vệt sáng vào từ mép trái, ra hẳn mép phải. */
+@keyframes shimmer {
+  from {
+    background-position: 150% 0;
+  }
+  to {
+    background-position: -50% 0;
+  }
+}
+@keyframes progress-shine {
+  to {
+    transform: translateX(100%);
+  }
+}
+@keyframes speaking-bar {
+  0%,
+  100% {
+    transform: scaleY(0.35);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+@keyframes radar-ring {
+  0% {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+  75% {
+    opacity: 0;
+    transform: scale(1.22);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.22);
+  }
+}
+
+/*
+ * Vệt sáng quét mép trên khung `HudFrame intensity="prime"`.
+ *
+ * Chạy bằng `translateX` phần trăm (KHÔNG phải `left`): `transform` được
+ * compositor xử lý nên không sinh reflow mỗi khung hình — màn dashboard hay có
+ * 6-8 panel cùng chạy, làm bằng `left` là cả trang giật.
+ *
+ * Vệt tắt hẳn ở hai đầu (`opacity` 0 tại 0% và 100%) để lúc nhảy vòng lại
+ * không thấy nó "biến mất giữa đường".
+ */
+@keyframes hud-sweep {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  12% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+/* =============================================================================
+   MÀN XÁC THỰC — @property + keyframes. Xem token `--animate-auth-*` ở @theme.
+   ============================================================================= */
+
+/* Cho phép animate GÓC của conic-gradient (đốm sáng chạy viền `--animate-auth-ring`).
+   Trình duyệt không hỗ trợ `@property` bỏ qua khối này → gradient đứng yên và
+   viền vẫn còn nguyên. Đây là lý do KHÔNG dựa vào chuyển động để tạo ra viền. */
+@property --auth-ring-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+/* Trôi đúng MỘT ô lưới (68px ngang × 46px dọc) rồi lặp — xem `--animate-auth-grid`. */
+@keyframes auth-grid {
+  to {
+    background-position:
+      0 46px,
+      68px 0;
+  }
+}
+
+/* Biên độ CỐ Ý hẹp (.30 → .62): đây là hạt nền, không phải chỉ báo trạng thái. */
+@keyframes auth-twinkle {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.62;
+  }
+}
+
+@keyframes auth-ring {
+  to {
+    --auth-ring-angle: 360deg;
+  }
+}

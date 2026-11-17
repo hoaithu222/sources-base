@@ -1,0 +1,5 @@
+<svg viewBox="0 0 24 24" fill="none" data-group="module" xmlns="http://www.w3.org/2000/svg">
+  <title>Chất lượng</title>
+  <g data-layer="duo" fill="currentColor" opacity="0.16"><path d="M12 3L5 5.6v5.6c0 4.4 2.9 8.2 7 9.8 4.1-1.6 7-5.4 7-9.8V5.6z"/></g>
+  <g data-layer="line" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3L5 5.6v5.6c0 4.4 2.9 8.2 7 9.8 4.1-1.6 7-5.4 7-9.8V5.6z"/><path d="M8.75 11.75L11 14l4.25-4.5"/></g>
+</svg>

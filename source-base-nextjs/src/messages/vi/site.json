@@ -1,0 +1,14 @@
+{
+  "header": {
+    "navLabel": "Điều hướng chính",
+    "about": "Giới thiệu",
+    "signIn": "Đăng nhập",
+    "signUp": "Bắt đầu"
+  },
+  "footer": {
+    "navLabel": "Liên kết chân trang",
+    "tagline": "Hợp nhất dữ liệu, quy trình và báo cáo trên một hệ thống.",
+    "rights": "© {year} {name}. Bảo lưu mọi quyền."
+  },
+  "skipToContent": "Bỏ qua tới nội dung"
+}

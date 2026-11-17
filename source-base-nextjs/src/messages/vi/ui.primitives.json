@@ -1,0 +1,51 @@
+{
+  "avatar": {
+    "defaultLabel": "Ảnh đại diện"
+  },
+  "badge": {
+    "remove": "Xoá {name}"
+  },
+  "vciIcons": {
+    "add-doc": "Tạo chứng từ",
+    "ai": "Trợ lý AI",
+    "alert": "Cảnh báo",
+    "analytics": "Phân tích",
+    "approval": "Phê duyệt",
+    "apps": "Phân hệ",
+    "asset": "Tài sản",
+    "bank": "Ngân quỹ",
+    "bell": "Thông báo",
+    "budget": "Ngân sách",
+    "cashflow": "Dòng tiền",
+    "contract": "Hợp đồng",
+    "customer": "Khách hàng",
+    "export": "Xuất dữ liệu",
+    "finance": "Tài chính",
+    "folder": "Hồ sơ",
+    "home": "Trang chủ VCI",
+    "hr": "Nhân sự",
+    "import": "Nhập dữ liệu",
+    "invoice": "Hoá đơn",
+    "item": "Vật tư",
+    "ledger": "Sổ cái",
+    "logistics": "Vận chuyển",
+    "lot": "Lô hàng",
+    "order": "Đơn hàng",
+    "overview": "Tổng quan",
+    "partner": "Đối tác",
+    "payroll": "Tiền lương",
+    "pending": "Chờ duyệt",
+    "production": "Sản xuất",
+    "project": "Dự án",
+    "purchase": "Mua hàng",
+    "quality": "Chất lượng",
+    "reject": "Từ chối",
+    "report": "Báo cáo",
+    "sales": "Bán hàng",
+    "scan": "Kiểm kê",
+    "settings": "Cấu hình",
+    "time": "Thời gian",
+    "timesheet": "Chấm công",
+    "warehouse": "Kho vận"
+  }
+}

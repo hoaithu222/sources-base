@@ -1,0 +1,130 @@
+/**
+ * header-curves.css — nét UỐN LƯỢN của thanh header: KHAY hai bên khối tiêu đề + CHÂN LOE của tab (cả hai theme, chỉ khác
+ * màu) + ĐƯỜNG CONG đồng tâm góc phải của thanh `brand` (`.hdr-aurora`, như thẻ ngân hàng — viết CSS thường vì gradient dài,
+ * để ở class tuỳ biến Tailwind thì giá trị lặp thêm lần nữa trong tên selector).
+ *
+ * Khay `.hdr-tray-left` / `.hdr-tray-right` (gốc dải tab mỗi bên): nền mờ `--hdr-tray` + đường viền trên `--hdr-tray-line` chạy
+ * ngang trên đầu nhóm tab, mờ dần ra mép ngoài, tới đầu sát tiêu đề thì CONG CHỮ S đổ xuống mép đáy thanh (bezier tiếp tuyến
+ * NGANG ở hai đầu — không gãy góc) → tiêu đề nằm trong "thung lũng" giữa hai khay. Mask: một lớp gradient cho đoạn thẳng
+ * (giãn theo số tab) + một lớp SVG cho đoạn cong (cố định `--hdr-tray-s`), màu lấy từ biến nên đổi kiểu thanh là khay đổi theo.
+ * Tab `.hdr-tab`: hai CHÂN loe lõm ở góc đáy (`::before` / `::after`, nền `radial-gradient` cùng màu `--tab-fill` của thân) —
+ * tab đứng trên mép đáy và chảy liền vào nó như tab trình duyệt. Hình học GIỐNG HỆT ở cả hai theme; màu khay (`--hdr-tray`,
+ * `--hdr-tray-line`) theo kiểu thanh, bản tối của kiểu `glass` ở cuối khối biến.
+ */
+
+[data-appearance='brand'] {
+  --hdr-tray: color-mix(in srgb, var(--color-neutral-0) 7%, transparent);
+  --hdr-tray-line: color-mix(in srgb, var(--color-neutral-0) 34%, transparent);
+}
+
+[data-appearance='glass'] {
+  --hdr-tray: color-mix(in srgb, var(--color-primary-5) 5%, transparent);
+  --hdr-tray-line: var(--color-border-strong);
+}
+
+/* Tối: kính xanh đêm — khay là lớp phủ trắng mờ (sáng hơn nền một nấc) thay cho lớp ngọc 5% chỉ hợp nền sáng. */
+.dark [data-appearance='glass'] {
+  --hdr-tray: color-mix(in srgb, var(--color-neutral-0) 7%, transparent);
+}
+
+:is(.hdr-tray-left, .hdr-tray-right) {
+  --hdr-tray-top: 0.375rem;
+  --hdr-tray-out: 1.5rem;
+  --hdr-tray-s: 1.75rem;
+  position: relative;
+  isolation: isolate;
+}
+
+/* Vẽ một lần cho khay TRÁI; khay phải = cùng hình lật gương (scale -1 1) — một bộ mask cho cả hai bên. */
+:is(.hdr-tray-left, .hdr-tray-right)::before,
+:is(.hdr-tray-left, .hdr-tray-right)::after {
+  content: '';
+  position: absolute;
+  inset: var(--hdr-tray-top) calc(var(--hdr-tray-s) * -1) 0 calc(var(--hdr-tray-out) * -1);
+  z-index: -1;
+  pointer-events: none;
+  mask-repeat: no-repeat;
+  mask-position:
+    0 0,
+    100% 0;
+}
+
+.hdr-tray-right::before,
+.hdr-tray-right::after {
+  inset-inline: calc(var(--hdr-tray-s) * -1) calc(var(--hdr-tray-out) * -1);
+  scale: -1 1;
+}
+
+:is(.hdr-tray-left, .hdr-tray-right)::before {
+  background: var(--hdr-tray);
+  mask-size:
+    calc(100% - var(--hdr-tray-s)) 100%,
+    var(--hdr-tray-s) 100%;
+  mask-image:
+    linear-gradient(90deg, transparent, #000 var(--hdr-tray-out)),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 42' preserveAspectRatio='none'%3E%3Cpath d='M0 0C14 0 14 42 28 42H0Z'/%3E%3C/svg%3E");
+}
+
+:is(.hdr-tray-left, .hdr-tray-right)::after {
+  background: var(--hdr-tray-line);
+  mask-size:
+    calc(100% - var(--hdr-tray-s)) 1px,
+    var(--hdr-tray-s) 100%;
+  mask-image:
+    linear-gradient(90deg, transparent, #000 var(--hdr-tray-out)),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 42' preserveAspectRatio='none'%3E%3Cpath d='M0 .5C14 .5 14 41.5 28 41.5' fill='none' stroke='%23000' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
+}
+
+/* Chân TRÁI vẽ một lần; chân phải = lật gương. */
+.hdr-tab::before,
+.hdr-tab::after {
+  --hdr-foot: 0.5rem;
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 100%;
+  width: var(--hdr-foot);
+  height: var(--hdr-foot);
+  pointer-events: none;
+  background: radial-gradient(
+    circle at 0 0,
+    transparent calc(var(--hdr-foot) - 0.6px),
+    var(--tab-fill) var(--hdr-foot)
+  );
+}
+
+.hdr-tab::after {
+  right: auto;
+  left: 100%;
+  scale: -1 1;
+}
+
+.hdr-aurora {
+  background-image:
+    radial-gradient(
+      circle at 97% 175%,
+      transparent 0 70px,
+      color-mix(in srgb, var(--color-neutral-0) 11%, transparent) 71px 72px,
+      transparent 73px 100px,
+      color-mix(in srgb, var(--color-neutral-0) 8%, transparent) 101px 102px,
+      transparent 103px 132px,
+      color-mix(in srgb, var(--color-neutral-0) 5%, transparent) 133px 134px,
+      transparent 135px
+    ),
+    radial-gradient(
+      circle at 30% -60%,
+      transparent 0 150px,
+      color-mix(in srgb, var(--color-neutral-0) 6%, transparent) 151px 152px,
+      transparent 153px
+    ),
+    radial-gradient(
+      55% 160% at 72% 0%,
+      color-mix(in srgb, var(--color-primary-4) 26%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      30% 120% at 100% 100%,
+      color-mix(in srgb, var(--color-accent-5) 12%, transparent),
+      transparent 70%
+    );
+}

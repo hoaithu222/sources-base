@@ -1,0 +1,40 @@
+{
+  "trend": {
+    "up": "up",
+    "down": "down",
+    "versus": "Compared with {versus}"
+  },
+  "statusBoard": {
+    "states": {
+      "running": "Running",
+      "idle": "Idle",
+      "warning": "Needs checking",
+      "stopped": "Stopped"
+    }
+  },
+  "noticeBoard": {
+    "empty": "Nothing needs attention"
+  },
+  "tree": {
+    "loading": "Loading content",
+    "empty": "No folders found",
+    "searchEmpty": "No results found"
+  },
+  "table": {
+    "loading": "Loading",
+    "loadingText": "Loading...",
+    "dragHandle": "Drag to reorder",
+    "dragRole": "draggable row",
+    "sortBy": "Sort by {name}",
+    "resizeColumn": "Resize column",
+    "dnd": {
+      "instructions": "Press Space to pick up the row, use the arrow keys to move it, press Space again to drop it in its new place, or Esc to cancel.",
+      "start": "Picked up row {row}.",
+      "over": "Row {row} is over row {target}.",
+      "outside": "Row {row} is outside the table.",
+      "end": "Dropped row {row} at the position of row {target}.",
+      "dropped": "Dropped row {row}.",
+      "cancel": "Drag cancelled, row {row} returned to its original place."
+    }
+  }
+}

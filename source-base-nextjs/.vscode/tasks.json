@@ -1,0 +1,22 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    { "label": "dev", "type": "npm", "script": "dev", "isBackground": true, "problemMatcher": [] },
+    { "label": "typecheck", "type": "npm", "script": "typecheck", "problemMatcher": "$tsc" },
+    { "label": "lint", "type": "npm", "script": "lint", "problemMatcher": "$eslint-stylish" },
+    {
+      "label": "test (file đang sửa)",
+      "type": "shell",
+      "command": "npm run test:unit -- ${relativeFile}",
+      "problemMatcher": []
+    },
+    {
+      "label": "check nhanh (pre-push)",
+      "type": "npm",
+      "script": "check:fast",
+      "problemMatcher": []
+    },
+    { "label": "check đầy đủ", "type": "npm", "script": "check", "problemMatcher": [] },
+    { "label": "check như CI", "type": "npm", "script": "check:ci", "problemMatcher": [] }
+  ]
+}

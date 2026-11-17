@@ -1,0 +1,9 @@
+# --max-arg-length: chia danh sách file thành nhiều lệnh. Windows giới hạn một dòng lệnh 8191 ký tự — commit
+# nhiều file (vd ~900) mà không chia thì prettier báo "The command line is too long" và lint-staged hoàn tác.
+npx lint-staged --max-arg-length 7000
+
+# BẢN SẼ COMMIT (index, không phải thư mục làm việc) phải build được lên production: file sinh khớp nguồn,
+# package-lock khớp, `tsc -b`, gói chưa khai, import vòng, build demo + build chế độ app như CI, ngân sách tải
+# đầu. Commit chỉ docs thì bỏ qua. Chi tiết: đầu file scripts/verify-commit.mjs.
+# Khẩn cấp: git commit --no-verify (CI vẫn chặn).
+node scripts/verify-commit.mjs

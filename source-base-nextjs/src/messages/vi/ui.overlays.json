@@ -1,0 +1,11 @@
+{
+  "confirmDialog": {
+    "delete": "Xóa",
+    "continue": "Tiếp tục",
+    "ok": "OK",
+    "recommendation": "Khuyến nghị:"
+  },
+  "formModal": {
+    "processing": "Đang xử lý..."
+  }
+}

@@ -1,0 +1,165 @@
+# Cổng chất lượng — chạy cho mọi pull request và mọi lần đẩy lên nhánh chính.
+#
+# Mỗi bước là MỘT loại lỗi, tách riêng để nhìn danh sách bước là biết hỏng ở
+# đâu (kiểu / lint / kiến trúc / đa ngôn ngữ / test / build), không phải mò trong một khối log.
+# Máy dev chạy đúng bộ này bằng `npm run check:ci` (hai chế độ build lấy env từ `scripts/ci-env.mjs`).
+# Hook cục bộ chỉ là lưới sớm và bỏ qua được bằng `--no-verify` (pre-commit: lint-staged + `verify-commit --quick`;
+# pre-push: `npm run check:fast`; build bản stage: `npm run verify:commit`) — CI là cổng cuối, không bỏ qua được.
+# ⚠️ Chỉ là cổng bắt buộc khi nhánh chính bật required status checks cho ba job dưới (cài đặt của repo hosting, không nằm trong repo).
+#
+# Ba job — tự khai biến môi trường, KHÔNG dựa vào file `.env`
+# có sẵn trên máy (checkout sạch không có `.env` riêng của máy):
+#   check      base / bản trưng bày: NEXT_PUBLIC_APP_MODE=demo
+#   build-app  sản phẩm thật: NEXT_PUBLIC_APP_MODE=app + API + gốc site khai tường minh; build vẫn phải
+#              bị chặn nếu thiếu / sai cấu hình (xem `findProductionIssues`).
+#   e2e        browser smoke test (Playwright + Chrome hệ thống) trên BẢN BUILD PRODUCTION chế độ app: route thật, hydration,
+#              redirect / cookie của proxy.ts, chuyển ngôn ngữ, bố cục 3 cỡ màn — docs/rules/foundations/testing.md §8. Backend
+#              không có: `/api/**` do page.route giả lập. Chạy máy dev bằng `npm run test:e2e` (KHÔNG nằm trong `check:ci` — chậm).
+#
+# ⚠️ `next build` tải font Google lúc build (`next/font/google`) — runner cần ra Internet.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main, master]
+
+# Đẩy commit mới lên cùng nhánh thì huỷ lượt đang chạy của commit cũ.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Kiểm tra & build (demo)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      NEXT_PUBLIC_APP_MODE: demo
+      NEXT_TELEMETRY_DISABLED: '1'
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      # `npm ci` chứ không `npm install`: cài ĐÚNG package-lock, lệch là đỏ.
+      - name: Cài phụ thuộc
+        run: npm ci
+
+      # `next typegen` sinh kiểu route (`PageProps`) rồi `tsc --noEmit` kiểm cả src lẫn tests.
+      - name: Kiểu (next typegen + tsc)
+        run: npm run typecheck
+
+      # Tầng + public API, gác `guard/*` (gồm chữ hiển thị cứng), Promise, comment, độ phức tạp — xem eslint.config.js.
+      - name: Lint
+        run: npm run lint
+
+      # Flat config ghi đè options khi nhiều block khớp một file — kiểm từng vùng của src/ vẫn nhận đủ luật.
+      - name: Cấu hình ESLint đủ luật từng vùng
+        run: npm run check:eslint-config
+
+      - name: Định dạng (Prettier)
+        run: npm run format:check
+
+      # Khoá vi / en khớp nhau, biến ICU khớp, `t('khoá')` trỏ tới khoá có thật.
+      - name: Thông điệp đa ngôn ngữ
+        run: npm run check:i18n
+
+      - name: Gói import chưa khai trong package.json
+        run: npm run check:imports
+
+      - name: Import vòng
+        run: npm run check:cycles
+
+      - name: File / gói không dùng
+        run: npm run check:unused-files
+
+      # Chạy từng generator (màu, font, icon, ảnh) rồi KHÔI PHỤC file — đỏ khi nguồn đã đổi mà file sinh chưa chạy lại.
+      - name: File sinh khớp nguồn
+        run: npm run check:generated
+
+      # `test:coverage` = test đơn vị kèm coverage, để các ngưỡng ở vitest.config.ts (core, session) thật sự được thực thi.
+      - name: Test đơn vị + ngưỡng coverage
+        run: npm run test:coverage
+
+      # Dựng cây provider / layout lớn trong jsdom — có ngân sách thời gian riêng (vitest.config.ts).
+      - name: Test smoke
+        run: npm run test:smoke
+
+      - name: Build production (demo)
+        run: npm run build
+
+      # Mọi route `[locale]/…` phải prerender tĩnh (`●` trong bảng `Route (app)`); lỡ thành render động `ƒ` thì build vẫn xanh nên cần cổng này.
+      - name: Route phải prerender tĩnh
+        run: npm run check:static-routes
+
+  build-app:
+    name: Build chế độ app (sản phẩm thật)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    # Dự án thật thay các giá trị này bằng cấu hình của mình (biến repo hoặc secret); bỏ dòng nào là build dừng — đúng chủ đích.
+    env:
+      NEXT_PUBLIC_APP_MODE: app
+      NEXT_PUBLIC_API_BASE_URL: /api
+      NEXT_PUBLIC_SITE_URL: https://example.com
+      NEXT_TELEMETRY_DISABLED: '1'
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Cài phụ thuộc
+        run: npm ci
+
+      - name: Build production (app)
+        run: npm run build
+
+  # Bản build production chế độ app (env ở scripts/ci-env.mjs) + Playwright trên Chrome CÓ SẴN của runner (`channel: 'chrome'`) —
+  # KHÔNG chạy `playwright install`. webServer của Playwright tự build + start + tắt (scripts/e2e-server.mjs, cổng ở e2e/support/env.ts).
+  e2e:
+    name: Browser smoke test (production, chế độ app)
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      NEXT_TELEMETRY_DISABLED: '1'
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Cài phụ thuộc
+        run: npm ci
+
+      # Runner đổi ảnh mà mất Chrome thì báo rõ ở đây, không đợi tới lúc Playwright không tìm thấy trình duyệt.
+      - name: Chrome hệ thống
+        run: google-chrome --version
+
+      - name: Browser smoke test
+        run: npm run test:e2e
+
+      # Báo cáo HTML + trace (`trace: 'retain-on-failure'`) chỉ tải lên khi đỏ: giải nén rồi `npx playwright show-report playwright-report`.
+      - name: Tải báo cáo + trace khi đỏ
+        if: failure()
+        uses: actions/upload-artifact@v5
+        with:
+          name: playwright-report
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7
+          if-no-files-found: ignore

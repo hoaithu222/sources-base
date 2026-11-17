@@ -1,0 +1,5 @@
+<svg viewBox="0 0 24 24" fill="none" data-group="business" xmlns="http://www.w3.org/2000/svg">
+  <title>Ngân sách</title>
+  <g data-layer="duo" fill="currentColor" opacity="0.16"><path d="M12.75 3.5a7.75 7.75 0 0 1 7.75 7.75h-7.75z"/></g>
+  <g data-layer="line" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M10.75 5.5a7.75 7.75 0 1 0 7.75 7.75h-7.75z"/><path d="M12.75 3.5a7.75 7.75 0 0 1 7.75 7.75h-7.75z"/></g>
+</svg>

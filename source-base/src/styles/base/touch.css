@@ -1,0 +1,98 @@
+/* =============================================================================
+   touch.css — hành vi cuộn + chạm riêng cho máy CHẠM (iPad / điện thoại).
+   Toàn bộ nằm trong `@media (hover: none) and (pointer: coarse)` nên PC/laptop
+   có chuột không nhận một dòng nào. Xem `docs/rules/display/ipad-responsive.md`.
+   ============================================================================= */
+@layer base {
+  /* ⛔ iPad — vùng cuộn phải "nuốt" đà vuốt của chính nó.
+     Không có dòng này, vuốt tới cuối một panel là đà chuyển tiếp ra vùng cuộn
+     CHA (rồi ra tài liệu) — người dùng đang cuộn bảng bỗng thấy cả trang trôi.
+     Chỉ áp cho thiết bị chạm; chuột lăn trên desktop giữ nguyên hành vi cũ. */
+  @media (hover: none) and (pointer: coarse) {
+    /* ⛔ iPad — chặn "kéo giãn đàn hồi" (rubber-band) của cả trang. Vuốt quá đáy
+       một bảng, iOS chuyển đà vuốt lên tài liệu gốc và kéo TOÀN BỘ khung app
+       trượt, để lộ nền dưới đáy — nhìn như layout vỡ. Android Chrome: cũng là chỗ
+       chặn "kéo xuống để tải lại" (pull-to-refresh) làm mất trạng thái màn đang làm việc.
+       `html` + `body`: giá trị đặt trên `html` mới áp cho khung nhìn gốc.
+       ⛔ PHẢI nằm TRONG media query này. Để ở `body` trần thì macOS dùng bàn di
+          cũng dính: mất nảy đàn hồi và mất cả cử chỉ vuốt-ngang-để-lùi-trang của
+          Safari/Chrome — tức là đụng vào máy tính, đúng thứ nhánh này cấm. */
+    html,
+    body {
+      overscroll-behavior: none;
+    }
+
+    /* ⛔ KHỚP THEO CHUỖI TÊN CLASS, KHÔNG PHẢI TÊN CLASS CHÍNH XÁC.
+       Bản trước liệt kê `.overflow-x-auto, .overflow-y-auto, …` và BỎ SÓT toàn
+       bộ vùng cuộn khai qua biến thể: Tailwind sinh ra tên class RIÊNG cho mỗi
+       biến thể (`max-lg:overflow-x-auto` → `.max-lg\:overflow-x-auto`), và tên
+       đó KHÔNG khớp selector `.overflow-x-auto`. Mà đúng những vùng cuộn chỉ
+       bật ở bậc tablet mới là nơi cần `contain` nhất — vuốt hết dải chip/thanh
+       công cụ là Safari hiểu thành "lùi lại trang trước" và đẩy người dùng ra
+       khỏi màn đang làm việc.
+       `[class*="…"]` khớp cả tên trần lẫn mọi biến thể (`touch:`, `max-lg:`,
+       `max-xl:`, `lg:`…) nên không còn lỗ. Vẫn nằm trong media query chạm ⇒
+       PC/laptop không nhận một dòng nào.
+
+       ⛔ CHỈ contain TRỤC CÓ CUỘN, KHÔNG dùng shorthand `overscroll-behavior: contain`.
+       Shorthand contain CẢ HAI trục. Mà theo CSS, phần tử có `overflow-x: auto`
+       thì `overflow-y` cũng tính thành `auto` — tức dải chip/ảnh vuốt ngang
+       cũng là scroll container theo trục DỌC (không có gì để cuộn), và
+       `contain` trục dọc nuốt luôn cú vuốt dọc ngay tại chỗ, không truyền lên
+       trang ⇒ "không cuộn xuống được" khi ngón tay đặt trên dải đó. Trục còn
+       lại để `auto` cho cử chỉ truyền lên cha. */
+    [class*='overflow-auto'],
+    [class*='overflow-scroll'],
+    [class*='overflow-y-auto'],
+    [class*='overflow-y-scroll'] {
+      overscroll-behavior-y: contain;
+    }
+
+    [class*='overflow-auto'],
+    [class*='overflow-scroll'],
+    [class*='overflow-x-auto'],
+    [class*='overflow-x-scroll'] {
+      overscroll-behavior-x: contain;
+    }
+
+    /* ⛔ ĐIỆN THOẠI (cùng điều kiện biến thể `phone:`): trả đà vuốt DỌC về cho trang.
+       Ở điện thoại mọi box xếp một cột và trang CUỘN DỌC là chính; danh sách / bảng trong
+       box chiếm gần hết bề ngang nên ngón tay hầu như luôn đặt trúng một vùng cuộn con. Với
+       `contain`, vuốt hết danh sách là trang đứng im — người dùng phải tìm một khe trống để
+       vuốt tiếp ("khó cuộn"). Chiều NGANG vẫn `contain` (vuốt hết dải chip / bảng cuộn ngang
+       không bị Safari hiểu thành "lùi trang"). iPad giữ nguyên hành vi ở trên.
+       Điều kiện PHẢI trùng `PHONE_MEDIA_QUERY` / `@custom-variant phone` (test `policy/display` giữ). */
+    @media (max-width: 767.98px), (max-height: 540px) and (max-width: 1023.98px) {
+      [class*='overflow-auto'],
+      [class*='overflow-scroll'],
+      [class*='overflow-y-auto'],
+      [class*='overflow-y-scroll'] {
+        overscroll-behavior-y: auto;
+      }
+    }
+
+    /* Bỏ chờ ~300ms + chạm-đúp-để-phóng trên control bấm được: bấm là ăn ngay. Pinch-zoom hai ngón
+       VẪN chạy (`manipulation` = pan + pinch-zoom) — KHÔNG thay bằng `maximum-scale` / `user-scalable=no`
+       (chặn phóng là chặn người cần trợ năng).
+       Nằm ở `@layer base` nên utility `touch-none` / `touch-pan-*` gắn trên control kéo (tay kéo
+       splitter, cột bảng, canvas) vẫn thắng. */
+    a,
+    button,
+    input,
+    select,
+    textarea,
+    summary,
+    label,
+    [role='button'],
+    [role='link'],
+    [role='tab'],
+    [role='switch'],
+    [role='checkbox'],
+    [role='radio'],
+    [role='menuitem'],
+    [role='option'],
+    [role='combobox'] {
+      touch-action: manipulation;
+    }
+  }
+}

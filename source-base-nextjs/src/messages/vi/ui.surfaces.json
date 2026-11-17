@@ -1,0 +1,25 @@
+{
+  "cardScreenshot": {
+    "view": "Xem ảnh",
+    "viewNamed": "Xem ảnh {name}",
+    "fallbackName": "Ảnh"
+  },
+  "hudKpiCard": {
+    "detail": "Xem chi tiết"
+  },
+  "boxInfo": {
+    "close": "Đóng {title}"
+  },
+  "panelCard": {
+    "loading": "Đang tải {title}",
+    "empty": "Chưa có dữ liệu",
+    "collapse": "Thu nhỏ {title}",
+    "expand": "Phóng to {title}",
+    "expandTitle": "Phóng to",
+    "exitFullscreen": "Thoát toàn màn hình (Esc)",
+    "close": "Đóng {title}"
+  },
+  "splitter": {
+    "resize": "Đổi kích thước khung"
+  }
+}

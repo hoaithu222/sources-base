@@ -1,0 +1,68 @@
+/**
+ * AppShellLayout — nền trang của khung ứng dụng (StatusPage dùng lại `.app-background`).
+ * `AppShellLayout.tsx` và `pages/status/StatusPage.tsx` import file này (trang trạng thái đứng ngoài
+ * khung nên tự nạp nền); class bố cục nằm ở APP_SHELL_LAYOUT_SLOT_CLASSES.
+ * Màu chỉ qua token `var(--color-*)` (docs/rules/styling/color-system.md). Nằm trong `@layer components`
+ * để utility Tailwind gắn cùng phần tử vẫn thắng (docs/rules/styling/css-architecture.md).
+ * `@reference` bật pipeline của Tailwind cho file này (không xuất thêm CSS nào): có nó mới sinh
+ * fallback `@supports (color: color-mix…)` giống CSS đi qua globals.css — bỏ đi là trình duyệt
+ * thiếu color-mix (Safari < 16.2) không còn bản dự phòng.
+ */
+
+@reference '../../styles/globals.css';
+
+@layer components {
+  /* Nền khung app + trang trạng thái — MỘT công thức cho cả hai theme, chỉ khác biến màu.
+     Sáng: `bg-page` + wash `primary-2` ở đỉnh tan dần xuống nền trang (như ScreenGradient của app BIDV SmartBanking)
+     + một quầng ngọc rất nhạt góc phải trên — thẻ trắng nổi bằng tương phản nền.
+     Tối (như hình nền macOS: đen → xanh đêm rực ở chân trời): MỘT dải chéo liền mạch ngọc đậm (góc trái trên) → xanh
+     đêm (giữa) → lam sâu (góc phải dưới) + hai quầng mềm (cyan góc phải trên, chàm góc trái dưới). Cố ý KHÔNG dùng
+     xanh lá `primary` (xanh lá pha nền tối ra màu olive bẩn) và KHÔNG dùng quầng rời bốn góc (chừa khoảng đen giữa
+     trang). Phần nền lộ giữa các thẻ có chiều sâu và màu rõ; thẻ vẫn là mặt ĐẶC nên chữ không nằm trên gradient.
+     Các biến `--app-sky-*` / `--app-glow-*` mới tắt ở sáng (trong suốt / 0%) → sáng không đổi. */
+  .app-background {
+    --app-wash: color-mix(in srgb, var(--color-primary-2) 70%, transparent);
+    --app-wash-height: 320px;
+    --app-glow-teal: 10%;
+    --app-glow-cyan: 0%;
+    --app-glow-indigo: 0%;
+    --app-sky-from: transparent;
+    --app-sky-mid: transparent;
+    --app-sky-to: transparent;
+    background-color: var(--color-bg-page);
+    background-image:
+      linear-gradient(180deg, var(--app-wash) 0, transparent var(--app-wash-height)),
+      radial-gradient(
+        closest-side ellipse at 100% 0%,
+        color-mix(in srgb, var(--color-teal-5) var(--app-glow-teal), transparent),
+        transparent
+      ),
+      radial-gradient(
+        72% 58% at 92% 0%,
+        color-mix(in srgb, var(--color-secondary-5) var(--app-glow-cyan), transparent),
+        transparent
+      ),
+      radial-gradient(
+        68% 54% at 4% 100%,
+        color-mix(in srgb, var(--color-indigo-5) var(--app-glow-indigo), transparent),
+        transparent
+      ),
+      linear-gradient(
+        160deg,
+        var(--app-sky-from) 0%,
+        var(--app-sky-mid) 52%,
+        var(--app-sky-to) 100%
+      );
+    background-repeat: no-repeat;
+  }
+
+  .dark .app-background {
+    --app-wash: transparent;
+    --app-glow-teal: 0%;
+    --app-glow-cyan: 22%;
+    --app-glow-indigo: 20%;
+    --app-sky-from: color-mix(in srgb, var(--color-teal-5) 20%, var(--color-bg-page));
+    --app-sky-mid: color-mix(in srgb, var(--color-blue-6) 11%, var(--color-bg-page));
+    --app-sky-to: color-mix(in srgb, var(--color-blue-6) 46%, var(--color-bg-page));
+  }
+}

@@ -1,0 +1,129 @@
+/* =============================================================================
+   hud.css (utilities) — mảnh HUD (CHỈ theme tối) có giá trị DÀI dùng ở nhiều nơi, viết CSS thường thay class tuỳ biến
+   Tailwind: để ở `dark:before:[…]` / `dark:hover:bg-[…]` thì giá trị lặp thêm lần nữa trong tên selector và thêm một lần
+   cho MỖI biến thể — tốn ngân sách CSS tải đầu (`scripts/check-bundle.mjs`). Hằng dùng ở `shared/ui/primitives/hud.theme.ts`.
+
+   | Tên                     | Dùng                                                                              |
+   |-------------------------|-----------------------------------------------------------------------------------|
+   | `hud-brackets-before`   | Nền 4 NGOẶC GÓC 8px ở `::before` (`HUD_BRACKETS_BEFORE` — màu = `currentColor`)  |
+   | `hud-brackets-after`    | Như trên ở `::after` (`HUD_BRACKETS_AFTER`)                                       |
+   | `--hud-row-fill`        | Dốc ngang xanh lá của hàng đang rê / trỏ: `dark:bg-(image:--hud-row-fill)`        |
+   | `hud-modal-shadow`      | Bóng + quầng trong của hộp thoại khung mặc định (`modal.theme.ts`)                |
+   | `hud-shimmer`           | Vệt quét sky của `Skeleton` (thay dải trắng của theme sáng)                       |
+   | `hud-toggle-track`      | Rãnh `Toggle`: lõm khi tắt · gờ sáng + quầng xanh khi bật                          |
+   | `hud-toggle-thumb`      | Núm `Toggle`: bóng nổi · quầng xanh khi bật                                        |
+   | `hud-radio`             | Chấm `Radio` đang chọn: gờ sáng + quầng xanh                                       |
+   | `hud-field-glow`        | Khai `--field-glow` (quầng focus / mở của ô nhập theo `--field-tone`) — dùng ở `dark:…:shadow-(--field-glow)` |
+   | `hud-tab-active-fill`   | Mặt dâng xanh-ngọc `::before` của `Tabs` đang chọn (`data-state=active`)          |
+   | `hud-popup-shadow`      | Bóng lớp nổi (`popupSurface`: menu, dropdown, popover)                              |
+   | `hud-popover-solid-shadow` | Bóng `Popover solid` — khai SAU `hud-popup-shadow` nên thắng khi cùng có            |
+
+   Chỉ chạy dưới `.dark` (giống biến thể `dark:` của Tailwind: `:where(.dark, .dark *)`, không cộng độ ưu tiên).
+   ============================================================================= */
+
+@layer utilities {
+  :root {
+    --hud-row-fill: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--color-primary-5) 20%, transparent),
+      color-mix(in srgb, var(--color-primary-5) 4%, transparent) 85%
+    );
+    --hud-brackets:
+      linear-gradient(currentColor, currentColor) no-repeat left top / 8px 1.5px,
+      linear-gradient(currentColor, currentColor) no-repeat left top / 1.5px 8px,
+      linear-gradient(currentColor, currentColor) no-repeat right top / 8px 1.5px,
+      linear-gradient(currentColor, currentColor) no-repeat right top / 1.5px 8px,
+      linear-gradient(currentColor, currentColor) no-repeat left bottom / 8px 1.5px,
+      linear-gradient(currentColor, currentColor) no-repeat left bottom / 1.5px 8px,
+      linear-gradient(currentColor, currentColor) no-repeat right bottom / 8px 1.5px,
+      linear-gradient(currentColor, currentColor) no-repeat right bottom / 1.5px 8px;
+  }
+
+  .hud-modal-shadow:where(.dark, .dark *) {
+    box-shadow:
+      0 0 0 1px color-mix(in srgb, var(--color-hud-5) 10%, transparent),
+      0 32px 80px -12px var(--color-shadow-popup),
+      0 12px 32px -16px var(--color-shadow-popup),
+      inset 0 0 36px -26px color-mix(in srgb, var(--color-hud-5) 18%, transparent),
+      inset 0 1px 0 color-mix(in srgb, var(--color-neutral-0) 8%, transparent);
+  }
+
+  .hud-shimmer:where(.dark, .dark *) {
+    background-image: linear-gradient(
+      90deg,
+      transparent 25%,
+      color-mix(in srgb, var(--color-sky-4) 16%, transparent) 46%,
+      color-mix(in srgb, var(--color-sky-3) 24%, transparent) 50%,
+      color-mix(in srgb, var(--color-sky-4) 16%, transparent) 54%,
+      transparent 75%
+    );
+  }
+
+  .hud-toggle-track:where(.dark, .dark *)[data-state='unchecked'] {
+    box-shadow: inset 0 1px 3px color-mix(in srgb, var(--color-neutral-10) 60%, transparent);
+  }
+
+  .hud-toggle-track:where(.dark, .dark *)[data-state='checked'] {
+    box-shadow:
+      inset 0 1px 0 color-mix(in srgb, var(--color-neutral-0) 28%, transparent),
+      0 0 10px -1px color-mix(in srgb, var(--color-primary-5) 65%, transparent);
+  }
+
+  .hud-toggle-thumb:where(.dark, .dark *) {
+    box-shadow:
+      0 1px 3px color-mix(in srgb, var(--color-neutral-10) 65%, transparent),
+      inset 0 -1px 1px color-mix(in srgb, var(--color-neutral-5) 50%, transparent);
+  }
+
+  .hud-toggle-thumb:where(.dark, .dark *)[data-state='checked'] {
+    box-shadow:
+      0 0 6px color-mix(in srgb, var(--color-primary-3) 75%, transparent),
+      0 1px 3px color-mix(in srgb, var(--color-neutral-10) 65%, transparent);
+  }
+
+  .hud-radio:where(.dark, .dark *)[data-state='checked'] {
+    box-shadow:
+      inset 0 1px 0 color-mix(in srgb, var(--color-neutral-0) 35%, transparent),
+      0 0 8px -1px color-mix(in srgb, var(--color-primary-5) 70%, transparent);
+  }
+
+  .hud-field-glow {
+    --field-glow:
+      0 0 0 1px color-mix(in srgb, var(--field-tone) 55%, transparent),
+      0 0 16px -2px color-mix(in srgb, var(--field-tone) 55%, transparent),
+      inset 0 0 12px -4px color-mix(in srgb, var(--field-tone) 45%, transparent);
+  }
+
+  .hud-tab-active-fill:where(.dark, .dark *)[data-state='active']::before {
+    background-image: linear-gradient(
+      to top,
+      color-mix(
+        in srgb,
+        color-mix(in srgb, var(--color-primary-5) 72%, var(--color-teal-5)) 46%,
+        var(--color-bg-surface)
+      ),
+      color-mix(in srgb, var(--color-primary-5) 10%, var(--color-bg-surface))
+    );
+  }
+
+  .hud-popup-shadow:where(.dark, .dark *) {
+    box-shadow:
+      inset 0 1px 0 color-mix(in srgb, var(--color-hud-4) 24%, transparent),
+      0 0 0 1px color-mix(in srgb, var(--color-neutral-10) 70%, transparent),
+      0 0 18px -6px color-mix(in srgb, var(--color-hud-5) 50%, transparent),
+      0 18px 40px -10px var(--color-shadow-popup);
+  }
+
+  .hud-popover-solid-shadow:where(.dark, .dark *) {
+    box-shadow:
+      0 0 0 1px color-mix(in srgb, var(--color-primary-5) 12%, transparent),
+      0 0 26px -4px color-mix(in srgb, var(--color-primary-5) 40%, transparent),
+      0 10px 30px var(--color-shadow-popup),
+      inset 0 0 20px color-mix(in srgb, var(--color-primary-5) 6%, transparent);
+  }
+
+  .hud-brackets-before:where(.dark, .dark *)::before,
+  .hud-brackets-after:where(.dark, .dark *)::after {
+    background: var(--hud-brackets);
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "entry": [
+    "next.config.ts!",
+    "vitest.config.ts!",
+    "playwright.config.ts!",
+    "e2e/**/*.e2e.ts",
+    "scripts/*.mjs!",
+    "src/proxy.ts!",
+    "src/app/**/{page,layout,loading,error,not-found,global-error,global-not-found,template,default}.tsx!",
+    "src/app/**/{route,robots,sitemap,manifest,opengraph-image,twitter-image,icon,apple-icon}.{ts,tsx}!",
+    "tests/**/*.test.{ts,tsx}",
+    "src/shared/ui/index.ts!",
+    "src/shared/ui/media/image-annotator/index.ts!",
+    "src/shared/hooks/index.ts!",
+    "src/shared/charts/index.ts!",
+    "src/core/http/index.ts!",
+    "src/core/i18n/server.ts!",
+    "src/domains/*/index.ts!",
+    "src/domains/preferences/appearance-script.ts!",
+    "src/features/*/index.ts!",
+    "tests/setup.ts",
+    "src/core/i18n/request.ts!"
+  ],
+  "project": ["src/**/*.{ts,tsx}", "e2e/**/*.ts"],
+  "next": false,
+  "vitest": false,
+  "playwright": false,
+  "tailwind": false,
+  "ignoreDependencies": ["tailwindcss", "recharts"]
+}

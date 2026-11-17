@@ -1,0 +1,5 @@
+<svg viewBox="0 0 24 24" fill="none" data-group="action" xmlns="http://www.w3.org/2000/svg">
+  <title>Nhập dữ liệu</title>
+  <g data-layer="duo" fill="currentColor" opacity="0.16"><path d="M4 14.5v3A2.5 2.5 0 0 0 6.5 20h11a2.5 2.5 0 0 0 2.5-2.5v-3z"/></g>
+  <g data-layer="line" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14.5v3A2.5 2.5 0 0 0 6.5 20h11a2.5 2.5 0 0 0 2.5-2.5v-3"/><path d="M12 3.5v10"/><path d="M8 9.75l4 4 4-4"/></g>
+</svg>

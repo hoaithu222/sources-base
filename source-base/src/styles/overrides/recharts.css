@@ -1,0 +1,57 @@
+/* =============================================================================
+   recharts.css — gỡ viền focus Recharts v3 tự gắn (`tabIndex=0` lên wrapper và
+   surface). Nằm NGOÀI `@layer` có chủ ý: selector của thư viện + `!important`
+   phải thắng mọi layer.
+   ============================================================================= */
+
+/* =========================
+   RECHARTS: Remove focus outline / black border on click
+   Recharts v3 adds tabIndex=0 to wrapper & surface → browser shows focus ring.
+   Cover all states: :focus, :focus-visible, :focus-within + box-shadow.
+========================= */
+.recharts-responsive-container,
+.recharts-wrapper,
+.recharts-surface,
+.recharts-layer,
+.recharts-sector,
+.recharts-rectangle,
+.recharts-curve,
+.recharts-dot,
+.recharts-symbols,
+.recharts-cartesian-grid,
+.recharts-brush {
+  outline: none !important;
+  box-shadow: none !important;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.recharts-responsive-container:focus,
+.recharts-responsive-container:focus-visible,
+.recharts-wrapper:focus,
+.recharts-wrapper:focus-visible,
+.recharts-wrapper:focus-within,
+.recharts-surface:focus,
+.recharts-surface:focus-visible,
+.recharts-wrapper svg:focus,
+.recharts-wrapper svg:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Recharts v3: reset tất cả element con bên trong wrapper */
+.recharts-wrapper *:focus,
+.recharts-wrapper *:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* =========================
+   RECHARTS: số thẳng cột
+   Nhãn trục / nhãn cột / tooltip dùng chữ số cùng bề rộng (`tabular-nums`) — số không nhảy ngang khi dữ liệu
+   đổi hay khi AnimatedNumber chạy. Font vẫn là sans của app (KHÔNG mono) — chart-conventions.md §1.8.
+========================= */
+.recharts-wrapper .recharts-text,
+.recharts-wrapper .recharts-cartesian-axis-tick-value,
+.recharts-tooltip-wrapper {
+  font-variant-numeric: tabular-nums;
+}

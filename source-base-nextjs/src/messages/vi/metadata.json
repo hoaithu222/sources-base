@@ -1,0 +1,74 @@
+{
+  "site": {
+    "title": "Base App — Nền tảng quản trị nội bộ",
+    "description": "Nền tảng quản trị nội bộ hợp nhất dữ liệu, quy trình và báo cáo trên một hệ thống: phân quyền theo vai trò, giao diện sáng / tối, đa ngôn ngữ.",
+    "keywords": [
+      "nền tảng quản trị",
+      "ERP",
+      "quản lý nội bộ",
+      "báo cáo thời gian thực",
+      "phân quyền"
+    ],
+    "organizationDescription": "Đơn vị phát triển nền tảng quản trị nội bộ."
+  },
+  "home": {
+    "title": "Base App — Nền tảng quản trị nội bộ cho doanh nghiệp",
+    "description": "Hợp nhất dữ liệu gốc, quy trình và báo cáo trên một hệ thống duy nhất. Phân quyền theo vai trò, báo cáo thời gian thực, giao diện sáng / tối, hỗ trợ tiếng Việt và tiếng Anh."
+  },
+  "about": {
+    "title": "Giới thiệu",
+    "description": "Tìm hiểu cách nền tảng hợp nhất dữ liệu, quy trình và báo cáo của doanh nghiệp, và những nguyên tắc thiết kế đứng sau."
+  },
+  "login": {
+    "title": "Đăng nhập",
+    "description": "Đăng nhập để vào không gian làm việc."
+  },
+  "register": {
+    "title": "Tạo tài khoản",
+    "description": "Tạo tài khoản để bắt đầu sử dụng nền tảng."
+  },
+  "forgotPassword": {
+    "title": "Quên mật khẩu",
+    "description": "Nhập email đã đăng ký để nhận hướng dẫn đặt lại mật khẩu."
+  },
+  "resetPassword": {
+    "title": "Đặt lại mật khẩu",
+    "description": "Đặt mật khẩu mới cho tài khoản của bạn."
+  },
+  "dashboard": {
+    "title": "Bảng điều khiển",
+    "description": "Bàn làm việc: các phân hệ và màn hình mở gần đây."
+  },
+  "profile": {
+    "title": "Hồ sơ cá nhân",
+    "description": "Thông tin tài khoản đang đăng nhập."
+  },
+  "settings": {
+    "title": "Cài đặt",
+    "description": "Ngôn ngữ, giao diện, màu nhấn, màn hình lớn và phím tắt."
+  },
+  "demo": {
+    "title": "Thư viện UI",
+    "description": "Thư viện giao diện in mọi token, icon và nhóm component của hệ thống."
+  },
+  "customers": {
+    "title": "Khách hàng",
+    "description": "Danh sách khách hàng: tìm kiếm, lọc trạng thái, phân trang, xoá — màn CRUD mẫu."
+  },
+  "customerNew": {
+    "title": "Thêm khách hàng",
+    "description": "Nhập thông tin khách hàng mới."
+  },
+  "customerEdit": {
+    "title": "Sửa khách hàng",
+    "description": "Cập nhật thông tin khách hàng."
+  },
+  "forbidden": {
+    "title": "Không có quyền truy cập",
+    "description": "Tài khoản hiện tại chưa được cấp quyền xem trang này."
+  },
+  "notFound": {
+    "title": "Không tìm thấy trang",
+    "description": "Đường dẫn bạn mở không tồn tại hoặc đã được chuyển đi nơi khác."
+  }
+}

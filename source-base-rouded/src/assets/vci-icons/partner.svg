@@ -1,0 +1,6 @@
+<svg viewBox="0 0 24 24" fill="none" data-group="module" xmlns="http://www.w3.org/2000/svg">
+  <title>Đối tác</title>
+  <g data-layer="duo" fill="currentColor" opacity="0.16"><path d="M14 9h3.5a2.5 2.5 0 0 1 2.5 2.5V21h-6z"/></g>
+  <g data-layer="line" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V5.5A2.5 2.5 0 0 1 6.5 3h5A2.5 2.5 0 0 1 14 5.5V21"/><path d="M14 9h3.5a2.5 2.5 0 0 1 2.5 2.5V21"/><path d="M2.5 21h19"/><path d="M7.5 7.5h3"/><path d="M7.5 11h3"/><path d="M7.5 21v-3.5h3V21"/></g>
+  <g data-layer="dot" fill="currentColor"><circle cx="17" cy="15" r="1.5"/></g>
+</svg>
